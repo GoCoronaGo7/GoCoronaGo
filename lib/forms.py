@@ -1,8 +1,22 @@
 
 from flask_wtf import FlaskForm
 from wtforms  import TextField, PasswordField
-from wtforms.validators import Required
+from wtforms.validators import Required, Length, Email
+import wtforms.validators as validators
 
-class Login(FlaskForm):
-	user = TextField('Username', validators = [Required()])
+class LoginForm(FlaskForm):
+	username = TextField('Username', validators = [Required()])
 	password = PasswordField('Password', validators = [Required()])
+
+
+class RegisterForm(FlaskForm):
+    username = TextField("Username", validators=[
+		Length(min=3, max=25), 
+		validators.DataRequired(message="Please Fill This Field")
+	])
+    email = TextField("Email", validators=[Email(message="Please enter a valid email address")])
+    password = PasswordField("Password", validators=[
+        validators.DataRequired(message="Please Fill This Field"),
+        validators.EqualTo(fieldname="confirm",message="Your Passwords Do Not Match")
+    ])
+    confirm = PasswordField("Confirm Password", validators=[validators.DataRequired(message="Please Fill This Field")])
