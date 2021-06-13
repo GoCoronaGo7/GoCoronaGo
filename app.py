@@ -12,7 +12,9 @@ app.secret_key = 'some key'
 
 @app.route('/')
 def hello_world():
-    user = session['username']
+    user = 'Not Logged in'
+    if 'username' in session.keys():
+        user = session['username']
     return f'Hello World: Logged in as {user}'
 
 # Account methods
