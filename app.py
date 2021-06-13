@@ -71,6 +71,11 @@ def register():
     return render_template('register.html', msg=msg, form = form)
 
 
+@app.route('/signup')
+def signup():
+    ##this is a test function for the signup page link
+    return 'sign up page'
+
 if __name__ == '__main__':
     if (db.connected()):
         print('connected!')
