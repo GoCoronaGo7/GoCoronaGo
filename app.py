@@ -16,20 +16,18 @@ def hello_world():
     return f'Hello World: Logged in as {user}'
 
 # Account methods
-
-
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     msg = ''
 
-    form = LoginForm(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
+    form = LoginForm(request.form) # Convert our request form ( The user submitted one ) into WTF Form so that we can validate it 
+    if request.method == 'POST' and form.validate_on_submit(): # .validate_on_submit() will check if user has submitted a valid form
         user = db.get_username(request.form['username'])
         print(user['password'])
         if user is None:
             msg = 'No user found with that username, please register first!'
         elif user['password'] == request.form['password']:
-            session['loggedin'] = True
+            session['loggedin'] = True # Session uses cookies to set variables that are present in the client
             session['id'] = user['id']
             session['username'] = user['username']
             msg = 'Logged in!'
@@ -41,7 +39,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('loggedin', None)
+    session.pop('loggedin', None) # Remove cookies
     session.pop('id', None)
     session.pop('username', None)
     return redirect(url_for('login'))
@@ -51,7 +49,7 @@ def logout():
 def register():
     msg = ''
     form = RegisterForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
