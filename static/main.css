@@ -1,0 +1,15 @@
+/* colors are subject to change*/
+body{
+	background: lightcoral;
+	padding-top: 25vh;	
+}
+
+form{
+	background: rosybrown;
+}
+
+.form-container{
+    font-family: "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;
+	border-radius: 10px;
+	padding: 30px;
+}

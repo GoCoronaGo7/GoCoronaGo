@@ -33,5 +33,10 @@ def login():
     print(form)
     return render_template('login.html',form = form)
 
+@app.route('/signup')
+def signup():
+    ##this is a test function for the signup page link
+    return 'sign up page'
+
 if __name__ == '__main__':
-   app.run()
+   app.run(debug=True)
