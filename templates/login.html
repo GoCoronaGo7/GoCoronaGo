@@ -7,14 +7,17 @@
 {% block login%}
 	<!-- i didnt change yours as i didnt understand-->
 	<h1>Login</h1>
+	{% from "formhelpers.html" import render_field %}
+	
+
+  <h1>Login</h1>
+  {{ msg }}
 	<div class="row">
 			<form action="." method="post" class="form form-horizontal" name="loginform">
-
-				{{ form.user.label }}<br>
-                {{ form.user }}<br>
-                {{ form.password.label }}<br>
-                {{ form.password }}
-				<button name-"action_save" type="submit">Login</button>
+				{{ render_field(form.username, class="form-control") }}
+                {{ render_field(form.password, class="form-control") }}
+                {{ form.hidden_tag() }}
+				<button name="action_save" type="submit">Login</button>
 			</form>
 
 	<!--this part i did and copied some of the changes can u implement the rest as i didnt understand the database linking-->

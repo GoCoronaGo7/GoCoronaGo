@@ -2,3 +2,5 @@ Flask
 flask-login
 flask-WTF
 wtforms
+flask-bootstrap
+email_validator
