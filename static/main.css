@@ -13,3 +13,36 @@ form{
 	border-radius: 10px;
 	padding: 30px;
 }
+
+.notice {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgb(186, 154, 0);
+    justify-content: center;
+	align-items: center;
+
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+
+	margin-right: 20rem;
+	margin-left: 20rem;
+
+	padding: 0.2rem;
+	border-radius: 10px;
+	display: flex;
+}
+.notice * {
+	margin-bottom: 0.2rem;
+
+}
+
+.danger {
+	border-color: red;
+	border-left-width: 1rem;
+	border-left-style: solid;
+}
+
+.tip {
+	border-color: forestgreen;
+	border-left-width: 1rem;
+	border-left-style: solid;
+}

@@ -21,19 +21,20 @@ def login():
     msg = ''
 
     form = LoginForm(request.form) # Convert our request form ( The user submitted one ) into WTF Form so that we can validate it 
+    print(request.method, form.validate_on_submit())
     if request.method == 'POST' and form.validate_on_submit(): # .validate_on_submit() will check if user has submitted a valid form
         user = db.get_username(request.form['username'])
         print(user['password'])
         if user is None:
-            msg = 'No user found with that username, please register first!'
+            msg = 'RED No user found with that username, please register first!'
         elif user['password'] == request.form['password']:
             session['loggedin'] = True # Session uses cookies to set variables that are present in the client
             session['id'] = user['id']
             session['username'] = user['username']
-            msg = 'Logged in!'
+            msg = 'GREEN Logged in!'
         else:
-            print(user.password)
-            msg = 'Wrong Password!'
+            print(user['password'])
+            msg = 'RED Wrong Password!'
     return render_template('login.html', form=form, msg=msg)
 
 
