@@ -15,3 +15,16 @@ form {
 .navbar {
     background-color: gray;
 }
+
+.navbar > button {
+    border-color: whitesmoke;
+}
+
+
+svg {
+	fill: whitesmoke;
+}
+
+.navbar > button:hover {
+    background-color: rgb(0, 0, 51);
+}
