@@ -1,0 +1,17 @@
+/* colors are subject to change*/
+body {
+	background: rgb(44, 25, 25);
+}
+
+form {
+	background: rgb(0, 12, 16);
+}
+
+.notice {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgb(186, 154, 0);
+}
+
+.navbar {
+    background-color: gray;
+}

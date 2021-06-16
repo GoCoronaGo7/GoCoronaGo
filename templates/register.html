@@ -1,14 +1,23 @@
+{% extends "main.html"%}
 {% from "formhelpers.html" import render_field %}
 
-    <h1>Login</h1>
+{% block title %}
+    Register
+{% endblock title %}
     {{ msg }}
-	<div class="row">
-        <form action={{url_for('register')}} method="post" class="form form-horizontal" name="registerform">
-            {{ render_field(form.username, class="form-control") }}
-            {{ render_field(form.email, class="form-control") }}
-            {{ render_field(form.password, class="form-control") }}
-            {{ render_field(form.confirm, class="form-control") }}
-            {{ form.hidden_tag() }}
-            <button type="submit">Register</button>
-        </form>
-	</div>
+{% block body %}
+    <div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-12 col-sm-6 col-md-4">
+                <form action={{url_for('register')}} method="post" class="form-container" name="registerform">
+                    {{ render_field(form.username, class="form-control", placeholder="Enter Username" )}}
+                    {{ render_field(form.email, class="form-control", placeholder="Enter Email" )}}
+                    {{ render_field(form.password, class="form-control", placeholder="Enter Password" )}}
+                    {{ render_field(form.confirm, class="form-control", placeholder="Confirm Password" )}}
+                    {{ form.hidden_tag() }}
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{%endblock body%}
