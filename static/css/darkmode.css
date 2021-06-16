@@ -1,6 +1,6 @@
 /* colors are subject to change*/
 body {
-	background: rgb(44, 25, 25);
+	background: rgb(29, 29, 29);
 }
 
 form {
@@ -14,4 +14,8 @@ form {
 
 .navbar {
     background-color: gray;
+}
+
+label {
+    color: #0080ff;
 }
