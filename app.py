@@ -58,8 +58,12 @@ def register():
         email = request.form['email']
 
         account = db.get_username(username)
+        account_email = db.get_email(email)
+        
         if account:
-            msg = 'RED Account already exists !'
+            msg = 'RED Please choose a different email!'
+        if account_email:
+            msg = 'RED Email is already registered!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
             msg = 'RED Invalid email address !'
         elif not re.match(r'[A-Za-z0-9]+', username):

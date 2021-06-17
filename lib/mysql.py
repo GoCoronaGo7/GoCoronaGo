@@ -59,7 +59,19 @@ class Db:
         cursor = self.connection.cursor()
         cursor.execute(
             f'''SELECT * FROM `user` WHERE `username`='{username}' ''')
-        return self.to_dict(cursor.fetchone())
+        user = cursor.fetchone()
+        if user is None:
+            return None
+        return self.to_dict(user)
+
+    def get_email(self, email):
+        cursor = self.connection.cursor()
+        cursor.execute(
+            f'''SELECT * FROM `user` WHERE `email`='{email}' ''')
+        user = cursor.fetchone()
+        if user is None:
+            return None
+        return self.to_dict(user)
 
     def insert(self, user, passw, email):
         cursor = self.connection.cursor()

@@ -54,7 +54,11 @@ body {
 	align-self: flex-start;
 	border-radius: 2rem;
 	appearance: none;
+	outline: none;
+    background-color: Transparent;
 }
+
+
 
 p {
 	color: #004890;
