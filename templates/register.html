@@ -15,7 +15,9 @@
                     {{ render_field(form.password, class="form-control", placeholder="Enter Password" )}}
                     {{ render_field(form.confirm, class="form-control", placeholder="Confirm Password" )}}
                     {{ form.hidden_tag() }}
-                    <button type="submit">Register</button>
+                    <button name="action_save" type="submit" class="btn btn-primary btn-block">
+						Register
+					</button>
                 </form>
             </div>
         </div>
