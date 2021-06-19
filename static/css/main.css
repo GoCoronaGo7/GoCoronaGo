@@ -29,14 +29,14 @@ body {
 
 .danger {
 	border-color: red;
-	border-left-width: 1rem;
-	border-left-style: solid;
+	border-width: 0.2rem;
+	border-style: solid;
 }
 
 .tip {
 	border-color: forestgreen;
-	border-left-width: 1rem;
-	border-left-style: solid;
+	border-width: 0.2rem;
+	border-style: solid;
 }
 
 .navbar {

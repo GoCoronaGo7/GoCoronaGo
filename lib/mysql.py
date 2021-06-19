@@ -42,6 +42,12 @@ class Db:
         '''
         cursor.execute(query_user_setup)
         cursor.execute(query_doc_setup)
+    def get_cursor(self):
+        try:
+            return self.connection.cursor()
+        except:
+            self.connection.reconnect()
+            return self.connection.cursor()
 
     def connected(self):
         if self.connection:
@@ -56,7 +62,7 @@ class Db:
         return cursor.fetchone()
 
     def get_username(self, username):
-        cursor = self.connection.cursor()
+        cursor = self.get_cursor()
         cursor.execute(
             f'''SELECT * FROM `user` WHERE `username`='{username}' ''')
         user = cursor.fetchone()

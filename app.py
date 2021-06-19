@@ -1,84 +1,25 @@
-import re
-from flask import Flask, render_template, redirect, url_for, g, session, request
-from lib.forms import LoginForm, RegisterForm
-from flask_bootstrap import Bootstrap
-
 from lib.mysql import db
+from lib.flask import app
 
-app = Flask(__name__)
-Bootstrap(app)
-app.secret_key = 'some key'
-
-
-@app.route('/')
-def hello_world():
-    user = 'Not Logged in'
-    if 'username' in session.keys():
-        user = session['username']
-    return f'Hello World: Logged in as {user}'
-
-# Account methods
-@app.route('/login/', methods=['GET', 'POST'])
-def login():
-    msg = ''
-
-    form = LoginForm(request.form) # Convert our request form ( The user submitted one ) into WTF Form so that we can validate it 
-    print(request.method, form.validate_on_submit())
-    if request.method == 'POST' and form.validate_on_submit(): # .validate_on_submit() will check if user has submitted a valid form
-        user = db.get_username(request.form['username'])
-        print(user['password'])
-        if user is None:
-            msg = 'RED No user found with that username, please register first!'
-        elif user['password'] == request.form['password']:
-            session['loggedin'] = True # Session uses cookies to set variables that are present in the client
-            session['id'] = user['id']
-            session['username'] = user['username']
-            msg = 'GREEN Logged in!'
+# coding: UTF-8
+import os
+def load_config(mode=os.environ.get('MODE')):
+    """Load config."""
+    try:
+        if mode == 'PRODUCTION':
+            from config.production import prodConfig
+            return prodConfig
         else:
-            print(user['password'])
-            msg = 'RED Wrong Password!'
-    return render_template('login.html', form=form, msg=msg)
-
-
-@app.route('/logout')
-def logout():
-    session.pop('loggedin', None) # Remove cookies
-    session.pop('id', None)
-    session.pop('username', None)
-    return redirect(url_for('login'))
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    msg = ''
-    form = RegisterForm(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
-
-        account = db.get_username(username)
-        account_email = db.get_email(email)
-        
-        if account:
-            msg = 'RED Please choose a different email!'
-        if account_email:
-            msg = 'RED Email is already registered!'
-        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            msg = 'RED Invalid email address !'
-        elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'RED Username must contain only characters and numbers !'
-        elif not username or not password or not email:
-            msg = 'RED Please fill out the form !'
-        else:
-            db.insert(username, password, email)
-            msg = 'GREEN You have successfully registered !'
-    elif request.method == 'POST':
-        msg = 'RED Please fill out the form !'
-    return render_template('register.html', msg=msg, form = form)
-
+            from config.development import devConfig
+            return devConfig
+    except ImportError:
+        from config.base import config
+        return config
 
 if __name__ == '__main__':
+    config = load_config()
     if (db.connected()):
         print('connected!')
-    app.run(debug=True)
+    app.host = config.host
+    app.db = db
+    app.run(debug=config.debug)

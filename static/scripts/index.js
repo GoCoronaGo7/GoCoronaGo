@@ -1,5 +1,3 @@
-
-
 function toggleTheme() {
     const localDarkMode = JSON.parse(localStorage.getItem('dark')); // get Client side store
 
