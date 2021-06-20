@@ -1,9 +1,9 @@
 /* colors are subject to change*/
 a:link{
-    color:#84dfbd;
+    color:#5C8D89;
 }
 a:visited{
-    color:#84dfbd;
+    color:#5C8D89;
 }
 
 a:after{
@@ -28,7 +28,7 @@ form {
 }
 
 .navbar {
-    background-color: gray;
+    background-color: rgba(128, 128, 128, 0.233);
 }
 
 .navbar > button {
