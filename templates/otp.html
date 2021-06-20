@@ -1,0 +1,23 @@
+{% extends "main.html"%}
+{% from "formhelpers.html" import render_field %}
+
+{% block title %}
+    OTP Verification
+{% endblock title %}
+    {{ msg }}
+{% block body %}
+    <div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-12 col-sm-6 col-md-4">
+                <form method="post" class="form-container" name="registerform">
+                    {{ render_field(form.email, class="form-control", value=request.args.get('email'), disabled=True )}}
+                    {{ render_field(form.otp, class="form-control", placeholder="Enter OTP", value=request.args.get('otp') or "")}}
+                    {{ form.hidden_tag() }}
+                    <button name="action_save" type="submit" class="btn btn-primary btn-block">
+						Submit OTP
+					</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{%endblock body%}

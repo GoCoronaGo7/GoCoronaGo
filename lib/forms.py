@@ -26,3 +26,8 @@ class RegisterForm(FlaskForm):
     ])
     confirm = PasswordField("Confirm Password", validators=[
                             validators.DataRequired(message="Please Fill This Field")])
+
+class OTPForm(FlaskForm):
+    email = TextField("Email")
+    otp = TextField("OTP", validators=[
+                            validators.DataRequired(message="Please Fill This Field")])

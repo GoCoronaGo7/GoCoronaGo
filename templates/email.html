@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body>
+        <form action={{ url_for("otp_verification" , email=email, otp = otp) }} method='POST' class="form-container" name="login form">
+            <button name="action_save" type="submit" class="btn btn-primary btn-block" 
+                    style="background-color: #008891; cursor:pointer; border-radius: 4px; width: 250px;
+                    text-align: center; color: white; display: center; padding: 14px 40px; margin: auto; display: grid;
+                    padding: 10px; font-size:large; font-family:serif;">
+                Click Here To Verify Email
+            </button>
+        </form>
+        <h2 style='text-align: center;'>
+            Button Not Working?
+            Your OTP IS 
+            <strong>
+                <h1>{{otp}}</h1>
+            </strong>
+        </h2>
+    </body>
+</html>
