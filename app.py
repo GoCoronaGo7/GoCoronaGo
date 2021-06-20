@@ -15,7 +15,7 @@ from lib.forms import LoginForm, RegisterForm, OTPForm
 from lib import crypto
 
 
-app = Flask(__name__,)
+app = Flask(__name__)
 Bootstrap(app)
 
 
@@ -173,16 +173,16 @@ def load_config(mode=os.environ.get('MODE')):
 if __name__ == '__main__':
     config = load_config()
     app.ENV = dict()
-    for i in config.env:
+    for i in config.ENV:
         app.ENV[i] = os.environ.get(i)
     app.secret_key = app.ENV['FLASK_SECRET_KEY'] if app.ENV['FLASK_SECRET_KEY'] else "Test"
-    print(app.secret_key)
     db = Db(app.ENV)
     if (db.connected()):
         print('connected!')
 
     app.email_manager = EmailManager(app.ENV)
-    app.host = config.host
+    app.host = config.HOST
     app.db = db
     app.cfg = config
-    app.run(debug=config.debug)
+    print(app.ENV)
+    app.run(debug=config.DEBUG, port=app.ENV['PORT'])
