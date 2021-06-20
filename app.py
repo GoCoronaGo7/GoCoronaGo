@@ -28,7 +28,7 @@ def index():
     user = 'Not Logged in'
     if 'username' in session.keys():
         user = session['username']
-    return f'Hello World: Logged in as {user}'
+    return render_template('home.html')+'Hello World: Logged in as {user}'
 
 # Account methods
 
