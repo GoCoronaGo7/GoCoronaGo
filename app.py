@@ -174,7 +174,8 @@ if __name__ == '__main__':
     app.ENV = dict()
     for i in config.env:
         app.ENV[i] = os.environ.get(i)
-    app.secret_key = app.ENV['FLASK_SECRET_KEY']
+    app.secret_key = app.ENV['FLASK_SECRET_KEY'] / "TEST"
+    print(app.secret_key)
     db = Db(app.ENV)
     if (db.connected()):
         print('connected!')
