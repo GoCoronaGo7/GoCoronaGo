@@ -6,7 +6,8 @@ class Db:
         self.connection = connector.connect(
             host=env['DB_HOST'],
             user=env['DB_USER'],
-            passwd=env['DB_PASSWORD']
+            passwd=env['DB_PASSWORD'],
+            database=env['DB_NAME']
         )
         self.env = env
         cursor = self.connection.cursor()

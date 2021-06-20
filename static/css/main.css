@@ -24,19 +24,17 @@ body {
 }
 .notice * {
 	margin-bottom: 0.2rem;
+	border-left-width: 1rem;
+	border-left-style: solid;
 
 }
 
 .danger {
 	border-color: #FB3640;
-	border-left-width: 1rem;
-	border-left-style: solid;
 }
 
 .tip {
 	border-color: #38c09a;
-	border-left-width: 1rem;
-	border-left-style: solid;
 }
 
 .navbar {

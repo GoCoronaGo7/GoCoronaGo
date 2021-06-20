@@ -1,5 +1,5 @@
 from .base import config
 
 class prodConfig(config):
-    debug=False
-    host='covid19projectt.herokuapp.com'
+    DEBUG=False
+    HOST='covid19projectt.herokuapp.com'
