@@ -155,7 +155,8 @@ def verify_password(hash, password, username):
         db.update(username, password=result)
         return True
 
-def load_config(mode=os.environ.get('FLASK_ENV')):
+def load_config():
+    mode=os.environ.get('FLASK_ENV')
     """Load config."""
     print('Loading in mode', mode)
     try:
