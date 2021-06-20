@@ -43,17 +43,16 @@ def login():
     if request.method == 'POST' and form.validate_on_submit():
         user = app.db.get_username(request.form['username'])
         if user is None:
-            msg = 'RED No user found with that username, please register first!'
-        print(request.form)
-
-        passwordCorrect = verify_password(user['password'], request.form['password'], request.form['username'])
-        if passwordCorrect:
-            # Session uses cookies to set variables that are present in the client
-            session['loggedin'] = True
-            session['username'] = user['username']
-            msg = 'GREEN Logged in!'
+            msg = 'RED User not found!'
         else:
-            msg = 'RED Wrong Password!'
+            passwordCorrect = verify_password(user['password'], request.form['password'], request.form['username'])
+            if passwordCorrect:
+                # Session uses cookies to set variables that are present in the client
+                session['loggedin'] = True
+                session['username'] = user['username']
+                msg = 'GREEN Logged in!'
+            else:
+                msg = 'RED Wrong Password!'
     return render_template('login.html', form=form, msg=msg)
 
 
@@ -188,4 +187,5 @@ app.cfg = config
 print(app.ENV)
 
 if __name__ == '__main__':
+    print(config.DEBUG)
     app.run(debug=config.DEBUG, port=app.ENV['PORT'])
