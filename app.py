@@ -50,7 +50,6 @@ def login():
         if passwordCorrect:
             # Session uses cookies to set variables that are present in the client
             session['loggedin'] = True
-            session['id'] = user['id']
             session['username'] = user['username']
             msg = 'GREEN Logged in!'
         else:
@@ -119,7 +118,6 @@ def otp_verification():
                 user = app.temp_data[email]
                 register_account(user)
                 session['loggedin'] = True
-                session['id'] = user['id']
                 session['username'] = user['username']
                 return redirect(url_for('index'))
             else:
