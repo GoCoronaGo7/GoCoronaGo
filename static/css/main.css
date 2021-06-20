@@ -48,16 +48,27 @@ body {
 
 
 .navbar > button {
-    margin-left: 1rem;
+    margin-left: 0.1rem;
+	margin-right: 0.1rem;
+	margin-top: 4px;
 	align-self: flex-start;
 	border-radius: 2rem;
 	appearance: none;
+	display: flex;
 	outline: none;
     background-color: Transparent;
 }
 
-
+.navbar > button > svg {
+	justify-content: center;
+}
 
 p {
 	color: #004890;
+}
+
+.waves {
+	position: fixed;
+	inset: 2px;
+	bottom: -200px;
 }
