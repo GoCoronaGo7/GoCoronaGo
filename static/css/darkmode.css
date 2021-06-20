@@ -1,4 +1,14 @@
 /* colors are subject to change*/
+a:link{
+    color:#0a9aa1;
+}
+a:visited{
+    color:#00ADB5;
+}
+
+a:after{
+    color: #00ADB5;
+}
 body {
 	background: #222831;
 }
@@ -35,4 +45,8 @@ svg {
 
 label {
     color: #00ADB5;
+}
+
+p{
+    color: #1f969c
 }
