@@ -171,20 +171,21 @@ def load_config():
         return config
 
 
-if __name__ == '__main__':
-    config = load_config()
-    app.ENV = dict()
-    for i in config.ENV:
-        app.ENV[i] = os.environ.get(i)
-    app.secret_key = app.ENV['FLASK_SECRET_KEY'] if app.ENV['FLASK_SECRET_KEY'] else "Test"
-    print('secret key', app.secret_key)
-    db = Db(app.ENV)
-    if (db.connected()):
-        print('connected!')
+config = load_config()
+app.ENV = dict()
+for i in config.ENV:
+    app.ENV[i] = os.environ.get(i)
+app.secret_key = app.ENV['FLASK_SECRET_KEY'] if app.ENV['FLASK_SECRET_KEY'] else "Test"
+print('secret key', app.secret_key)
+db = Db(app.ENV)
+if (db.connected()):
+    print('connected!')
 
-    app.email_manager = EmailManager(app.ENV)
-    app.host = config.HOST
-    app.db = db
-    app.cfg = config
-    print(app.ENV)
+app.email_manager = EmailManager(app.ENV)
+app.host = config.HOST
+app.db = db
+app.cfg = config
+print(app.ENV)
+
+if __name__ == '__main__':
     app.run(debug=config.DEBUG, port=app.ENV['PORT'])
