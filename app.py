@@ -130,6 +130,9 @@ def otp_verification():
 
     return render_template('otp.html', form=form, msg=msg)
 
+@app.route('/stats') 
+def stats():
+    return render_template('stats.html')
 
 def register_account(data):
     hash = crypto.hash(data['password'])
