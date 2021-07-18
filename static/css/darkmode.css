@@ -47,6 +47,27 @@ label {
     color: #00ADB5;
 }
 
-p{
+p {
     color: #1f969c
+}
+
+h1 {
+    color:#0bf3ff;
+}
+
+.highlight {
+    border-color: #0bf3ff;
+}
+
+button.active {
+    background-color: #0000006d;
+}
+
+button:hover {
+    transition: 30ms;
+    transform: scale(1.2);
+}
+
+#selector {
+    padding: 0.2ch
 }

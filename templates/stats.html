@@ -1,0 +1,27 @@
+{% extends "base.html"%}
+
+{% block title %}
+	Covid Stats
+{% endblock title %}
+
+{% block body %}
+    <div id="statsHolder">
+        <div id="selector">
+            <button class="active">Cases</button>
+            <button>Testing</button>
+            <button>Beds</button>
+        </div>
+        <div id="statsDisplay"></div>
+
+        <div id="regionalData" style="display: none;">
+            <div id="slick-for">
+                
+            </div>
+            <div id="slick-nav">
+                
+            </div>
+        </div>
+    </div>
+   
+    <script src="{{ url_for('static', filename='scripts/stats.js') }}"></script>
+{% endblock body %}
