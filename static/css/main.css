@@ -69,6 +69,62 @@ p {
 
 .waves {
 	position: fixed;
-	inset: 2px;
-	bottom: -200px;
+	right: 2px;
+	left: 2px;
+	bottom: 0px
+}
+
+
+#statsHolder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+	background-color: #2626267e;
+	margin-left: 3rem;
+	margin-right: 3rem;
+	border-radius: 15px;
+	padding: 2rem;
+}
+
+#statsHolderSmall{
+	margin-left: 3rem;
+	margin-right: 3rem;
+	border-radius: 15px;
+	padding: 0.5rem;
+}
+.highlight {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+	
+	border-style: solid;
+	border-radius: 12px;
+	border-width: 2px;
+	
+	padding: 2ch;
+	margin-top: 2ch;
+
+}
+
+.highlight > p {
+	font-size: large;
+}
+
+button {
+    appearance: none;
+    outline: none;
+	border-radius: 4px;
+	background-color: transparent;
+	border-style: solid;
+	color: #0080ff
+} 
+
+button:active {
+	outline: none;
+}
+
+button:focus {
+	outline: none;
 }
