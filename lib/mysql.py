@@ -34,8 +34,18 @@ class Db:
                     PRIMARY KEY (id) 
                     )
         '''
+        query_blog_setup = '''CREATE TABLE IF NOT EXISTS `blog`
+                    (
+                    id INT NOT NULL AUTO_INCREMENT,
+                    username varchar(25) NOT NULL,
+                    content varchar(450) NOT NULL,
+                    postingtime Datetime NOT NULL,
+                    PRIMARY KEY (id) 
+                    )
+        '''
         cursor.execute(query_user_setup)
         cursor.execute(query_doc_setup)
+        cursor.execute(query_blog_setup)
     def get_cursor(self):
         try:
             return self.connection.cursor()
