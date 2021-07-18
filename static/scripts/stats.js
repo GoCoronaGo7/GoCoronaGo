@@ -11,6 +11,7 @@ const apiUrl = 'https://api.rootnet.in/covid19-in/';
 let display = 'Cases';
 const apiCache = new Map();
 const regions = [];
+let sliderFor, sliderNav;
 
 $(document).ready(function () {
     refresh();
@@ -19,8 +20,10 @@ $(document).ready(function () {
         previousActive.removeClass('active');
         const targetButton = $(event.target);
         targetButton.addClass('active');
-        refresh()  
-    })
+        refresh()
+    });
+    sliderFor = $('#slider-for');
+    sliderNav = $('#slider-nav');
 });
 
 
@@ -51,7 +54,12 @@ async function getStatData(type) {
 
     const data = dat.data;
     if (regions.length === 0) {
-        regions.push(...data.regional.map(x => x.loc));
+        regions.push(...data.regional?.map(x => x.loc));
+    }
+    if (data.regional) {
+        loadRegions(type, data.regional);
+    } else {
+        $('#regionalData').css('display', 'none');
     }
     let element = `<span style='color: green;'> Test </span>`;
 
@@ -119,4 +127,60 @@ function apiGet(url) {
         }).catch(console.error);
     }
     return Promise.resolve().then(() => data);
+}
+
+function loadRegions(type, data) {
+    $('#regionalData').css('display', 'block');
+    sliderFor.slick('unslick');
+    sliderNav.slick('unslick');
+    sliderNav.empty();
+    sliderFor.empty();
+
+    const elements = data.map(x => makeCard(type, x))
+    elements.forEach(x => {
+        console.log(x);
+        sliderNav.append(x);
+        sliderFor.append(x);
+    });
+
+   /*  sliderFor = $('#slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav'
+        });
+    sliderNav = $('#slider-nav').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: true,
+        centerMode: true,
+        focusOnSelect: true
+    }); */
+   
+}
+
+function makeCard(type, data) {
+    if (type == 'Cases') {
+        return `<div class="highlight">
+            <h1>${data.loc}</h1>
+            <h3>Cured</h3>
+            <p>${data.discharged}</p>
+            <h3>Deaths</h3>
+            <p>${data.deaths}</p>
+            <h3>Total</h3>
+            <p>${data.totalConfirmed}</p>
+        </div>`
+    } else {
+        return `<div class="highlight">
+            <h1>${data.state}</h1>
+            <h3>Rural Beds</h3>
+            <p>${data.ruralBeds}</p>
+            <h3>Urban Beds</h3>
+            <p>${data.urbanBeds}</p>
+            <h3>Total Beds</h3>
+            <p>${data.totalBeds}</p>
+        </div>`
+    }
 }
