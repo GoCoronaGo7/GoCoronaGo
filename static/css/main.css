@@ -68,7 +68,7 @@ p {
 }
 
 .waves {
-	position: fixed;
+	position: relative;
 	inset: 2px;
 	bottom: -200px;
 }
