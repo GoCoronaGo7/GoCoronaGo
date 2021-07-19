@@ -75,7 +75,8 @@ ul {
     position: fixed;
     right: 2px;
     left: 2px;
-    bottom: 0px
+    bottom: 0px;
+    overflow: hidden;	
 }
 
 #statsHolder {
