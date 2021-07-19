@@ -137,6 +137,9 @@ def blog():
     if request.method == 'POST' and form.validate_on_submit():
         content = request.form['content']
     return render_template('blog.html',form=form, msg=msg)
+@app.route('/AddBlog')
+def AddBlog():
+    return render_template('blog.html')
 
 @app.route('/stats') 
 def stats():

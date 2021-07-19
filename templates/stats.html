@@ -4,23 +4,32 @@
 	Covid Stats
 {% endblock title %}
 
+{% block head %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+{% endblock head %}
+
 {% block body %}
+
     <div id="statsHolder">
         <div id="selector">
             <button class="active">Cases</button>
             <button>Testing</button>
             <button>Beds</button>
         </div>
-        <div id="statsDisplay"></div>
-
-        <div id="regionalData" style="display: none;">
-            <div id="slick-for">
-                
+        <div id="statsDisplayBounds">
+            <div id="statsDisplay">
             </div>
-            <div id="slick-nav">
-                
+            <div id="regionalData" style="display: none;">
+                <div id="dropDown">
+                    <span id="regionalSelectedStats">Tamil Nadu</span>
+                    <ul id="regionalDropDownMenuList" style="display: none" class="scrollable-menu dropdown">
+                    </ul>
+                </div>
+                <div id="regionalStatsDisplay"></div>
             </div>
         </div>
+        
     </div>
    
     <script src="{{ url_for('static', filename='scripts/stats.js') }}"></script>
