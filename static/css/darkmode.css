@@ -40,14 +40,14 @@ svg {
 }
 
 .navbar > button:hover {
-    background-color: rgb(181, 181, 181);
+    background-color: rgb(0, 0, 0);
 }
 
 label {
     color: #00ADB5;
 }
 
-p {
+p, span {
     color: #1f969c
 }
 
@@ -55,7 +55,11 @@ h1 {
     color:#0bf3ff;
 }
 
-.highlight {
+h3 {
+    color: #00bdc7
+}
+
+.highlight, #regionalData {
     border-color: #0bf3ff;
 }
 
@@ -63,11 +67,8 @@ button.active {
     background-color: #0000006d;
 }
 
-button:hover {
-    transition: 30ms;
-    transform: scale(1.2);
-}
 
-#selector {
-    padding: 0.2ch
+
+li {
+    color:rgb(0, 187, 255);
 }

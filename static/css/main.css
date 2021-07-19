@@ -67,6 +67,10 @@ p {
 	color: #004890;
 }
 
+ul {
+  list-style-type: none;
+}
+
 .waves {
 	position: fixed;
 	right: 2px;
@@ -81,10 +85,13 @@ p {
 	align-items: center;
 	flex-flow: column;
 	background-color: #2626267e;
+	margin-top: -5rem;
 	margin-left: 3rem;
 	margin-right: 3rem;
 	border-radius: 15px;
 	padding: 2rem;
+
+	transform: translateZ(10px);
 }
 
 #statsHolderSmall{
@@ -127,4 +134,69 @@ button:active {
 
 button:focus {
 	outline: none;
+}
+
+#selector > button:hover {
+    transition: 30ms;
+    transform: scale(1.2);
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+#selector {
+    padding: 0.2ch
+}
+
+.sliderBox {
+	width: 250px;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+	
+	border-style: solid;
+	border-radius: 12px;
+	border-width: 2px;
+	
+	padding: 2ch;
+	margin-top: 2ch;
+
+}
+
+.scrollable-menu {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.scrollable-menu::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;        
+}    
+.scrollable-menu::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: lightgray;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);  
+	box-shadow: 0 0 1px rgba(255,255,255,.75);      
+}
+
+#statsDisplayBounds {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-evenly;
+}
+
+#regionalData {
+	margin-top: 20px;
+	padding: 1rem;
+	position: relative;
+	
+	border-style: solid;
+	border-radius: 12px;
+	border-width: 2px;
+}
+
+#regionalStatsDisplay {
+	width: auto;
+	height: 100%;
 }
