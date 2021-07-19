@@ -164,6 +164,7 @@ function loadRegions(type, data) {
 }
 
 function makeCard(type, data) {
+    console.log(type);
     if (type == 'Cases') {
         return `<div class="highlight">
             <h1>${data.loc}</h1>

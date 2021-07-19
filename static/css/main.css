@@ -134,6 +134,19 @@ button:focus {
 	outline: none;
 }
 
+#selector > button:hover {
+    transition: 30ms;
+    transform: scale(1.2);
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+#selector {
+    padding: 0.2ch
+}
+
 .sliderBox {
 	width: 250px;
 	justify-content: center;
@@ -173,4 +186,10 @@ button:focus {
 
 #regionalData {
 	margin-top: 20px;
+	padding: 1rem;
+
+}
+
+#regionalStatsDisplay {
+	width: auto;
 }
