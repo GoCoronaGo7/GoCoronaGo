@@ -9,7 +9,7 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-12 col-sm-6 col-md-4">
-				<form action={{url_for('register')}} method="post" class="form-container" name="bloginput">
+				<form action={{url_for('blog')}} method="post" class="form-container" name="bloginput">
                     {{ render_field(form.content, class="form-control", placeholder="Content (maximum of 450 charecters)" )}}
                     {{ form.hidden_tag() }}
                     <button name="action_save" type="submit" class="btn btn-primary btn-block">
