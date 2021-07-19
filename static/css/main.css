@@ -73,9 +73,9 @@ ul {
 
 .waves {
     position: fixed;
-    right: 2px;
-    left: 2px;
-    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: -20px;
     overflow: hidden;	
 }
 
@@ -85,7 +85,8 @@ ul {
 	justify-content: center;
 	align-items: center;
 	flex-flow: column;
-	background-color: #2626267e;
+	background-color: #262626d0;
+	box-shadow: 5px 5px 5px rgba(0.2, 0.2, 0.2, 0.5);
 	margin-top: -5rem;
 	margin-left: 3rem;
 	margin-right: 3rem;
