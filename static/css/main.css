@@ -90,6 +90,8 @@ ul {
 	margin-right: 3rem;
 	border-radius: 15px;
 	padding: 2rem;
+
+	transform: translateZ(10px);
 }
 
 #statsHolderSmall{
@@ -187,9 +189,14 @@ button:hover {
 #regionalData {
 	margin-top: 20px;
 	padding: 1rem;
-
+	position: relative;
+	
+	border-style: solid;
+	border-radius: 12px;
+	border-width: 2px;
 }
 
 #regionalStatsDisplay {
 	width: auto;
+	height: 100%;
 }

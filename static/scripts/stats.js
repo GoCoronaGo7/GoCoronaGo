@@ -10,7 +10,7 @@ const apiUrl = 'https://api.rootnet.in/covid19-in/';
 // GLOBAL VARIABLES
 let display = 'Cases';
 const apiCache = new Map();
-const regions = [];
+const regions = {};
 let loaded = false;
 let regionStatDisplay, dropDownList, options;
 
@@ -60,10 +60,12 @@ async function getStatData(type) {
     if (!dat || !dat.success) return `<span style='color: red;'> ERROR GETTING DATA </span>`;
 
     const data = dat.data;
-    if (regions.length === 0) {
-        regions.push(...data.regional?.map(x => x.loc));
-    }
+    
     if (data.regional) {
+        if (!regions[type]?.length) {
+            regions[type] = [];
+            regions[type].push(...data.regional?.map(mapFn(type)));
+        }
         loadRegions(type, data.regional);
     } else {
         $('#regionalData').css('display', 'none');
@@ -137,25 +139,29 @@ function apiGet(url) {
 }
 
 function loadRegions(type, data) {
-    if (!loaded) {
-        regions.map(makeMenuCard).map((x) => dropDownList.append(x));
-        // $('#regional-dropDownMenuListMain').menu();
-        loaded = true;
-        options = $('.dropdownList');
-        options.on('click', (event) => {
-            const target = event.target.innerHTML;
-            $("#regionalSelectedStats").html(target);
-            const dat = data.find(x => x.loc == target);
-            regionStatDisplay.empty().append(makeCard(type, dat));
-            dropDownList.css('display', 'none');
-        })
-    }
+    dropDownList.empty()
+    regions[type]?.map(makeMenuCard).map((x) => dropDownList.append(x));
+    // $('#regional-dropDownMenuListMain').menu();
+    options = $('.dropdownList');
+    options.on('click', (event) => {
+        const target = event.target.innerHTML;
+        $("#regionalSelectedStats").html(target);
+        const selected = getActive().innerHTML;
+        const index = regions[selected].indexOf(target);
+        
+        const dat = data[index];
+        if (index == -1 || !dat) {
+            console.error('Error')  
+        }
+        regionStatDisplay.empty().append(makeCard(selected, dat));
+        dropDownList.css('display', 'none');
+    })
     $('#regionalData').css('display', 'block');
 
     const region = $("#regionalSelectedStats").text();
-    const dat = data.find(x => x.loc == region);
+    const index = regions[type].indexOf(region);
+    const dat = data[index];
     if (!dat) {
-        console.log(data.map(x => x.loc), region);
         return;
     };
     regionStatDisplay.empty().append(makeCard(type, dat));
@@ -164,7 +170,6 @@ function loadRegions(type, data) {
 }
 
 function makeCard(type, data) {
-    console.log(type);
     if (type == 'Cases') {
         return `<div class="highlight">
             <h1>${data.loc}</h1>
@@ -192,3 +197,4 @@ function makeMenuCard(name) {
     return `<li id="dropdown-${name}" class="dropdownList">${name}</button>`
 }
 
+const mapFn = (t) => t == 'Cases' ? (x => x.loc) : (x => x.state);
