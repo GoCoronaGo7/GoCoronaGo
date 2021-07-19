@@ -67,14 +67,7 @@ button.active {
     background-color: #0000006d;
 }
 
-button:hover {
-    transition: 30ms;
-    transform: scale(1.2);
-}
 
-#selector {
-    padding: 0.2ch
-}
 
 li {
     color:rgb(0, 187, 255);
