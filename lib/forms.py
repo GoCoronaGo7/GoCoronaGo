@@ -33,7 +33,7 @@ class OTPForm(FlaskForm):
                             validators.DataRequired(message="Please Fill This Field")])
 
 class BlogForm(FlaskForm):
-    Content = TextField("Enter ypur blog data here", validators=[
+    content = TextField("Enter ypur blog data here", validators=[
         Length(min=5, max=350),
-        validators.DataRequired(message="Enter the data here")
+        validators.DataRequired(message="Under/Over word limit")
     ])

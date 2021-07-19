@@ -11,7 +11,7 @@ import re
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask import render_template, redirect, url_for, g, session, request
-from lib.forms import LoginForm, RegisterForm, OTPForm
+from lib.forms import LoginForm, RegisterForm, OTPForm, BlogForm
 from lib import crypto
 
 
@@ -130,16 +130,17 @@ def otp_verification():
 
     return render_template('otp.html', form=form, msg=msg)
 
-<<<<<<< HEAD
-@app.route('/AddBlog')
-def AddBlog():
-    return render_template('blog.html')
+@app.route('/blog')
+def blog():
+    form = BlogForm(request.form)
+    msg=''
+    if request.method == 'POST' and form.validate_on_submit():
+        content = request.form['content']
+    return render_template('blog.html',form=form, msg=msg)
 
-=======
 @app.route('/stats') 
 def stats():
     return render_template('stats.html')
->>>>>>> d09aefe12329496295102200141cb8075d41bcb7
 
 def register_account(data):
     hash = crypto.hash(data['password'])
