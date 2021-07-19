@@ -47,12 +47,16 @@ label {
     color: #00ADB5;
 }
 
-p {
+p, span {
     color: #1f969c
 }
 
 h1 {
     color:#0bf3ff;
+}
+
+h3 {
+    color: #00bdc7
 }
 
 .highlight {
@@ -70,4 +74,8 @@ button:hover {
 
 #selector {
     padding: 0.2ch
+}
+
+li {
+    color:rgb(0, 187, 255);
 }

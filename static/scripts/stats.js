@@ -11,7 +11,8 @@ const apiUrl = 'https://api.rootnet.in/covid19-in/';
 let display = 'Cases';
 const apiCache = new Map();
 const regions = [];
-let sliderFor, sliderNav;
+let loaded = false;
+let regionStatDisplay, dropDownList, options;
 
 $(document).ready(function () {
     refresh();
@@ -22,8 +23,15 @@ $(document).ready(function () {
         targetButton.addClass('active');
         refresh()
     });
-    sliderFor = $('#slider-for');
-    sliderNav = $('#slider-nav');
+    regionStatDisplay = $('#regionalStatsDisplay');
+    dropDownList = $('#regionalDropDownMenuList');
+
+    $('#dropDown').hover((e) => {
+        const styleDisplay = e.type == 'mouseenter' ? 'block' : 'none';
+        dropDownList.css('display', styleDisplay);
+    });
+
+    options = $('.dropdownList');
 });
 
 
@@ -49,7 +57,6 @@ function removeChilds (parent) {
 async function getStatData(type) {
     const url = apiUrl + routeMap[type];
     const dat = await apiGet(url);
-    console.log(dat);
     if (!dat || !dat.success) return `<span style='color: red;'> ERROR GETTING DATA </span>`;
 
     const data = dat.data;
@@ -130,35 +137,30 @@ function apiGet(url) {
 }
 
 function loadRegions(type, data) {
+    if (!loaded) {
+        regions.map(makeMenuCard).map((x) => dropDownList.append(x));
+        // $('#regional-dropDownMenuListMain').menu();
+        loaded = true;
+        options = $('.dropdownList');
+        options.on('click', (event) => {
+            const target = event.target.innerHTML;
+            $("#regionalSelectedStats").html(target);
+            const dat = data.find(x => x.loc == target);
+            regionStatDisplay.empty().append(makeCard(type, dat));
+            dropDownList.css('display', 'none');
+        })
+    }
     $('#regionalData').css('display', 'block');
-    sliderFor.slick('unslick');
-    sliderNav.slick('unslick');
-    sliderNav.empty();
-    sliderFor.empty();
 
-    const elements = data.map(x => makeCard(type, x))
-    elements.forEach(x => {
-        console.log(x);
-        sliderNav.append(x);
-        sliderFor.append(x);
-    });
+    const region = $("#regionalSelectedStats").text();
+    const dat = data.find(x => x.loc == region);
+    if (!dat) {
+        console.log(data.map(x => x.loc), region);
+        return;
+    };
+    regionStatDisplay.empty().append(makeCard(type, dat));
+    return;
 
-   /*  sliderFor = $('#slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav'
-        });
-    sliderNav = $('#slider-nav').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: true,
-        centerMode: true,
-        focusOnSelect: true
-    }); */
-   
 }
 
 function makeCard(type, data) {
@@ -184,3 +186,8 @@ function makeCard(type, data) {
         </div>`
     }
 }
+
+function makeMenuCard(name) {
+    return `<li id="dropdown-${name}" class="dropdownList">${name}</button>`
+}
+
