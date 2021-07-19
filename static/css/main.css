@@ -72,14 +72,14 @@ ul {
 }
 
 .waves {
-	position: fixed;
-	right: 2px;
-	left: 2px;
-	bottom: 0px
+    position: fixed;
+    right: 2px;
+    left: 2px;
+    bottom: 0px
 }
 
-
 #statsHolder {
+	position: fixed;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -88,9 +88,9 @@ ul {
 	margin-top: -5rem;
 	margin-left: 3rem;
 	margin-right: 3rem;
+
 	border-radius: 15px;
 	padding: 2rem;
-
 	transform: translateZ(10px);
 }
 
