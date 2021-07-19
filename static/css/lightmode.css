@@ -37,6 +37,7 @@ form {
 
 svg {
 	fill: whitesmoke;
+    background-position: bottom;
 }
 
 .navbar > button:hover {
@@ -45,3 +46,33 @@ svg {
 
 
 #darkwaves { display: none;}
+
+label {
+    color: #00ADB5;
+}
+
+p, span {
+    color: #1f969c
+}
+
+h1 {
+    color:#0bf3ff;
+}
+
+h3 {
+    color: #00bdc7
+}
+
+.highlight, #regionalData {
+    border-color: #0bf3ff;
+}
+
+button.active {
+    background-color: #0000006d;
+}
+
+
+
+li {
+    color:rgb(0, 187, 255);
+}

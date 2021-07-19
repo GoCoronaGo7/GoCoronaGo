@@ -153,7 +153,7 @@ def register_account(data):
         raise
 
 def send_email(email, otp):
-    html = render_template('email.html', url=request.url_root + url_for("otp_verification" , email=email, otp = otp), otp=otp)
+    html = render_template('email.html', url= request.url_root + url_for("otp_verification" , email=email, otp = otp), otp=otp)
     app.email_manager.send_email(email, 'Verify Your Email', html)
 
 def verify_password(hash, password, username):
