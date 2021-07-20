@@ -1,3 +1,6 @@
+:root {
+    --primary: #0bf3ff;
+}
 /* colors are subject to change*/
 a:link{
     color:#0a9aa1;
@@ -52,7 +55,7 @@ p, span {
 }
 
 h1 {
-    color:#0bf3ff;
+    color: var(--primary);
 }
 
 h3 {
@@ -60,7 +63,7 @@ h3 {
 }
 
 .highlight, #regionalData {
-    border-color: #0bf3ff;
+    border-color: var(--primary);
 }
 
 button.active {
@@ -74,3 +77,7 @@ li {
 }
 
 #lightwaves { display: none; }
+
+.scrollable-menu > li {
+    color: var(--primary);
+}

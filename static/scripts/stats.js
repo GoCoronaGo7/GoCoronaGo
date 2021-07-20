@@ -27,6 +27,7 @@ $(document).ready(function () {
     dropDownList = $('#regionalDropDownMenuList');
 
     $('#dropDown').hover((e) => {
+        console.log(e.type);
         const styleDisplay = e.type == 'mouseenter' ? 'block' : 'none';
         dropDownList.css('display', styleDisplay);
     });
