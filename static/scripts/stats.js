@@ -16,7 +16,7 @@ let regionStatDisplay, dropDownList, options;
 
 $(document).ready(function () {
     refresh();
-    $('button').on('click', function (event) {
+    $('#selector > button').on('click', function (event) {
         const previousActive = $('button.active');
         previousActive.removeClass('active');
         const targetButton = $(event.target);

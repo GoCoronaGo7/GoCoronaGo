@@ -9,7 +9,7 @@
 	margin-right: 3rem;
 	border-radius: 15px;
 	padding: 2rem;
-	z-index: 5;
+	transform: translateZ(5px);
 }
 
 #statsHolderSmall{
