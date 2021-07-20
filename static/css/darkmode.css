@@ -1,3 +1,6 @@
+:root {
+    --primary: #0bf3ff;
+}
 /* colors are subject to change*/
 a:link{
     color:#0a9aa1;
@@ -14,7 +17,7 @@ body {
 }
 
 form {
-	background: #393E46;
+	background: #393e468c;
     font-style: italic;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #00ADB5;
@@ -52,7 +55,7 @@ p, span {
 }
 
 h1 {
-    color:#0bf3ff;
+    color: var(--primary);
 }
 
 h3 {
@@ -60,14 +63,17 @@ h3 {
 }
 
 .highlight, #regionalData {
-    border-color: #0bf3ff;
+    border-color: var(--primary);
 }
 
 button.active {
     background-color: #0000006d;
 }
 
-
+#statsHolder{
+    background-color: #393e468c;
+    box-shadow: 5px 5px 5px rgba(0.2, 0.2, 0.2, 0.5);
+}
 
 li {
     color:rgb(0, 187, 255);
@@ -75,9 +81,12 @@ li {
 
 #lightwaves { display: none; }
 
-
-
 button{
     color:#00bdc7;
     font:#00bdc7;
 }   
+
+.scrollable-menu > li {
+    color: var(--primary);
+}
+

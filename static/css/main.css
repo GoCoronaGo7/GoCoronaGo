@@ -63,6 +63,21 @@ body {
 	justify-content: center;
 }
 
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;        
+}   
+
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: lightgray;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);  
+	box-shadow: 0 0 1px rgba(255,255,255,.75);      
+}
+
+h1 {
+    text-align: center;
+}
 p {
 	color: #004890;
 }
@@ -86,9 +101,9 @@ ul {
 	align-items: center;
 	flex-flow: column;
 	margin-top: -5rem;
+	margin-top: -5.5rem;
 	margin-left: 3rem;
 	margin-right: 3rem;
-
 	border-radius: 15px;
 	padding: 2rem;
 	transform: translateZ(10px);
@@ -165,18 +180,24 @@ button:hover {
 
 .scrollable-menu {
     max-height: 280px;
+	max-width: 200px;
     overflow-y: auto;
+	padding: 2px;
 }
 
-.scrollable-menu::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 8px;        
-}    
-.scrollable-menu::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: lightgray;
-    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.75);  
-	box-shadow: 0 0 1px rgba(255,255,255,.75);      
+
+.scrollable-menu > li {
+	text-align: center;
+
+	border-style: solid;
+    border-width: 1px;
+	border-radius: 8px;
+	margin-top: 5px;
+}
+
+.scrollable-menu > li:hover {
+    cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 #statsDisplayBounds {
@@ -198,4 +219,8 @@ button:hover {
 #regionalStatsDisplay {
 	width: auto;
 	height: 100%;
+}
+
+#regionalSelectedStats::after{
+	content: "▼";
 }
