@@ -6,7 +6,10 @@
 
 {% block head %}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/stats.css') }}">
 
+    <!-- Mobile CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/stats_mobile.css') }}" media="only screen and (max-device-width: 480px)" h/>
 {% endblock head %}
 
 {% block body %}

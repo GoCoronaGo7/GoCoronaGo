@@ -41,7 +41,7 @@ function getActive() {
 }
 
 function refresh() {
-    const activeButton = getActive().innerHTML;
+    const activeButton = getActive()?.innerHTML;
     const statsDisplayDiv = $('#statsDisplay');
     removeChilds(statsDisplayDiv);
     getStatData(activeButton)
