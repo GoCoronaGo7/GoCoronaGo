@@ -27,7 +27,6 @@ $(document).ready(function () {
     dropDownList = $('#regionalDropDownMenuList');
 
     $('#dropDown').hover((e) => {
-        console.log(e.type);
         const styleDisplay = e.type == 'mouseenter' ? 'block' : 'none';
         dropDownList.css('display', styleDisplay);
     });
@@ -41,7 +40,7 @@ function getActive() {
 }
 
 function refresh() {
-    const activeButton = getActive()?.innerHTML;
+    const activeButton = getActive()?.innerHTML || 'Cases';
     const statsDisplayDiv = $('#statsDisplay');
     removeChilds(statsDisplayDiv);
     getStatData(activeButton)
