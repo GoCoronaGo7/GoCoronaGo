@@ -45,7 +45,8 @@ body {
 
 	flex-direction: row-reverse;
 
-	transform: translateZ(10px);
+	transform: translateZ(20px);
+	z-index: 99;
 }
 
 
