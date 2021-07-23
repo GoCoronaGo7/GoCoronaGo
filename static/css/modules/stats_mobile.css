@@ -4,20 +4,17 @@
 	justify-content: center;
 	align-items: center;
 	flex-flow: column;
-	margin-top: -5.5rem;
-	margin-left: 3rem;
-	margin-right: 3rem;
-    margin-bottom: 2px;
+	width: 100%;
+	margin: 0;
 	border-radius: 15px;
-	padding: 2rem;
-	transform: translateZ(5px);
+	padding: 0;
+	z-index: 0;
 }
 
 #statsHolderSmall{
-	margin-left: 3rem;
-	margin-right: 3rem;
+	margin: 0;
 	border-radius: 15px;
-	padding: 0.5rem;
+	padding: 0;
 }
 .highlight {
 	display: flex;
@@ -27,16 +24,25 @@
 	
 	border-style: solid;
 	border-radius: 12px;
-	border-width: 2px;
+	border-width: thin;
 	
-	padding: 2ch;
-	margin-top: 2ch;
+	padding: 10px;
+	margin: 10px;
 
 }
 
 .highlight > p {
-	font-size: large;
+	font-size: 14px;
+	color: #1f969c;
 }
+
+.highlight > h1 {
+	font-size: 16px;
+}	
+.highlight > h3 {
+	font-size: 16px;
+}
+
 
 #selector > button:hover {
     transition: 30ms;
@@ -49,17 +55,17 @@
 }
 
 .sliderBox {
-	width: 250px;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 	flex-flow: column;
 	
 	border-style: solid;
 	border-radius: 12px;
-	border-width: 2px;
+	border-width: thin;
 	
-	padding: 2ch;
-	margin-top: 2ch;
+	padding: 0;
+	margin-top: 0;
 
 }
 
@@ -67,7 +73,7 @@
     max-height: 280px;
 	max-width: 200px;
     overflow-y: auto;
-	padding: 2px;
+	padding: 0px;
 }
 
 
@@ -75,9 +81,9 @@
 	text-align: center;
 
 	border-style: solid;
-    border-width: 1px;
+    border-width: thin;
 	border-radius: 8px;
-	margin-top: 5px;
+	margin-top: 0px;
 }
 
 .scrollable-menu > li:hover {
@@ -89,16 +95,18 @@
 	display: flex;
 	flex-flow: row;
 	justify-content: space-evenly;
+	padding: 10px;
+	margin: 5px;	
 }
 
 #regionalData {
-	margin-top: 20px;
-	padding: 1rem;
+	margin-top: 0px;
+	padding: 0;
 	position: relative;
 	
 	border-style: solid;
 	border-radius: 12px;
-	border-width: 2px;
+	border-width: thin;
 }
 
 #regionalStatsDisplay {
