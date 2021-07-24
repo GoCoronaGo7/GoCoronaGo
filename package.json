@@ -7,6 +7,6 @@
       "yarn": ">=1.22.10"
   },
   "scripts": {
-      "build": "cd client && yarn build"
+      "build": "cd client && yarn install && yarn build"
   }
 }
