@@ -12,7 +12,7 @@ function App() {
           {' '}
           <code>src/App.js</code>
           {' '}
-          and save to reload.
+          test
         </p>
         <a
           className="App-link"
