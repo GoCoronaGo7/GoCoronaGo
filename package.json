@@ -1,0 +1,9 @@
+{
+  "name": "gocorongoapp",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+      "node": ">=15.11.0",
+      "yarn": ">=1.22.10"
+  }
+}
