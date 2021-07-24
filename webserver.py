@@ -55,4 +55,5 @@ def stats():
 def getApp(path):
     if webserver.env == 'DEVELOPMENT':
         return proxy(WEBPACK_DEV_SERVER_HOST, request.path)
-    return webserver.send_static_file(path)
+    print(path)
+    return webserver.send_static_file("build/" + path)
