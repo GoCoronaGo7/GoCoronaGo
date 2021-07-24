@@ -1,1 +1,1 @@
-web: bash deploy.sh
+web: FLASK_ENV=PRODUCTION;gunicorn app:app --preload
