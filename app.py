@@ -1,4 +1,3 @@
-from webserver import webserver
 import webserver
 
 import os
@@ -12,12 +11,10 @@ from lib import crypto
 from dotenv import load_dotenv  # for python-dotenv method
 load_dotenv()
 
-
 class App():
     def __init__(self):
         self.register_otp = {}
         self.temp_data = {}
-
 
 def register_account(data):
     hash = crypto.hash(data['password'])
@@ -29,20 +26,17 @@ def register_account(data):
         print('Crypto ERROR!')
         raise
 
-
 def send_email(email, otp, url):
-    html = render_template('email.html', url=url, email=email, otp=otp)
+    html = render_template('email.html', url=url, email=email, otp = otp)
     app.email_manager.send_email(email, 'Verify Your Email', html)
 
-
 def verify_password(hash, password, username):
-    result = crypto.verify(hash, password)
+    result = crypto.verify(hash,password)
     if result is True or result is False:
         return result
     else:
         db.update(username, password=result)
         return True
-
 
 def load_config():
     mode = os.environ.get('FLASK_ENV')
@@ -70,6 +64,7 @@ app.email_manager = EmailManager(app.ENV)
 app.host = config.HOST
 app.db = db
 
+from webserver import webserver
 
 app.webserver = webserver
 app.webserver.config.from_object(config)
