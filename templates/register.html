@@ -9,7 +9,7 @@
     <div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-12 col-sm-6 col-md-4">
-                <form action={{url_for('register')}} method="post" class="form-container" name="registerform">
+                <form action={{url_for('accounts.register')}} method="post" class="form-container" name="registerform">
                     {{ render_field(form.username, class="form-control", placeholder="Enter Username" )}}
                     {{ render_field(form.email, class="form-control", placeholder="Enter Email" )}}
                     {{ render_field(form.password, class="form-control", placeholder="Enter Password" )}}
