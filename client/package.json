@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "cra-template": "1.1.2",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -12,7 +11,8 @@
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-react": "^7.21.5"
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-jsx-a11y": "^6.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
