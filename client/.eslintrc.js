@@ -22,6 +22,7 @@ module.exports = {
     "comma-dangle": 0,
     "quote-props": 0,
     "arrow-parens": 0,
-    "object-curly-newline": 0
+    "object-curly-newline": 0,
+    "no-nested-ternary": 0
   }
 };
