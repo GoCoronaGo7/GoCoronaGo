@@ -18,6 +18,7 @@ from blueprints.accounts import accounts
 webserver.register_blueprint(accounts)
 
 def proxy(host, path):
+    print(f"{host}{path}")
     response = get(f"{host}{path}")
     excluded_headers = [
         "content-encoding",
@@ -49,11 +50,12 @@ def blog():
 
 @webserver.route('/stats') 
 def stats():
-    return render_template('stats.html')
+    if webserver.env == 'DEVELOPMENT':
+        return proxy(WEBPACK_DEV_SERVER_HOST, '/build/stats.html')
+    return webserver.send_static_file("build/stats.html",)
 
 @webserver.route("/static/build/<path:path>")
 def getApp(path):
     if webserver.env == 'DEVELOPMENT':
         return proxy(WEBPACK_DEV_SERVER_HOST, request.path)
-    print(path)
     return webserver.send_static_file("build/" + path)
