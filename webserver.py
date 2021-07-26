@@ -8,7 +8,7 @@ from requests import get
 
 from lib.forms import BlogForm
 
-WEBPACK_DEV_SERVER_HOST = "http://localhost:3000"
+WEBPACK_DEV_SERVER_HOST = "http://localhost:8080"
 
 webserver = Flask(__name__)
 Bootstrap(webserver)
@@ -18,6 +18,7 @@ from blueprints.accounts import accounts
 webserver.register_blueprint(accounts)
 
 def proxy(host, path):
+    path = path.replace('/static/build/scripts', '/build')
     print(f"{host}{path}")
     response = get(f"{host}{path}")
     excluded_headers = [
@@ -50,12 +51,10 @@ def blog():
 
 @webserver.route('/stats') 
 def stats():
-    if webserver.env == 'DEVELOPMENT':
-        return proxy(WEBPACK_DEV_SERVER_HOST, '/build/stats.html')
-    return webserver.send_static_file("build/stats.html",)
+    return render_template("stats.html")
 
 @webserver.route("/static/build/<path:path>")
 def getApp(path):
-    if webserver.env == 'DEVELOPMENT':
+    if webserver.config.ENV['HOT_RELOAD']:
         return proxy(WEBPACK_DEV_SERVER_HOST, request.path)
     return webserver.send_static_file("build/" + path)
