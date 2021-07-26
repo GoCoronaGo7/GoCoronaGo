@@ -68,6 +68,7 @@ from webserver import webserver
 
 app.webserver = webserver
 app.webserver.config.from_object(config)
+app.webserver.config.ENV = app.ENV
 app.webserver.secret_key = app.ENV['FLASK_SECRET_KEY'] if app.ENV['FLASK_SECRET_KEY'] else "Test"
 
 webserver.app = app

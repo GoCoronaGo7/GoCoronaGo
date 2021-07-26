@@ -1,21 +1,38 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "gocoronago-client",
+  "version": "1.0.0",
+  "description": "Clientside for the GoCoronaGo Website",
+  "main": "index.js",
+  "author": "Jitesh D",
+  "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "postbuild": "next export && cp -r out/ ../static/ && mv ../static/out/ ../static/build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "11.0.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "start": "babel --watch --presets @babel/preset-react src/ --out-dir build/",
+    "dev": "live-server",
+    "build": "babel --presets @babel/preset-react src/ --out-dir build/"
   },
   "devDependencies": {
-    "eslint": "7.31.0",
-    "eslint-config-next": "11.0.1"
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "live-server": "^1.2.1"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

@@ -23,6 +23,9 @@
   <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
   <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+  {% if config.ENV['HOT_RELOAD'] %}
+    <script src="{{ url_for('static', filename='scripts/hot-reload.js') }}"></script>
+  {% endif %}
 
   <title>
     {%block title%}
@@ -36,11 +39,11 @@
 <body>
   <div class="waves">
     <div id="lightwaves">
-      <object data="{{ url_for('static', filename='images/wave_light.svg')}}" type="image/svg+xml"></object>
+      <object data="{{ url_for('static', filename='images/wave_light.svg') }}" type="image/svg+xml"></object>
     </div>
   
     <div id="darkwaves">
-      <object data="{{ url_for('static', filename='images/wave_dark.svg')}}" type="image/svg+xml"></object>
+      <object data="{{ url_for('static', filename='images/wave_dark.svg') }}" type="image/svg+xml"></object>
     </div>
   </div>
   

@@ -1,5 +1,3 @@
 module.exports = {
-  presets: [
-    require.resolve('next/babel')
-  ]
-};
+  "presets": ["@babel/preset-react"]
+}
