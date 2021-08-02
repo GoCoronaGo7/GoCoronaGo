@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/stats.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/stats.css') }}" type="text/css">
 
     <!-- Mobile CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/stats_mobile.css') }}" media="only screen and (max-device-width: 480px)" h/>
@@ -14,25 +14,6 @@
 {% block body %}
 
     <div id="statsHolder">
-        <div id="selector">
-            <button class="active">Cases</button>
-            <button>Testing</button>
-            <button>Beds</button>
-        </div>
-        <div id="statsDisplayBounds">
-            <div id="statsDisplay">
-            </div>
-            <div id="regionalData" style="display: none;">
-                <div id="dropDown">
-                    <span id="regionalSelectedStats">Tamil Nadu</span>
-                    <ul id="regionalDropDownMenuList" style="display: none" class="scrollable-menu dropdown">
-                    </ul>
-                </div>
-                <div id="regionalStatsDisplay"></div>
-            </div>
-        </div>
-        
     </div>
-   
-    <script src="{{ url_for('static', filename='build/scripts/stats.js') }}"></script>
+    <script src="{{ url_for('static', filename='build/scripts/stats.js') }}" type="module"></script>
 {% endblock body %}

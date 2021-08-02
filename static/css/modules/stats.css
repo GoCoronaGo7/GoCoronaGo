@@ -43,6 +43,10 @@
 }
 
 
+#selector > button {
+    margin: 4px
+}
+
 #selector {
     padding: 0.2ch
 }
