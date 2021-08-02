@@ -199,3 +199,12 @@ print(app.ENV)
 if __name__ == '__main__':
     print(config.DEBUG)
     app.run(debug=config.DEBUG, port=app.ENV['PORT'])
+    
+@app.route('/vaccination', methods=['GET'])
+def vaccination():
+    requested_data={}
+    websites=["htdatatps://covidamd.com/","https://covidaps.com/","https://covidbeed.com/","https://covidbengaluru.com/","https://covidcgh.com/","https://coviddelhi.com/","https://covidgandhinagar.com/","https://covidker.com/","https://covidkolhapur.com/","https://covidmp.com/","https://covidnagpur.com/","https://covidnashik.com/","https://covidpune.com/","https://covidrjs.com/","https://covidrkt.com/","https://covidsurat.com/","https://covidtnadu.com/","https://covidtelangana.com/","https://coviduttarpradesh.com/","https://covidbaroda.com/","https://covidwb.com/"]
+    state_names=["Ahmedabad","Andra Pradesh","Beed,Maharashtra","bengaluru","Chhatisgarh","Delhi","Gandhinagar,Gujarat","Kerala","Kolhapur,Maharashtra","Madhya Pradesh","Nagpur,Maharashtra","Nashik,Maharashtra","Pune,Maharashtra","Rajastan","Rajkot,Gujarat","Surat,Gujarat","Tamil Nadu","Telangana","Uttar Pradesh","Baroda","West Bengal"]
+    for i in range(0,20):
+        data=request.get(websites[i])
+        requested_data[state_names[i]]=data    
