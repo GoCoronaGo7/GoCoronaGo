@@ -18,22 +18,24 @@
   <!-- Mobile CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main_mobile.css') }}" media="only screen and (max-device-width: 480px)" h/>
 
-
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
   <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
   {% if config.ENV['HOT_RELOAD'] %}
     <script src="{{ url_for('static', filename='scripts/hot-reload.js') }}"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  {% else %}
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
   {% endif %}
 
+
+  {%block head%}
+  {%endblock head%}
+  
   <title>
     {%block title%}
     {%endblock title%}
   </title>
-
-  {%block head%}
-  {%endblock head%}
 </head>
 
 <body>
