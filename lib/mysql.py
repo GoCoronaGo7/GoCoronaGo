@@ -39,7 +39,6 @@ class Db:
                     id INT NOT NULL AUTO_INCREMENT,
                     username varchar(25) NOT NULL,
                     content varchar(450) NOT NULL,
-                    postingtime Datetime NOT NULL,
                     PRIMARY KEY (id) 
                     )
         '''
@@ -89,6 +88,18 @@ class Db:
             f'''INSERT INTO `user` (username,password,email) values('{user}', '{passw}', '{email}')''')
         return self.connection.commit()
     
+    def insert_blog(self,user,content):
+        cursor = self.get_cursor()
+        cursor.execute(
+            f'''INSERT INTO `blog` (username,content) values('{user}', '{content}')''')
+        return self.connection.commit()
+    
+    def get_blog(self,blogout):
+        cursor = self.get_cursor()
+        cursor.execute(
+            f'''SELECT username,content FROM `blog` ''')
+        blogout=cursor.fetchall()
+    
     def update(self, user, **kwargs):
         print(kwargs)
         cursor = self.get_cursor()
@@ -105,3 +116,5 @@ class Db:
         for (key, value) in args.items():
             query += f'{key}={value}'
         return query
+        
+    
