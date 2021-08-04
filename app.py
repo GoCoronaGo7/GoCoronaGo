@@ -136,7 +136,13 @@ def blog():
     msg=''
     if request.method == 'POST' and form.validate_on_submit():
         content = request.form['content']
+        
     return render_template('blog.html',form=form, msg=msg)
+
+@app.route('/blogout' )
+def blogout():
+    app.db.get_blog(blogout)    
+    return render_template('blogout.html',out=blogout)
 
 @app.route('/stats') 
 def stats():
@@ -178,6 +184,12 @@ def load_config():
     except ImportError:
         from config.base import config
         return config
+    
+def insert_blog_data(content):
+    if session['loggedin'] is True :
+            blogger = session['username']
+            app.db.insert_blog(blogger,content)
+        
 
 
 config = load_config()
