@@ -8,3 +8,4 @@ argon2-cffi
 python-dotenv
 requests
 requests-futures
+email_validator
