@@ -11,7 +11,7 @@
     "build": "babel --presets @babel/preset-react src/ --out-dir build/ --source-maps",
     "lint": "node_modules/.bin/eslint src/**/*.jsx --fix"
   },
-  "devDependencies": {
+  "dependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
@@ -23,9 +23,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
-  },
-  "dependencies": {
+    "eslint-plugin-react-hooks": "^4.2.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
