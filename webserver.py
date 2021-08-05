@@ -2,7 +2,6 @@
 
 # coding: UTF-8
 from flask import Flask
-from flask_bootstrap import Bootstrap
 from flask import render_template, session, request
 from lib.forms import BlogForm
 
@@ -11,7 +10,7 @@ from concurrent.futures import as_completed
 
 
 webserver = Flask(__name__)
-Bootstrap(webserver)
+
 
 from blueprints.accounts import accounts
 
@@ -42,11 +41,6 @@ def blogout():
 @webserver.route('/stats') 
 def stats():
     return render_template("stats.html")
-
-@webserver.route("/static/build/<path:path>")
-def getApp(path):
-    return webserver.send_static_file("build/" + path)
-
 
 code_names = ["amd","aps","beed","bengaluru","cgh","delhi","gandhinagar","ker","kolhapur","mp","nagpur","nashik","pune","rjs","rkt","tnadu","telangana","uttarpradesh","baroda","wb"]
 websites   = ["https://covidamd.com/","https://covidaps.com/","https://covidbeed.com/","https://covidbengaluru.com/","https://covidcgh.com/","https://coviddelhi.com/","https://covidgandhinagar.com/","https://covidker.com/","https://covidkolhapur.com/","https://covidmp.com/","https://covidnagpur.com/","https://covidnashik.com/","https://covidpune.com/","https://covidrjs.com/","https://covidrkt.com/","https://covidtnadu.com/","https://covidtelangana.com/","https://coviduttarpradesh.com/","https://covidbaroda.com/","https://covidwb.com/"]

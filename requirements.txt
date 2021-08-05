@@ -4,8 +4,6 @@ Flask
 flask-login
 flask-WTF
 wtforms
-flask-bootstrap
-email_validator
 argon2-cffi
 python-dotenv
 requests
