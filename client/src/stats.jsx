@@ -1,127 +1,26 @@
 const { useState } = React;
 
-import Selector from './components/selector.js'; 
-
-// CONSTANTS
-const routeMap = {
-    'Cases': 'stats/latest',
-    'Testing': 'stats/testing/latest',
-    'Beds': 'hospitals/beds'
-}
-const apiUrl = 'https://api.rootnet.in/covid19-in/';
+import Selector from './components/Selector.js'; 
+import StatsDisplay from './components/StatsDisplay.js';
 
 
-// GLOBAL VARIABLES
-let display = 'Cases';
-const apiCache = new Map();
 const regions = {};
 let regionStatDisplay, dropDownList, options;
 
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    ReactDOM.render(<Stats/>, document.getElementById('statsHolder'))
+    ReactDOM.render(<Stats />, document.getElementById('statsHolder'))
 });
 
 const Stats = () => {
     const [active, setActive] = useState('Cases');
-
-    return (<>
-        <Selector active={[active, setActive]} />
-        <StatsDisplay active={active} />
-        </>);
-}
-
-async function refresh() {
-    const activeButton = getActive()?.innerHTML || 'Cases';
-    const statsDisplayDiv = document.querySelector('#statsDisplay');
-    const Stats = await getStatData(activeButton);
-    ReactDom.render(<Stats />, statsDisplayDiv)
-    return;
-}
-
-async function getStatData(type) {
-    const url = apiUrl + routeMap[type];
-    const dat = await apiGet(url);
-    if (!dat || !dat.success) return `<span style='color: red;'> ERROR GETTING DATA </span>`;
-
-    const data = dat.data;
     
-    if (data.regional) {
-        if (!regions[type]?.length) {
-            regions[type] = [];
-            regions[type].push(...data.regional?.map(mapFn(type)));
-        }
-        loadRegions(type, data.regional);
-    } else {
-        $('#regionalData').css('display', 'none');
-    }
-    let element = <span style='color: green;'> Test </span>;
-
-    switch (type) {
-        case 'Cases': {
-            element = <div id="statsHolderSmall">
-                <div className="highlight">
-                    <h1>Discharged Cases</h1>
-                    <p>{Number(data.summary.discharged).toLocaleString()}</p>
-                </div>
-                
-                <div className="highlight">
-                    <h1>Deaths</h1>
-                    <p>{Number(data.summary.deaths).toLocaleString()}</p>
-                </div>
-
-                <div className="highlight">
-                    <h1>Total</h1>
-                    <p>{Number(data.summary.total).toLocaleString()}</p>
-                </div>
-            </div>
-            break;
-        }
-        
-        case 'Testing': {
-            element = <div id="statsHolderSmall">
-                <div className="highlight">
-                    <h1>Total Number of Tests</h1>
-                    <p>${Number(data.totalSamplesTested)}</p>
-                </div>
-            </div>
-            break;
-        }
-            
-        case 'Beds': {
-            element = <div id="statsHolderSmall">
-                <div className="highlight">
-                    <h1> Rural Beds Available </h1>
-                    <p>${Number(data.summary.ruralBeds).toLocaleString()}</p>
-                </div>
-
-                <div className="highlight">
-                    <h1> Urban Beds Available </h1>
-                    <p>${Number(data.summary.urbanBeds).toLocaleString()}</p>
-                </div>
-
-                <div className="highlight">
-                    <h1> Total Beds Available </h1>
-                    <p> ${Number(data.summary.totalBeds).toLocaleString()}</p>
-                </div>
-            </div>
-        }
-    }
-    return element;
+    return (<>
+        <Selector active={{ value: active, set: setActive }} />
+        <StatsDisplay active={active}/>
+    </>);
 }
 
-
-function apiGet(url) {
-    data = apiCache.get(url);
-    if (!data) {
-        return fetch(url).then(x => x.json()).then(x => {
-            apiCache.set(url, x);
-            return x;
-        }).catch(console.error);
-    }
-    return Promise.resolve().then(() => data);
-}
 
 function loadRegions(type, data) {
     dropDownList.empty()

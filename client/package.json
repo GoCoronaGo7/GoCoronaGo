@@ -7,16 +7,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "babel --watch --presets @babel/preset-react src/ --out-dir build/",
-    "dev": "live-server",
+    "dev": "babel --watch --presets @babel/preset-react src/ --out-dir ../static/build/",
     "build": "babel --presets @babel/preset-react src/ --out-dir build/"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
-    "@babel/preset-react": "^7.14.5",
-    "live-server": "^1.2.1"
+    "@babel/preset-react": "^7.14.5"
   },
   "dependencies": {
     "react": "^17.0.2",
