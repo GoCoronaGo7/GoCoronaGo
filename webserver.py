@@ -21,13 +21,20 @@ def index():
         user = session['username']
     return render_template('base.html')
 
+
 @webserver.route('/blog', methods=['GET', 'POST'])
 def blog():
     form = BlogForm(request.form)
     msg=''
     if request.method == 'POST' and form.validate_on_submit():
         content = request.form['content']
+        
     return render_template('blog.html',form=form, msg=msg)
+
+@webserver.route('/blogout' )
+def blogout():
+    webserver.app.db.get_blog(blogout)    
+    return render_template('blogout.html',out=blogout)
 
 @webserver.route('/stats') 
 def stats():
