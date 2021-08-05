@@ -21,9 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 const Stats = () => {
   const [active, setActive] = useState('Cases');
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Selector, {
-    active: [active, setActive]
-  }), /*#__PURE__*/React.createElement(StatsDisplay, {
-    active: active
+    active: (active, setActive)
   }));
 };
 

@@ -4,11 +4,8 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask import render_template, redirect, url_for, session, request
-from requests import get
 
 from lib.forms import BlogForm
-
-WEBPACK_DEV_SERVER_HOST = "http://localhost:8080"
 
 webserver = Flask(__name__)
 Bootstrap(webserver)
@@ -16,23 +13,6 @@ Bootstrap(webserver)
 from blueprints.accounts import accounts
 
 webserver.register_blueprint(accounts)
-
-def proxy(host, path):
-    path = path.replace('/static/build/scripts', '/build')
-    print(f"{host}{path}")
-    response = get(f"{host}{path}")
-    excluded_headers = [
-        "content-encoding",
-        "content-length",
-        "transfer-encoding",
-        "connection",
-    ]
-    headers = {
-        name: value
-        for name, value in response.raw.headers.items()
-        if name.lower() not in excluded_headers
-    }
-    return (response.content, response.status_code, headers)
 
 @webserver.route('/')
 def index():
@@ -55,6 +35,4 @@ def stats():
 
 @webserver.route("/static/build/<path:path>")
 def getApp(path):
-    if webserver.config.ENV['HOT_RELOAD']:
-        return proxy(WEBPACK_DEV_SERVER_HOST, request.path)
     return webserver.send_static_file("build/" + path)
