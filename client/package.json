@@ -9,7 +9,6 @@
   "scripts": {
     "dev": "babel --watch --presets @babel/preset-react src/ --out-dir ../static/build/ --source-maps",
     "build": "babel --presets @babel/preset-react src/ --out-dir build/ --source-maps",
-    "postbuild": "cp ./build ../static/build",
     "lint": "node_modules/.bin/eslint src/**/*.jsx --fix"
   },
   "dependencies": {
