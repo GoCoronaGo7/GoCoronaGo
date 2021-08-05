@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
-const element = <div>test</div> ;
-console.log(element);
+const element = <div>test</div>
+console.log(element)

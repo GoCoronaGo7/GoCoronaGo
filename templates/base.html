@@ -22,9 +22,13 @@
   {% if config.ENV['HOT_RELOAD'] %}
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js" crossorigin></script>
+
   {% else %}
     <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.min.js" crossorigin></script>
+
   {% endif %}
   <script>
     window.BASE_URL = "{{ url_for('static', filename='css/main.css')}}".split('css')[0];
