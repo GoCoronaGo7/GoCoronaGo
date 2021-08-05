@@ -1,4 +1,4 @@
-export default function () {
+export default function LoadingIcon () {
     return (
         <svg width="51px" height="50px" viewBox="0 0 51 50">
             <rect y="0" width="13" height="50" fill="#1fa2ff">

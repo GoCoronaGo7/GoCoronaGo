@@ -7,30 +7,27 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "babel --watch --presets @babel/preset-react src/ --out-dir ../static/build/",
-    "build": "babel --presets @babel/preset-react src/ --out-dir build/"
+    "dev": "babel --watch --presets @babel/preset-react src/ --out-dir ../static/build/ --source-maps",
+    "build": "babel --presets @babel/preset-react src/ --out-dir build/ --source-maps",
+    "lint": "node_modules/.bin/eslint src/**/*.jsx --fix"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
-    "@babel/preset-react": "^7.14.5"
+    "@babel/preset-react": "^7.14.5",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-dom": "^17.0.2"
   }
 }
