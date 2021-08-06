@@ -1,5 +1,18 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
 body {
-	padding-top: 25vh;	
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+
+	padding-top: 25vh;
 }
 .form-container {
     font-family: "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;
@@ -40,30 +53,71 @@ body {
 .navbar {
 	position: fixed;
 	top:0;
+	left: 0;
 	width: 100%;
 	display: flex;
+	margin-left: 0;
+	padding: .5rem 1rem;
 
-	flex-direction: row-reverse;
+	flex-flow: row-reverse nowrap;
+	flex-basis: auto;
+
+	justify-content: space-around;
+	align-items: center;
 
 	transform: translateZ(20px);
 	z-index: 99;
 }
 
+.navbar-collapse {
+	flex-direction: row;
+	align-items: center;
+	margin-right: auto !important;
 
-.navbar > button {
-    margin-left: 0.1rem;
-	margin-right: 0.1rem;
-	margin-top: 4px;
-	align-self: flex-start;
-	border-radius: 2rem;
-	appearance: none;
-	display: flex;
-	outline: none;
-    background-color: Transparent;
+	margin-top: auto;
+	margin-bottom: auto;
+
+	padding: initial;
 }
 
-.navbar > button > svg {
-	justify-content: center;
+@media (min-width: 992px) {
+	.navbar-collapse {
+		display: -ms-flexbox!important;
+		display: flex!important;
+		-ms-flex-preferred-size: auto;
+		flex-basis: auto;
+	}
+}
+
+.nav-link {
+	padding-right: .5rem;
+    padding-left: .5rem;
+}
+
+.navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+.navbar > button {
+    margin-left: 0.1rem;
+	height: 30px;
+	border-radius: 32px;
+	appearance: none;
+	outline: none;
+    background-color: Transparent;
+	
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.navbar > button > div, .navbar > button > div > svg {
+	display: inline-block;
+	vertical-align: middle;
 }
 
 ::-webkit-scrollbar {
@@ -87,6 +141,10 @@ p {
 
 ul {
   list-style-type: none;
+}
+
+a {
+	text-decoration: none;
 }
 
 .waves {
