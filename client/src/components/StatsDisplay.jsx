@@ -1,6 +1,8 @@
 import RegionalDisplay from './RegionalDisplay.js'
 import LoadingIcon from './LoadingIcon.js'
+
 const { useState, useEffect } = React
+
 const apiCache = new Map()
 
 // CONSTANTS
@@ -52,32 +54,36 @@ export default function StatsDisplay ({ active: type }) {
         }
 
         case 'Testing': {
-            element = (<div id="statsHolderSmall">
-                <div className="highlight">
-                    <h1>Total Number of Tests</h1>
-                    <p>{Number(data.totalSamplesTested).toLocaleString()}</p>
+            element = (
+                <div id="statsHolderSmall">
+                    <div className="highlight">
+                        <h1>Total Number of Tests</h1>
+                        <p>{Number(data.totalSamplesTested).toLocaleString()}</p>
+                    </div>
                 </div>
-            </div>)
+            )
             break
         }
 
         case 'Beds': {
-            element = <div id="statsHolderSmall">
-                <div className="highlight">
-                    <h1> Rural Beds Available </h1>
-                    <p>{Number(data.summary.ruralBeds).toLocaleString()}</p>
-                </div>
+            element = (
+                <div id="statsHolderSmall">
+                    <div className="highlight">
+                        <h1> Rural Beds Available </h1>
+                        <p>{Number(data.summary.ruralBeds).toLocaleString()}</p>
+                    </div>
 
-                <div className="highlight">
-                    <h1> Urban Beds Available </h1>
-                    <p>{Number(data.summary.urbanBeds).toLocaleString()}</p>
-                </div>
+                    <div className="highlight">
+                        <h1> Urban Beds Available </h1>
+                        <p>{Number(data.summary.urbanBeds).toLocaleString()}</p>
+                    </div>
 
-                <div className="highlight">
-                    <h1> Total Beds Available </h1>
-                    <p> {Number(data.summary.totalBeds).toLocaleString()}</p>
+                    <div className="highlight">
+                        <h1> Total Beds Available </h1>
+                        <p> {Number(data.summary.totalBeds).toLocaleString()}</p>
+                    </div>
                 </div>
-            </div>
+            )
         }
         }
         return (<div id="statsDisplayBounds">
