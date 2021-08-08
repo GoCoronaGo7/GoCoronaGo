@@ -12,14 +12,30 @@ body {
     text-align: left;
     background-color: #fff;
 
+	z-index: 1;
 	padding-top: 25vh;
 }
 .form-container {
     font-family: "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;
 	border-radius: 10px;
 	padding: 30px;
+	background-color: #343c46b6;
 }
 
+.form-control {
+	display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 .notice {
 
     justify-content: center;
@@ -120,6 +136,23 @@ body {
 	vertical-align: middle;
 }
 
+button, input {
+    overflow: visible;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+dd {
+    margin-bottom: .5rem;
+    margin-left: 0;
+}
+
+
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 8px;        
@@ -154,8 +187,25 @@ a {
     bottom: -20px;
     overflow: hidden;	
 	transform: translateZ(-10px);
+	z-index: -1;
 }
 
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+	
+	justify-content: center;
+}
 
 button {
     appearance: none;
@@ -174,7 +224,40 @@ button:focus {
 	outline: none;
 }
 
+.btn-block {
+    display: block;
+    width: 100%;
+}
 
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
 
 button:hover {
 	cursor: pointer;
