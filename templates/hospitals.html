@@ -1,0 +1,28 @@
+{% extends "base.html"%}
+
+{% block title %}
+	Hospitals Bed Availability
+{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/hospitals.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/Dropdown.css') }}" type="text/css">
+
+    <!-- Mobile CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/hospitals_mobile.css') }}" media="only screen and (max-device-width: 480px)" h/>
+    <script>
+        const [x,y] = JSON.parse("{{ data }}".replaceAll('&#39;', '"'));
+        window.STATS_DATA = {
+            code_names: x,
+            state_names: y
+        };
+    </script>
+{% endblock head %}
+
+{% block body %}
+
+    <div id="display">
+        <!-- REACT INSERT -->
+    </div>
+    <script src="{{ url_for('static', filename='build/hospitals.js') }}" type="module"></script>
+{% endblock body %} 

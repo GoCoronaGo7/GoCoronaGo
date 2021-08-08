@@ -14,7 +14,9 @@ module.exports = {
         ReactDOM: 'readonly',
         regions: 'writable',
         PropTypes: 'readonly',
-        ReactRouterDOM: 'readonly'
+        ReactRouterDOM: 'readonly',
+        STATS_DATA: 'readonly',
+        BASE_URL: 'readonly'
     },
     parserOptions: {
         ecmaFeatures: {

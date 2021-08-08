@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 function swap (isLightMode) {
-    console.log(isLightMode)
     const cssLink = document.querySelector('link#theme')
     const moonSVG = document.querySelector('#lightmode-button')
     const sunSVG = document.querySelector('#darkmode-button')
