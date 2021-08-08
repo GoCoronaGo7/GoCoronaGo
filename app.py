@@ -56,13 +56,13 @@ for i in config.ENV:
     app.ENV[i] = os.environ.get(i)
 
 
-db = Db(app.ENV)
-if (db.connected()):
-    print('connected!')
+# db = Db(app.ENV)
+# if (db.connected()):
+#     print('connected!')
 
 app.email_manager = EmailManager(app.ENV)
 app.host = config.HOST
-app.db = db
+# app.db = db
 
 from webserver import webserver
 

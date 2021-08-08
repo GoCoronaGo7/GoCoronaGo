@@ -40,7 +40,15 @@ def blogout():
 
 @webserver.route('/stats') 
 def stats():
-    return render_template("stats.html")
+    return render_template("stats.html", )
+
+@webserver.route('/hospitals') 
+def hospitals():
+    str_code_names = ",".join(map(lambda x: "'" + x + "'", code_names))
+    str_state_names = ",".join(map(lambda x: "'" + x + "'", state_names))
+    data = f'[ [{ str_code_names }], [{ str_state_names }]]'
+    print(data)
+    return render_template("hospitals.html", data=data)
 
 code_names = ["amd","aps","beed","bengaluru","cgh","delhi","gandhinagar","ker","kolhapur","mp","nagpur","nashik","pune","rjs","rkt","tnadu","telangana","uttarpradesh","baroda","wb"]
 websites   = ["https://covidamd.com/","https://covidaps.com/","https://covidbeed.com/","https://covidbengaluru.com/","https://covidcgh.com/","https://coviddelhi.com/","https://covidgandhinagar.com/","https://covidker.com/","https://covidkolhapur.com/","https://covidmp.com/","https://covidnagpur.com/","https://covidnashik.com/","https://covidpune.com/","https://covidrjs.com/","https://covidrkt.com/","https://covidtnadu.com/","https://covidtelangana.com/","https://coviduttarpradesh.com/","https://covidbaroda.com/","https://covidwb.com/"]
@@ -56,7 +64,7 @@ def vaccination():
     if all is not None:
         return requested_data
     if name is None:
-        return { 'data': [code_names, websites, state_names] }
+        return { 'data': [code_names, state_names] }
     else:
         return { 'data': requested_data.get(name) }
         
