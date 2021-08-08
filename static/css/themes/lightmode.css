@@ -46,24 +46,12 @@ svg {
 
 #darkwaves { display: none;}
 
-label {
-    color:  #5C8D89;
-}
-
-p, span {
-    color:  #5C8D89;
-}
-
-h1 {
-    color: #5C8D89;
-}
-
-h3 {
-    color: #5C8D89;
+label, p, span, h1, h3 {
+    color: #4a706d;
 }
 
 .highlight, #regionalData {
-    border-color: #A7D7C5;
+    border-color: #394943;
 }
 
 button.active {
@@ -73,6 +61,10 @@ button.active {
 
 li {
     color:#A7D7C5;
+}
+
+.scrollable-menu > li {
+    color: #566f65;
 }
 
 #statsHolder{
