@@ -96,13 +96,12 @@ body {
 	padding: initial;
 }
 
-@media (min-width: 992px) {
-	.navbar-collapse {
-		display: -ms-flexbox!important;
-		display: flex!important;
-		-ms-flex-preferred-size: auto;
-		flex-basis: auto;
-	}
+
+.navbar-collapse {
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
 }
 
 .nav-link {

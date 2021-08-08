@@ -1,52 +1,34 @@
-function toggleTheme() {
-    const localDarkMode = JSON.parse(localStorage.getItem('dark')); // get Client side store
-
-    let isDarkMode = localDarkMode ? true : false; // isDarkMode is a boolean 
-
-    const cssLink = $('link#theme');
-    const button = $('#theme-toggle-button'); // get the theme toggle button
-    const moonSVG = $('#lightmode-button');
-    const sunSVG = $('#darkmode-button');
-
-    if (isDarkMode) {
-        moonSVG.css('display', 'block');
-        sunSVG.css('display', 'none');
-
-        const oldLink = cssLink.attr('href');
-        const newLink = oldLink.replace('darkmode', 'lightmode');
-        cssLink.attr('href', newLink);
-
-        isDarkMode = false;
-        localStorage.setItem('dark', false)
-    } else {
-        moonSVG.css('display', 'none');
-        sunSVG.css('display', 'block');
-        
-        const oldLink = cssLink.attr('href');
-        const newLink = oldLink.replace('lightmode', 'darkmode');
-        cssLink.attr('href', newLink);
-
-        isDarkMode = true;
-        localStorage.setItem('dark', true)
-    }
+function toggleTheme () {
+    const cssLink = document.querySelector('link#theme')
+    const isDarkMode = cssLink.getAttribute('href').includes('dark')
+    swap(isDarkMode)
 }
-$(document).ready(function() {
-    const cssLink = $('link#theme');
-    const moonSVG = $('#lightmode-button');
-    const sunSVG = $('#darkmode-button');
 
-    const localDarkMode = JSON.parse(localStorage.getItem('dark')); // get Client side store
-    let isDarkMode = localDarkMode ? true : false; // isDarkMode is a boolean 
+document.addEventListener('DOMContentLoaded', function () {
+    const localLightMode = JSON.parse(localStorage.getItem('light')) // get Client side store
+    const isLightMode = !!localLightMode // isLightMode is a boolean
 
-    if (isDarkMode) {
-        moonSVG.css('display', 'none');
-        sunSVG.css('display', 'block');
+    swap(isLightMode)
 
-        const oldLink = cssLink.attr('href');
-        const newLink = oldLink.replace('lightmode', 'darkmode');
-        cssLink.attr('href', newLink);
-    }
-
-    $('#theme-toggle-button').click(toggleTheme);
+    const button = document.getElementById('theme-toggle-button')
+    button.addEventListener('click', toggleTheme)
 })
 
+function swap (isLightMode) {
+    console.log(isLightMode)
+    const cssLink = document.querySelector('link#theme')
+    const moonSVG = document.querySelector('#lightmode-button')
+    const sunSVG = document.querySelector('#darkmode-button')
+
+    moonSVG.style.display = !isLightMode ? 'none' : 'block'
+    sunSVG.style.display = !isLightMode ? 'block' : 'none'
+
+    let mode = ['lightmode', 'darkmode']
+    if (isLightMode) {
+        mode = mode.reverse()
+    }
+    const oldLink = cssLink.getAttribute('href')
+    const newLink = oldLink.replace(...mode)
+    cssLink.setAttribute('href', newLink)
+    localStorage.setItem('light', isLightMode)
+}
