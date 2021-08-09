@@ -52,7 +52,6 @@ input.search-bar {
 }
 
 .search-bar-div > button {
-    margin-right: 15px;
     align-self: flex-end;
 }
 
