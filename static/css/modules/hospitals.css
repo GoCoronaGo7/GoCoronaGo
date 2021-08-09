@@ -14,7 +14,7 @@
 }
 
 .Dropdown-root {
-    max-width: 15vw;
+    max-width: 200px;
 }
 
 .Dropdown-control {
@@ -53,3 +53,14 @@ input.search-bar {
     margin-right: 15px;
     align-self: flex-end;
 }
+
+
+#dropDown-bar {
+    display: block;
+    flex-direction: row; 
+    justify-content: space-around;
+}
+
+#dropDown-bar > * {
+    margin-left: 20px;
+} 
