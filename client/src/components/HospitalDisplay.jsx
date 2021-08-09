@@ -24,11 +24,13 @@ export default function HospitalDisplay () {
     }, [region])
 
     if (error) return <span color='red'> {error} </span>
-    if (!hospitals || hospitals.region !== region) return <div style={{ display: 'grid', placeItems: 'center' }} > < LoadingIcon /> </div>
+    if (!hospitals || hospitals.region !== region) return <div id="loadingDisplay" style={{ display: 'grid', placeItems: 'center' }} > < LoadingIcon /> </div>
     return (
-        <div>
+        <div id="display">
             < SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            < Dropdown options={STATS_DATA.state_names} value={region} onChange={({ value }) => setRegion(value)} />
+            <div id="dropDown-bar">
+                < Dropdown options={STATS_DATA.state_names} value={region} onChange={({ value }) => setRegion(value)} />
+            </div>
             < HospitalsDisplay hospitals={filtered} />
         </div>
     )
