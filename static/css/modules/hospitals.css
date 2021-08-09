@@ -14,12 +14,15 @@
 }
 
 .Dropdown-root {
-    max-width: 200px;
+    align-self: flex-start;
+    justify-self: flex-start;
+    max-width: 250px;
 }
 
 .Dropdown-control {
     border-radius: 15px;
     border: none;
+    width: 250px;
 }
 
 .Dropdown-menu {
@@ -46,7 +49,6 @@ input.search-bar {
     padding: 0.5vw 2vh;
     margin-right: 15px;
 
-    justify-content: space-between;
 }
 
 .search-bar-div > button {
@@ -56,9 +58,9 @@ input.search-bar {
 
 
 #dropDown-bar {
-    display: block;
+    display: flex;
     flex-direction: row; 
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 #dropDown-bar > * {
