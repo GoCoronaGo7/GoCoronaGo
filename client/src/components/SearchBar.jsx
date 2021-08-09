@@ -1,3 +1,5 @@
+import CrossButton from './CrossButton.js'
+
 export default function SearchBar ({ setSearchQuery, searchQuery }) {
     return <div className="search-bar-div">
         <input
@@ -9,9 +11,9 @@ export default function SearchBar ({ setSearchQuery, searchQuery }) {
             onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button onClick={() => setSearchQuery('')}
-            className="x-button"
+            className="search-bar"
         >
-                X
+            <CrossButton />
         </button>
     </div>
 }

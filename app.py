@@ -55,14 +55,15 @@ app.ENV = dict()
 for i in config.ENV:
     app.ENV[i] = os.environ.get(i)
 
-
-# db = Db(app.ENV)
-# if (db.connected()):
-#     print('connected!')
+if app.ENV.get('NO_DB') is None:
+    db = Db(app.ENV)
+    if (db.connected()):
+        print('connected!')
+    app.db = db
 
 app.email_manager = EmailManager(app.ENV)
 app.host = config.HOST
-# app.db = db
+
 
 from webserver import webserver
 
