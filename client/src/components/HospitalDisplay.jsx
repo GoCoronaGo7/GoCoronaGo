@@ -2,7 +2,7 @@ import Dropdown from './Dropdown.js'
 import LoadingIcon from './LoadingIcon.js'
 import SearchBar from './SearchBar.js'
 
-const { useEffect, useState, useReducer } = React
+const { useEffect, useState, useReducer, useMemo } = React
 
 const apiUrl = location.origin + '/api/data'
 const cache = new Map()
@@ -37,9 +37,28 @@ export default function HospitalDisplay () {
 function HospitalsDisplay ({ hospitals }) {
     return <span color='white'> {hospitals?.length || 'No items matched'} </span>
 }
+
 HospitalsDisplay.propTypes = {
     hospitals: PropTypes.array
 }
+
+function RegionalDropdown ({ hospitals, setSearchQuery }) {
+    const [regions, setRegions] = useState(null)
+
+    useMemo(() => {
+        console.log(hospitals)
+    }, [hospitals])
+
+    if (!hospitals) return null
+    if (!regions) return <div id="loadingDisplay" style={{ display: 'grid', placeItems: 'center' }} > < LoadingIcon /> </div>
+    else return <div> {hospitals.length} </div>
+}
+
+RegionalDropdown.propTypes = {
+    hospitals: PropTypes.object,
+    setSearchQuery: PropTypes.func.isRequired
+}
+
 function updateHospitals (state, action) {
     // update search Query
     if (typeof action === 'string' || !action) return { ...state, searchQuery: action, filtered: filterHospitals(state.hospitals, action) }
@@ -57,7 +76,6 @@ async function getRegionDataByName (name) {
     if (!code) return 'Invalid State Name'
     const cachedData = cache.get(code)
     if (cachedData) return cachedData
-    console.log(`${apiUrl}?name=${code}`)
     const data = await fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error)
     if (!data) return 'Failed to fetch data from API'
     return data

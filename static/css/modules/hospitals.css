@@ -1,0 +1,66 @@
+#root {
+    display: grid;
+    background-color: rgba(255, 255, 255, 0.056);
+    padding: 5vw 5vh;
+    margin: 1vw 1vh;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0.8, 0.8, 0.8, 0.2);
+}
+#display {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    gap: 3vh;
+}
+
+.Dropdown-root {
+    max-width: 15vw;
+}
+
+.Dropdown-control {
+    border-radius: 15px;
+    border: none;
+}
+
+.Dropdown-menu {
+    border: none;
+}
+
+.Dropdown-arrow {
+    vertical-align: middle;
+    margin-top: 2.5px
+}
+
+.search-bar {
+    background: none;
+    border: none;
+    outline: none;
+}
+input.search-bar {
+    width: 100%;
+}
+.search-bar-div {
+    display: flex;
+    width: 80vw;
+    border-radius: 15px;
+    padding: 0.5vw 2vh;
+    margin-right: 15px;
+
+    justify-content: space-between;
+}
+
+.search-bar-div > button {
+    margin-right: 15px;
+    align-self: flex-end;
+}
+
+
+#dropDown-bar {
+    display: block;
+    flex-direction: row; 
+    justify-content: space-around;
+}
+
+#dropDown-bar > * {
+    margin-left: 20px;
+} 
