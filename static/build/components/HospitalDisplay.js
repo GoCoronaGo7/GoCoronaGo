@@ -1,142 +1,130 @@
-import Dropdown from './Dropdown.js';
-import LoadingIcon from './LoadingIcon.js';
-import SearchBar from './SearchBar.js';
 const {
-  useEffect,
   useState,
-  useReducer
+  useEffect
 } = React;
-const apiUrl = location.origin + '/api/data';
-const cache = new Map();
-export default function HospitalDisplay() {
-  const [region, setRegion] = useState(STATS_DATA.state_names[15]);
-  const [{
-    searchQuery,
-    hospitals,
-    filtered
-  }, setSearchQuery] = useReducer(updateHospitals, {
-    searchQuery: '',
-    hospitals: null,
-    filtered: null,
-    region: null
-  });
-  const [error, setError] = useState('');
-  useEffect(() => {
-    const fetchedRegion = region;
-    getRegionDataByName(fetchedRegion).then(resData => {
-      resData ||= 'Failed to fetch Data';
-      if (typeof resData === 'string') return setError(resData + ', Contact a developer if the issue persists');
-      setSearchQuery({
-        values: resData.data,
-        region: fetchedRegion
-      });
-    }).catch(console.error);
-  }, [region]);
-  if (error) return /*#__PURE__*/React.createElement("span", {
-    color: "red"
-  }, " ", error, " ");
-  if (!hospitals || hospitals.region !== region) return /*#__PURE__*/React.createElement("div", {
-    id: "loadingDisplay",
-    style: {
-      display: 'grid',
-      placeItems: 'center'
-    }
-  }, " ", /*#__PURE__*/React.createElement(LoadingIcon, null), " ");
-  return /*#__PURE__*/React.createElement("div", {
-    id: "display"
-  }, /*#__PURE__*/React.createElement(SearchBar, {
-    searchQuery: searchQuery,
-    setSearchQuery: setSearchQuery
-  }), /*#__PURE__*/React.createElement("div", {
-    id: "dropDown-bar"
-  }, /*#__PURE__*/React.createElement(Dropdown, {
-    options: STATS_DATA.state_names,
-    value: region,
-    onChange: ({
-      value
-    }) => setRegion(value)
-  }), /*#__PURE__*/React.createElement(RegionDropDown, {
-    hospitals: hospitals,
-    setSearchQuery: setSearchQuery
-  })), /*#__PURE__*/React.createElement(HospitalsDisplay, {
-    hospitals: filtered
-  }));
-}
-
-function HospitalsDisplay({
+const ITEMS_COUNT = 15;
+const icons = {
+  start: 'https://github.com/google/material-design-icons/raw/master/ios/av/fast_rewind/materialicons/black/baseline_fast_rewind_black_48pt.xcassets/baseline_fast_rewind_black_48pt.imageset/baseline_fast_rewind_black_48pt_3x.png',
+  previous: 'https://github.com/google/material-design-icons/raw/master/ios/navigation/arrow_back_ios/materialicons/black/baseline_arrow_back_ios_black_48pt.xcassets/baseline_arrow_back_ios_black_48pt.imageset/baseline_arrow_back_ios_black_48pt_3x.png',
+  next: 'https://github.com/google/material-design-icons/raw/master/ios/navigation/arrow_forward_ios/materialicons/black/baseline_arrow_forward_ios_black_48pt.xcassets/baseline_arrow_forward_ios_black_48pt.imageset/baseline_arrow_forward_ios_black_48pt_3x.png',
+  end: 'https://github.com/google/material-design-icons/raw/master/ios/av/fast_forward/materialicons/black/baseline_fast_forward_black_48pt.xcassets/baseline_fast_forward_black_48pt.imageset/baseline_fast_forward_black_48pt_3x.png'
+};
+const buttonClickHandlers = {
+  start: (page, setPage, click) => {
+    if (page === 1) return false;
+    if (click) setPage(1);
+    return true;
+  },
+  previous: (page, setPage, click) => {
+    if (page === 1) return false;
+    if (click) setPage(page - 1);
+    return true;
+  },
+  next: (page, setPage, click, maxPages) => {
+    if (page === maxPages) return false;
+    if (click) setPage(page + 1);
+    return true;
+  },
+  end: (page, setPage, click, maxPages) => {
+    if (page === maxPages) return false;
+    if (click) setPage(maxPages);
+    return true;
+  }
+};
+export default function HospitalsDisplay({
   hospitals
 }) {
-  return /*#__PURE__*/React.createElement("span", {
-    color: "white"
-  }, " ", hospitals?.length || 'No items matched', " ");
+  const [page, setPage] = useState(1);
+  const maxPages = Math.ceil(hospitals.length / ITEMS_COUNT);
+  return /*#__PURE__*/React.createElement("div", {
+    id: "hospitalsDisplay"
+  }, /*#__PURE__*/React.createElement(Navigator, {
+    page: page,
+    setPage: setPage,
+    maxPages: maxPages
+  }), /*#__PURE__*/React.createElement("div", {
+    id: "header"
+  }, /*#__PURE__*/React.createElement("span", null, " fill")), /*#__PURE__*/React.createElement(TabledDisplay, {
+    hospitals: hospitals,
+    page: page
+  }));
 }
-
 HospitalsDisplay.propTypes = {
   hospitals: PropTypes.array
 };
 
-function RegionDropDown({
-  hospitals,
-  setSearchQuery
+function Navigator({
+  page,
+  setPage,
+  maxPages
 }) {
-  const [regions, setRegion] = useState(null);
   useEffect(() => {
-    setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area))]);
-  }, [hospitals]);
-  if (!hospitals || !regions) return /*#__PURE__*/React.createElement("div", {
-    id: "loadingDisplay",
-    style: {
-      display: 'grid',
-      placeItems: 'center'
+    const listeners = [];
+
+    const handlerFactory = handler => () => {
+      handler(page, setPage, true, maxPages);
+    };
+
+    for (const [key, handler] of Object.entries(buttonClickHandlers)) {
+      const element = document.getElementById(`nav-${key}`);
+      const func = handlerFactory(handler);
+      element.addEventListener('click', func);
+      listeners.push([element, func]);
     }
-  }, " ", /*#__PURE__*/React.createElement(LoadingIcon, null), " ");else return /*#__PURE__*/React.createElement(Dropdown, {
-    options: regions,
-    value: 'All Regions',
-    onChange: ({
-      value
-    }) => setSearchQuery({
-      type: 'region',
-      region: value
-    })
+
+    return () => {
+      for (const [el, handler] of listeners) {
+        el.removeEventListener('click', handler);
+      }
+    };
   });
+  return /*#__PURE__*/React.createElement("div", {
+    id: "navigator"
+  }, /*#__PURE__*/React.createElement("button", {
+    id: "nav-start"
+  }, " ", /*#__PURE__*/React.createElement("img", {
+    src: icons.start,
+    alt: "start"
+  })), /*#__PURE__*/React.createElement("button", {
+    id: "nav-previous"
+  }, " ", /*#__PURE__*/React.createElement("img", {
+    src: icons.previous,
+    alt: "previous"
+  })), /*#__PURE__*/React.createElement("button", {
+    id: "nav-current"
+  }, " ", page, " "), /*#__PURE__*/React.createElement("button", {
+    id: "nav-next"
+  }, " ", /*#__PURE__*/React.createElement("img", {
+    src: icons.next,
+    alt: "next"
+  })), /*#__PURE__*/React.createElement("button", {
+    id: "nav-end"
+  }, " ", /*#__PURE__*/React.createElement("img", {
+    src: icons.end,
+    alt: "end"
+  })));
 }
 
-RegionDropDown.propTypes = {
-  hospitals: PropTypes.object,
-  setSearchQuery: PropTypes.func.isRequired
+Navigator.propTypes = {
+  page: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
+  maxPages: PropTypes.number.isRequired
 };
 
-function updateHospitals(state, action) {
-  // update search Query
-  if (typeof action === 'string' || !action) return { ...state,
-    searchQuery: action,
-    filtered: filterHospitals(state.hospitals, action, state.region)
-  };else if (action instanceof Object && action.values && action.region) return { ...state,
-    hospitals: action,
-    filtered: filterHospitals(action, state.searchQuery, state.region)
-  };else if (action instanceof Object && action.type === 'region' && action.region) return { ...state,
-    region: action.region,
-    filtered: filterHospitals(state.hospitals, state.searchQuery, action.region)
-  };else throw new Error();
+function TabledDisplay({
+  hospitals,
+  page
+}) {
+  console.log(page);
+  return /*#__PURE__*/React.createElement("div", {
+    id: "hospitalsTable"
+  }, hospitals.map(x => /*#__PURE__*/React.createElement("div", {
+    key: x.hospital_name
+  }, " ", x.hospital_name, " ")).splice(page, ITEMS_COUNT));
 }
 
-function filterHospitals(hospitals, action, region) {
-  if (!hospitals || hospitals.values?.length === 0) return [];
-  let filtered = hospitals.values;
-  if (region && region !== 'All Regions') filtered = filtered.filter(x => x.area === region);
-  if (!action || action === '') return filtered;
-  filtered = filtered.filter(x => x.hospital_name.toLowerCase().includes(action.toLowerCase()));
-  return filtered;
-}
-
-async function getRegionDataByName(name) {
-  const code = STATS_DATA.code_names[STATS_DATA.state_names.indexOf(name)];
-  if (!code) return 'Invalid State Name';
-  const cachedData = cache.get(code);
-  if (cachedData) return cachedData;
-  console.log(`${apiUrl}?name=${code}`);
-  const data = await fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error);
-  if (!data) return 'Failed to fetch data from API';
-  return data;
-}
+TabledDisplay.propTypes = {
+  hospitals: PropTypes.array,
+  page: PropTypes.number
+};
 //# sourceMappingURL=HospitalDisplay.js.map

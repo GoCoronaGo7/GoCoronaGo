@@ -77,5 +77,4 @@ webserver.app = app
 print(app.ENV)
 
 if __name__ == '__main__':
-    print(config.DEBUG)
     app.webserver.run(debug=config.DEBUG, port=app.ENV['PORT'])

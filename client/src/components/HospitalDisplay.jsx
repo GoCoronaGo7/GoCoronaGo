@@ -1,87 +1,96 @@
-import Dropdown from './Dropdown.js'
-import LoadingIcon from './LoadingIcon.js'
-import SearchBar from './SearchBar.js'
+const { useState, useEffect } = React
 
-const { useEffect, useState, useReducer } = React
-
-const apiUrl = location.origin + '/api/data'
-const cache = new Map()
-
-export default function HospitalDisplay () {
-    const [region, setRegion] = useState(STATS_DATA.state_names[15])
-    const [{ searchQuery, hospitals, filtered }, setSearchQuery] = useReducer(updateHospitals, { searchQuery: '', hospitals: null, filtered: null, region: null })
-    const [error, setError] = useState('')
-
-    useEffect(() => {
-        const fetchedRegion = region
-        getRegionDataByName(fetchedRegion)
-            .then(resData => {
-                resData ||= 'Failed to fetch Data'
-                if (typeof resData === 'string') return setError(resData + ', Contact a developer if the issue persists')
-                setSearchQuery({ values: resData.data, region: fetchedRegion })
-            })
-            .catch(console.error)
-    }, [region])
-
-    if (error) return <span color='red'> {error} </span>
-    if (!hospitals || hospitals.region !== region) return <div id="loadingDisplay" style={{ display: 'grid', placeItems: 'center' }} > < LoadingIcon /> </div>
-    return (
-        <div id="display">
-            < SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            <div id="dropDown-bar">
-                < Dropdown options={STATS_DATA.state_names} value={region} onChange={({ value }) => setRegion(value)} />
-                < RegionDropDown hospitals={hospitals} setSearchQuery={setSearchQuery} />
-            </div>
-            < HospitalsDisplay hospitals={filtered} />
-        </div>
-    )
+const ITEMS_COUNT = 15
+const icons = {
+    start: 'https://github.com/google/material-design-icons/raw/master/ios/av/fast_rewind/materialicons/black/baseline_fast_rewind_black_48pt.xcassets/baseline_fast_rewind_black_48pt.imageset/baseline_fast_rewind_black_48pt_3x.png',
+    previous: 'https://github.com/google/material-design-icons/raw/master/ios/navigation/arrow_back_ios/materialicons/black/baseline_arrow_back_ios_black_48pt.xcassets/baseline_arrow_back_ios_black_48pt.imageset/baseline_arrow_back_ios_black_48pt_3x.png',
+    next: 'https://github.com/google/material-design-icons/raw/master/ios/navigation/arrow_forward_ios/materialicons/black/baseline_arrow_forward_ios_black_48pt.xcassets/baseline_arrow_forward_ios_black_48pt.imageset/baseline_arrow_forward_ios_black_48pt_3x.png',
+    end: 'https://github.com/google/material-design-icons/raw/master/ios/av/fast_forward/materialicons/black/baseline_fast_forward_black_48pt.xcassets/baseline_fast_forward_black_48pt.imageset/baseline_fast_forward_black_48pt_3x.png'
 }
 
-function HospitalsDisplay ({ hospitals }) {
-    return <span color='white'> {hospitals?.length || 'No items matched'} </span>
+const buttonClickHandlers = {
+    start: (page, setPage, click) => {
+        if (page === 1) return false
+        if (click) setPage(1)
+        return true
+    },
+    previous: (page, setPage, click) => {
+        if (page === 1) return false
+        if (click) setPage(page - 1)
+        return true
+    },
+    next: (page, setPage, click, maxPages) => {
+        if (page === maxPages) return false
+        if (click) setPage(page + 1)
+        return true
+    },
+    end: (page, setPage, click, maxPages) => {
+        if (page === maxPages) return false
+        if (click) setPage(maxPages)
+        return true
+    }
+}
+
+export default function HospitalsDisplay ({ hospitals }) {
+    const [page, setPage] = useState(1)
+    const maxPages = Math.ceil(hospitals.length / ITEMS_COUNT)
+    return (
+        <div id="hospitalsDisplay">
+            <Navigator page={page} setPage={setPage} maxPages={maxPages}/>
+            <div id="header">
+                <span> fill</span>
+            </div>
+            <TabledDisplay hospitals={hospitals} page={page} />
+        </div>
+    )
 }
 HospitalsDisplay.propTypes = {
     hospitals: PropTypes.array
 }
 
-function RegionDropDown ({ hospitals, setSearchQuery }) {
-    const [regions, setRegion] = useState(null)
+function Navigator ({ page, setPage, maxPages }) {
     useEffect(() => {
-        setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area))])
-    }, [hospitals])
-    if (!hospitals || !regions) return <div id="loadingDisplay" style={{ display: 'grid', placeItems: 'center' }} > < LoadingIcon /> </div>
-    else return < Dropdown options={regions} value={'All Regions'} onChange={({ value }) => setSearchQuery({ type: 'region', region: value })}/>
-}
-RegionDropDown.propTypes = {
-    hospitals: PropTypes.object,
-    setSearchQuery: PropTypes.func.isRequired
-}
+        const listeners = []
+        const handlerFactory = (handler) => () => {
+            handler(page, setPage, true, maxPages)
+        }
+        for (const [key, handler] of Object.entries(buttonClickHandlers)) {
+            const element = document.getElementById(`nav-${key}`)
+            const func = handlerFactory(handler)
+            element.addEventListener('click', func)
+            listeners.push([element, func])
+        }
+        return () => {
+            for (const [el, handler] of listeners) {
+                el.removeEventListener('click', handler)
+            }
+        }
+    })
 
-function updateHospitals (state, action) {
-    // update search Query
-    if (typeof action === 'string' || !action) return { ...state, searchQuery: action, filtered: filterHospitals(state.hospitals, action, state.region) }
-    else if (action instanceof Object && action.values && action.region) return { ...state, hospitals: action, filtered: filterHospitals(action, state.searchQuery, state.region) }
-    else if (action instanceof Object && action.type === 'region' && action.region) return { ...state, region: action.region, filtered: filterHospitals(state.hospitals, state.searchQuery, action.region) }
-    else throw new Error()
-}
-
-function filterHospitals (hospitals, action, region) {
-    if (!hospitals || hospitals.values?.length === 0) return []
-    let filtered = hospitals.values
-    if (region && region !== 'All Regions') filtered = filtered.filter(x => x.area === region)
-    if (!action || action === '') return filtered
-
-    filtered = filtered.filter(x => x.hospital_name.toLowerCase().includes(action.toLowerCase()))
-    return filtered
+    return (<div id="navigator">
+        <button id="nav-start" > <img src={icons.start} alt="start" /></button>
+        <button id="nav-previous"> <img src={icons.previous} alt="previous" /></button>
+        <button id="nav-current"> {page} </button>
+        <button id="nav-next"> <img src={icons.next} alt="next" /></button>
+        <button id="nav-end"> <img src={icons.end} alt="end" /></button>
+    </div>)
 }
 
-async function getRegionDataByName (name) {
-    const code = STATS_DATA.code_names[STATS_DATA.state_names.indexOf(name)]
-    if (!code) return 'Invalid State Name'
-    const cachedData = cache.get(code)
-    if (cachedData) return cachedData
-    console.log(`${apiUrl}?name=${code}`)
-    const data = await fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error)
-    if (!data) return 'Failed to fetch data from API'
-    return data
+Navigator.propTypes = {
+    page: PropTypes.number.isRequired,
+    setPage: PropTypes.func.isRequired,
+    maxPages: PropTypes.number.isRequired
+}
+
+function TabledDisplay ({ hospitals, page }) {
+    console.log(page)
+    return (
+        <div id="hospitalsTable">
+            {hospitals.map(x => <div key={x.hospital_name} > {x.hospital_name} </div>).splice(page, ITEMS_COUNT)}
+        </div>
+    )
+}
+TabledDisplay.propTypes = {
+    hospitals: PropTypes.array,
+    page: PropTypes.number
 }
