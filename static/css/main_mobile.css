@@ -119,9 +119,6 @@ button:hover {
 	cursor: pointer;
 }
 
-.navbar > button {
-	margin-top: 10px;
-}
 
 #register {
 	display: none;
