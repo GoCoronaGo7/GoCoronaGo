@@ -34,8 +34,8 @@ def blog():
     date_posting=str(date_posting)
     if request.method == 'POST' and form.validate_on_submit():
         content_blog = request.form['content']
-        user_blog = 'Anonymous'
-        title_blog = request.form['title']
+        user_blog = 'Anonymous' # username
+        title_blog = request.form['title'] # test
         if 'username' in session.keys():
             user_blog = session['username']        
         webserver.app.db.insert_blog(user_blog,content_blog,date_posting,title_blog)
