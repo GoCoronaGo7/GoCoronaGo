@@ -25,7 +25,7 @@ def index():
     return render_template('base.html')
 
 
-@webserver.route('/blog', methods=['GET', 'POST'])
+@webserver.route('/add_blog', methods=['GET', 'POST'])
 def blog():
     form = BlogForm(request.form)
     msg=''
@@ -41,12 +41,12 @@ def blog():
         if 'username' in session.keys():
             user_blog = session['username']        
         webserver.app.db.insert_blog(user_blog,content_blog,date_posting,title_blog)
-    return render_template('blog.html',form=form, msg=msg)
+    return render_template('add_blog.html',form=form, msg=msg)
 
-@webserver.route('/blogout' )
+@webserver.route('/blog' )
 def blogout():
     blog_out=webserver.app.db.get_blog()    
-    return render_template('blogout.html',out=blog_out)
+    return render_template('blog.html',out=blog_out)
     
 
 @webserver.route('/stats') 

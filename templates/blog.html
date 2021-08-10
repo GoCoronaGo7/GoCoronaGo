@@ -1,23 +1,31 @@
 {% extends "base.html"%}
-{% from "formhelpers.html" import render_field %}
 
 {%block title%}
-	Blog
+	Blogs
 {%endblock title%}
 
 {% block body%}
+
+	<h1> Today's Blog </h1>
+	{% for blogentry in out %}
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-12 col-sm-6 col-md-4">
-				<form action={{url_for('blog')}} method="post" class="form-container" name="bloginput">
-					{{ render_field(form.title, class="form-control", placeholder="Title (max 20 char)" )}}
-                    {{ render_field(form.content, class="form-control", placeholder="Content (max 450 char)" )}}
-                    {{ form.hidden_tag() }}
-                    <button name="action_save" type="submit" class="btn btn-primary btn-block">
-						Upload
-					</button>
-				</form>
+				<div id="blogout">
+					<div class="blog">
+						<p>
+							<h3 style="text-align: start;">
+								{{blogentry[1]}} <!--this is the title-->
+							</h3>
+							By {{blogentry[2]}} <!--this is the authour of the blogpost -->
+						</p>				    
+					</div> 
+					<div class="blog">
+						{{blogentry[3]}} <!--this is the contnet of the data-->
+				    </div class="blog">
+				</div>	
 			</div>
 		</div>
 	</div>
+	{% endfor %}
 {%endblock body%}

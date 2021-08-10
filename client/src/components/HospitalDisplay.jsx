@@ -70,7 +70,6 @@ function Navigator ({ page, setPage, maxPages }) {
         for (const [key, handler] of Object.entries(buttonClickHandlers)) {
             const element = document.getElementById(`nav-${key}`)
             const clickable = handlerFactory(handler)
-            console.log('clickable', clickable)
             if (clickable()) element.removeAttribute('disabled')
             else element.setAttribute('disabled', 'disabled')
         }
@@ -92,14 +91,13 @@ Navigator.propTypes = {
 }
 
 function TabledDisplay ({ hospitals, page }) {
-    console.log(page)
     return (
         <div id="hospitalsTable">
             <div className="hospitalTableRow header">
                 <span className="hospitalName">&nbsp;</span>
                 <span className="statsCell" > Normal Beds </span>
                 <span className="statsCell" > Oxygen Beds </span>
-                <span className="statsCell" > ICE Units </span>
+                <span className="statsCell" > ICU Units </span>
                 <span className="statsCell" > Ventilator Units </span>
             </div>
             {hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => <TableItem key={x.hospital_name} data={x} />)}
