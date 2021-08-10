@@ -11,8 +11,7 @@ from datetime import datetime
 
 
 webserver = Flask(__name__)
-Blog_date_now=datetime.now().strftime('%m%d%Y')
-Blog_date_now=str(Blog_date_now)
+
 
 from blueprints.accounts import accounts
 
@@ -43,6 +42,8 @@ def blog():
 
 @webserver.route('/blogout' )
 def blogout():
+    Blog_date_now=datetime.now().strftime('%m%d%Y')
+    Blog_date_now=str(Blog_date_now)
     blog_out=webserver.app.db.get_blog()
     webserver.app.db.check_blog(Blog_date_now)    
     return render_template('blogout.html',out=blog_out)
