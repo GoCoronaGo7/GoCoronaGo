@@ -94,3 +94,30 @@ button{
     border: 1px solid #21262d;
     color: #c9d1d9;
 }
+
+.search-bar-div, .Dropdown-control, .Dropdown-option {
+    background-color: #21262d !important;
+}
+
+.search-bar, .Dropdown-control, .Dropdown-option {
+    color: #efefef !important;
+}
+
+.Dropdown-option.is-selected {
+    background-color: rgb(28, 28, 28) !important;
+}
+
+::-webkit-scrollbar-track {
+    background-color:  rgb(136, 136, 136);
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(82, 82, 82);
+}
+
+#navigator > button {
+    background-color: #21262d;
+}
+
+#navigator > button:disabled {
+    background-color: hsl(215deg 5% 18%);
+}
