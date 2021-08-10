@@ -32,7 +32,7 @@ export default function StatsDisplay({
     }
 
     getData();
-  }, [data, type]);
+  }, [type]);
 
   if (data && data.type === type) {
     loadRegions(data, type);
@@ -83,8 +83,6 @@ export default function StatsDisplay({
       type: type,
       dat: data.regional
     }));
-  } else if (data && data.type !== type) {
-    setData(null);
   } else {
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(LoadingIcon, null), error);
   }
