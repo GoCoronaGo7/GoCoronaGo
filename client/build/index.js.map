@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/index.jsx"],"names":["React","element","console","log"],"mappings":"AAAA,OAAOA,KAAP,MAAkB,OAAlB;AAEA,MAAMC,OAAO,gBAAG,wCAAhB;AACAC,OAAO,CAACC,GAAR,CAAYF,OAAZ","sourcesContent":["import React from 'react'\n\nconst element = <div>test</div>\nconsole.log(element)\n"],"file":"index.js"}

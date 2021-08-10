@@ -27,7 +27,7 @@ export default function StatsDisplay ({ active: type }) {
             setData({ ...dat.data, type })
         }
         getData()
-    }, [data, type])
+    }, [type])
 
     if (data && data.type === type) {
         loadRegions(data, type)
@@ -91,8 +91,6 @@ export default function StatsDisplay ({ active: type }) {
             <RegionalDisplay type={type} dat={data.regional}/>
         </div>
         )
-    } else if (data && data.type !== type) {
-        setData(null)
     } else {
         return <div>
             <LoadingIcon />
