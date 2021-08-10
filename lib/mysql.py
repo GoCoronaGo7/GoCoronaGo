@@ -94,11 +94,12 @@ class Db:
             f'''INSERT INTO `blog` (username,content) values('{user}', '{content}')''')
         return self.connection.commit()
     
-    def get_blog(self,blogout):
+    def get_blog(self):
         cursor = self.get_cursor()
         cursor.execute(
-            f'''SELECT username,content FROM `blog` ''')
+            f'''SELECT * FROM `blog` ''')
         blogout=cursor.fetchall()
+        return blogout
     
     def update(self, user, **kwargs):
         print(kwargs)
