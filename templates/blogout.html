@@ -6,5 +6,16 @@
 {%endblock title%}
 
 {% block body%}
-	{{out}}
+	{% for blogentry in out %}
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-12 col-sm-6 col-md-4">
+				<div>
+					{{blogentry[2]}}
+					{{blogentry[1]}}
+				</div>	
+			</div>
+		</div>
+	</div>
+	{% endfor %}
 {%endblock body%}
