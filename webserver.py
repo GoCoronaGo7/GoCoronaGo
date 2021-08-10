@@ -43,7 +43,7 @@ def blog():
 @webserver.route('/blogout' )
 def blogout():
     blog_out=webserver.app.db.get_blog()
-    #webserver.app.db.check_blog(Blog_date_now)    <<-- this line causes errors for me as unread data need help in rectifiyng -->>
+    webserver.app.db.check_blog(Blog_date_now)    
     return render_template('blogout.html',out=blog_out)
     
 

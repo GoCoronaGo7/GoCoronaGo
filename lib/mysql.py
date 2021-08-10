@@ -109,7 +109,7 @@ class Db:
         cursor = self.get_cursor()
         cursor.execute(
             f'''SELECT `date_post` FROM `blog` where `id`=1 ''')
-        blog_post_date = cursor.fetchone
+        blog_post_date = cursor.fetchone()
         if Blog_date_check != blog_post_date:
             cursor.execute(
                 f'''DROP TABLE `blog` ''')
