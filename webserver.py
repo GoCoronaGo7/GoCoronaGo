@@ -35,9 +35,10 @@ def blog():
     if request.method == 'POST' and form.validate_on_submit():
         content_blog = request.form['content']
         user_blog = 'Anonymous'
+        title_blog = request.form['title']
         if 'username' in session.keys():
             user_blog = session['username']        
-        webserver.app.db.insert_blog(user_blog,content_blog,date_posting)
+        webserver.app.db.insert_blog(user_blog,content_blog,date_posting,title_blog)
     return render_template('blog.html',form=form, msg=msg)
 
 @webserver.route('/blogout' )
