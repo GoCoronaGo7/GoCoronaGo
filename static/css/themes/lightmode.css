@@ -86,3 +86,20 @@ button{
 #navigator > button > img {
     filter: invert(1) brightness(0.5) sepia(1) saturate(20) hue-rotate(77deg) !important;
 }
+
+#blogout {
+    border: 5px ;
+    padding:30px;
+    border-radius: 10px;
+    word-wrap: break-word;      
+    width:500px;
+    background-color: #b4eed3d8;
+}
+
+.blog {
+    border: 5px  ;
+    width: 400px;
+    word-wrap: break-word;
+    background-color: white;
+    border-radius: 10px;
+}
