@@ -13,6 +13,7 @@
     flex-flow: column wrap;
     justify-content: space-evenly;
     gap: 3vh;
+    transform: translateY(-5vh);
 }
 
 .Dropdown-root {
@@ -104,14 +105,26 @@ input.search-bar {
 #hospitalsTable {
     display: grid;
     border-radius: 12px;
-    background-color: #39414d;
     padding: 2vh 4vw;
+
+    grid-template-rows: 10vh;
+    grid-row-gap: 1vh;
+
+    max-height: 80vh;
+    overflow-y: scroll;
 }
 
-#hospitalsTable-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
+.hospitalTableRow {
+    display: grid;
+    border-radius: 10px;
+
+    padding: 1rem 2rem;
+    grid-template-columns: 30vw 1fr 1fr 1fr 1fr;
+}
+
+.header {
+    position: sticky;
+    top: 0;
 }
 
 th, td {
@@ -120,6 +133,9 @@ th, td {
 }
 .region {
     display: inline-block;
+    bottom: 1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
 }
 
 .hospitalName {
@@ -128,4 +144,32 @@ th, td {
 }
 .left {
     text-align: left;
+}
+
+.statsCell {
+    display: inline-block;
+    vertical-align: middle;
+    color: ivory;
+    text-align: center;
+}
+
+.statsDisplayCell {
+    height: 32px;
+    font-size: 24px;
+    width: fit-content;
+    margin: 2rem auto 3rem;
+    padding: 0 0.3rem;
+    border-radius: 5px;
+}
+
+.red {
+    background-color: rgb(248, 55, 55);
+}
+
+.orange {
+    background-color: rgb(250, 198, 26);
+}
+
+.green {
+    background-color: rgb(51, 223, 51);
 }

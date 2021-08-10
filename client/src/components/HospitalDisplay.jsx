@@ -94,20 +94,17 @@ Navigator.propTypes = {
 function TabledDisplay ({ hospitals, page }) {
     console.log(page)
     return (
-        <table id="hospitalsTable">
-            <thead className="hospitalTableRow hospitalTableHeader" id="hospitalsTable-header">
-                <tr>
-                    <th className="hospitalName">&nbsp;</th>
-                    <th> Normal Beds </th>
-                    <th> Oxygen Beds </th>
-                    <th> ICE Units </th>
-                    <th> Ventilator Units </th>
-                </tr>
-            </thead>
-            <tbody>
-                {hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => <TableItem key={x.hospital_name} data={x} />)}
-            </tbody>
-        </table>
+        <div id="hospitalsTable">
+            <div className="hospitalTableRow header">
+                <span className="hospitalName">&nbsp;</span>
+                <span className="statsCell" > Normal Beds </span>
+                <span className="statsCell" > Oxygen Beds </span>
+                <span className="statsCell" > ICE Units </span>
+                <span className="statsCell" > Ventilator Units </span>
+            </div>
+            {hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => <TableItem key={x.hospital_name} data={x} />)}
+
+        </div>
     )
 }
 TabledDisplay.propTypes = {
@@ -125,24 +122,29 @@ function TableItem ({ data }) {
     }
     const stats = []
     for (const [key, val] of Object.entries(beds)) {
-        stats.push(<td key={key} className={calcColour(val[0], val[1])}>{val[0]}/ {val[1]}</td>)
+        stats.push(<span key={key} className={'statsCell statsDisplayCell ' + calcColour(val)}>{val[0]}/ {val[1]}</span>)
     }
-    return <tr className="hospitalTableRow">
-        <td>
-            <div className="hospitalName">
+    return <div className="hospitalTableRow">
+        <div className="hospitalName">
+            <div>
                 <span className="left"> {data.hospital_name} </span>
             </div>
             <span className="region"> {data.area} </span>
-        </td>
+        </div>
         { stats }
-    </tr>
+    </div>
 }
 TableItem.propTypes = {
     data: PropTypes.object
 }
 
-function calcColour (a, b) {
-    if (a === b) return 'green'
-    if (a === 0) return 'red'
+function calcColour (val) {
+    if (val[0] === -1 || val[1] === -1) {
+        val[0] = '?'
+        val[1] = '?'
+        return 'orange'
+    }
+    if (val[0] === 0) return 'red'
+    if (val[0] === val[1]) return 'green'
     else return 'orange'
 }
