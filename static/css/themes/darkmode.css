@@ -113,3 +113,11 @@ button{
 ::-webkit-scrollbar-thumb {
     background-color: rgb(82, 82, 82);
 }
+
+#navigator > button {
+    background-color: #21262d;
+}
+
+#navigator > button:disabled {
+    background-color: hsl(215deg 5% 18%);
+}
