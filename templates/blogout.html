@@ -1,3 +1,10 @@
-<h>
-    blogdata may be presented here
-</h>
+{% extends "base.html"%}
+{% from "formhelpers.html" import render_field %}
+
+{%block title%}
+	Login
+{%endblock title%}
+
+{% block body%}
+	{{out}}
+{%endblock body%}
