@@ -1,10 +1,12 @@
 #root {
+    transform: translateY(-15vh);
     display: grid;
     background-color: rgba(255, 255, 255, 0.056);
     padding: 5vw 5vh;
     margin: 1vw 1vh;
     border-radius: 15px;
     box-shadow: 5px 5px 15px rgba(0.8, 0.8, 0.8, 0.2);
+    max-width: 100%;
 }
 #display {
     display: flex;
@@ -14,22 +16,15 @@
 }
 
 .Dropdown-root {
-<<<<<<< HEAD
-    max-width: 15vw;
-=======
     align-self: flex-start;
     justify-self: flex-start;
     max-width: 250px;
->>>>>>> hospitals
 }
 
 .Dropdown-control {
     border-radius: 15px;
     border: none;
-<<<<<<< HEAD
-=======
     width: 250px;
->>>>>>> hospitals
 }
 
 .Dropdown-menu {
@@ -56,38 +51,21 @@ input.search-bar {
     padding: 0.5vw 2vh;
     margin-right: 15px;
 
-<<<<<<< HEAD
-    justify-content: space-between;
 }
 
 .search-bar-div > button {
-    margin-right: 15px;
-=======
-}
-
-.search-bar-div > button {
->>>>>>> hospitals
     align-self: flex-end;
 }
 
 
 #dropDown-bar {
-<<<<<<< HEAD
-    display: block;
-    flex-direction: row; 
-    justify-content: space-around;
-=======
     display: flex;
     flex-direction: row; 
     justify-content: flex-start;
->>>>>>> hospitals
 }
 
 #dropDown-bar > * {
     margin-left: 20px;
-<<<<<<< HEAD
-} 
-=======
 } 
 
 #navigator {
@@ -122,4 +100,3 @@ input.search-bar {
     filter: invert(1) brightness(0.8) sepia(1) saturate(2000) hue-rotate(132deg);
     /* #0180e5 */
 }
->>>>>>> hospitals
