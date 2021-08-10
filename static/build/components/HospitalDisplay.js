@@ -42,9 +42,7 @@ export default function HospitalsDisplay({
     page: page,
     setPage: setPage,
     maxPages: maxPages
-  }), /*#__PURE__*/React.createElement("div", {
-    id: "header"
-  }, /*#__PURE__*/React.createElement("span", null, " fill")), /*#__PURE__*/React.createElement(TabledDisplay, {
+  }), /*#__PURE__*/React.createElement(TabledDisplay, {
     hospitals: hospitals,
     page: page
   }));
@@ -134,15 +132,60 @@ function TabledDisplay({
   page
 }) {
   console.log(page);
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("table", {
     id: "hospitalsTable"
-  }, hospitals.map(x => /*#__PURE__*/React.createElement("div", {
-    key: x.hospital_name
-  }, " ", x.hospital_name, " ")).splice(page * ITEMS_COUNT, ITEMS_COUNT));
+  }, /*#__PURE__*/React.createElement("thead", {
+    className: "hospitalTableRow hospitalTableHeader",
+    id: "hospitalsTable-header"
+  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
+    className: "hospitalName"
+  }, "\xA0"), /*#__PURE__*/React.createElement("th", null, " Normal Beds "), /*#__PURE__*/React.createElement("th", null, " Oxygen Beds "), /*#__PURE__*/React.createElement("th", null, " ICE Units "), /*#__PURE__*/React.createElement("th", null, " Ventilator Units "))), /*#__PURE__*/React.createElement("tbody", null, hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => /*#__PURE__*/React.createElement(TableItem, {
+    key: x.hospital_name,
+    data: x
+  }))));
 }
 
 TabledDisplay.propTypes = {
   hospitals: PropTypes.array,
   page: PropTypes.number
 };
+
+function TableItem({
+  data
+}) {
+  if (!data) return null;
+  const beds = {
+    normal: [data.available_beds_without_oxygen, data.total_beds_without_oxygen],
+    oxygen: [data.available_beds_with_oxygen, data.total_beds_without_oxygen],
+    icu: [data.available_icu_beds_without_ventilator, data.total_icu_beds_without_ventilator],
+    vent: [data.available_icu_beds_with_ventilator, data.total_icu_beds_with_ventilator]
+  };
+  const stats = [];
+
+  for (const [key, val] of Object.entries(beds)) {
+    stats.push( /*#__PURE__*/React.createElement("td", {
+      key: key,
+      className: calcColour(val[0], val[1])
+    }, val[0], "/ ", val[1]));
+  }
+
+  return /*#__PURE__*/React.createElement("tr", {
+    className: "hospitalTableRow"
+  }, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+    className: "hospitalName"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "left"
+  }, " ", data.hospital_name, " ")), /*#__PURE__*/React.createElement("span", {
+    className: "region"
+  }, " ", data.area, " ")), stats);
+}
+
+TableItem.propTypes = {
+  data: PropTypes.object
+};
+
+function calcColour(a, b) {
+  if (a === b) return 'green';
+  if (a === 0) return 'red';else return 'orange';
+}
 //# sourceMappingURL=HospitalDisplay.js.map

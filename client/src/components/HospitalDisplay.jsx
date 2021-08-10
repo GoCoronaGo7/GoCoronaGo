@@ -37,9 +37,6 @@ export default function HospitalsDisplay ({ hospitals }) {
     return (
         <div id="hospitalsDisplay">
             <Navigator page={page} setPage={setPage} maxPages={maxPages}/>
-            <div id="header">
-                <span> fill</span>
-            </div>
             <TabledDisplay hospitals={hospitals} page={page} />
         </div>
     )
@@ -97,12 +94,55 @@ Navigator.propTypes = {
 function TabledDisplay ({ hospitals, page }) {
     console.log(page)
     return (
-        <div id="hospitalsTable">
-            {hospitals.map(x => <div key={x.hospital_name} > {x.hospital_name} </div>).splice(page * ITEMS_COUNT, ITEMS_COUNT)}
-        </div>
+        <table id="hospitalsTable">
+            <thead className="hospitalTableRow hospitalTableHeader" id="hospitalsTable-header">
+                <tr>
+                    <th className="hospitalName">&nbsp;</th>
+                    <th> Normal Beds </th>
+                    <th> Oxygen Beds </th>
+                    <th> ICE Units </th>
+                    <th> Ventilator Units </th>
+                </tr>
+            </thead>
+            <tbody>
+                {hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => <TableItem key={x.hospital_name} data={x} />)}
+            </tbody>
+        </table>
     )
 }
 TabledDisplay.propTypes = {
     hospitals: PropTypes.array,
     page: PropTypes.number
+}
+
+function TableItem ({ data }) {
+    if (!data) return null
+    const beds = {
+        normal: [data.available_beds_without_oxygen, data.total_beds_without_oxygen],
+        oxygen: [data.available_beds_with_oxygen, data.total_beds_without_oxygen],
+        icu: [data.available_icu_beds_without_ventilator, data.total_icu_beds_without_ventilator],
+        vent: [data.available_icu_beds_with_ventilator, data.total_icu_beds_with_ventilator]
+    }
+    const stats = []
+    for (const [key, val] of Object.entries(beds)) {
+        stats.push(<td key={key} className={calcColour(val[0], val[1])}>{val[0]}/ {val[1]}</td>)
+    }
+    return <tr className="hospitalTableRow">
+        <td>
+            <div className="hospitalName">
+                <span className="left"> {data.hospital_name} </span>
+            </div>
+            <span className="region"> {data.area} </span>
+        </td>
+        { stats }
+    </tr>
+}
+TableItem.propTypes = {
+    data: PropTypes.object
+}
+
+function calcColour (a, b) {
+    if (a === b) return 'green'
+    if (a === 0) return 'red'
+    else return 'orange'
 }
