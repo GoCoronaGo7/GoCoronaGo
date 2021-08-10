@@ -114,7 +114,7 @@ class Db:
         blog_post_date = blog_post_date_tup[0]
         if Blog_date_check != blog_post_date:
             cursor.execute(
-                f'''DELETE * form `blog` where date_post = '{blog_post_date}' ''')
+                f'''DELETE * FROM `blog` where date_post = '{blog_post_date}' ''')
         return self.connection.commit()
     
     def update(self, user, **kwargs):

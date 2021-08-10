@@ -82,7 +82,6 @@ function Navigator({
     for (const [key, handler] of Object.entries(buttonClickHandlers)) {
       const element = document.getElementById(`nav-${key}`);
       const clickable = handlerFactory(handler);
-      console.log('clickable', clickable);
       if (clickable()) element.removeAttribute('disabled');else element.setAttribute('disabled', 'disabled');
     }
   }, [page, setPage, maxPages]);
@@ -131,7 +130,6 @@ function TabledDisplay({
   hospitals,
   page
 }) {
-  console.log(page);
   return /*#__PURE__*/React.createElement("div", {
     id: "hospitalsTable"
   }, /*#__PURE__*/React.createElement("div", {
@@ -144,7 +142,7 @@ function TabledDisplay({
     className: "statsCell"
   }, " Oxygen Beds "), /*#__PURE__*/React.createElement("span", {
     className: "statsCell"
-  }, " ICE Units "), /*#__PURE__*/React.createElement("span", {
+  }, " ICU Units "), /*#__PURE__*/React.createElement("span", {
     className: "statsCell"
   }, " Ventilator Units ")), hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => /*#__PURE__*/React.createElement(TableItem, {
     key: x.hospital_name,
