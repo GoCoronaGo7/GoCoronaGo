@@ -111,9 +111,9 @@ class Db:
         cursor.execute(
             f'''SELECT `date_post` FROM `blog` where `id`=1 ''')
         blog_post_date = cursor.fetchone()
-        if Blog_date_check != blog_post_date:
-            cursor.execute(
-                f'''DROP TABLE `blog` ''')
+        #if Blog_date_check != blog_post_date:
+         #   cursor.execute(
+          #      f'''DROP TABLE `blog` ''')
         return self.connection.commit()
     
     def update(self, user, **kwargs):
