@@ -100,3 +100,32 @@ input.search-bar {
     filter: invert(1) brightness(0.8) sepia(1) saturate(2000) hue-rotate(132deg);
     /* #0180e5 */
 }
+
+#hospitalsTable {
+    display: grid;
+    border-radius: 12px;
+    background-color: #39414d;
+    padding: 2vh 4vw;
+}
+
+#hospitalsTable-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+th, td {
+    vertical-align: top;
+    padding: .75rem;
+}
+.region {
+    display: inline-block;
+}
+
+.hospitalName {
+    width: 180px;
+    margin-right: .75rem;
+}
+.left {
+    text-align: left;
+}
