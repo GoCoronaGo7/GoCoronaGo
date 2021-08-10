@@ -1,4 +1,4 @@
-
+import datetime
 
 # coding: UTF-8
 from flask import Flask
@@ -7,10 +7,12 @@ from lib.forms import BlogForm
 
 from requests_futures.sessions import FuturesSession
 from concurrent.futures import as_completed
+from datetime import datetime
 
 
 webserver = Flask(__name__)
-
+Blog_date_now=datetime.now().strftime('%m%d%Y')
+Blog_date_now=str(Blog_date_now)
 
 from blueprints.accounts import accounts
 
@@ -28,14 +30,22 @@ def index():
 def blog():
     form = BlogForm(request.form)
     msg=''
+    date_posting=datetime.now().strftime('%m%d%Y')
+    date_posting=str(date_posting)
     if request.method == 'POST' and form.validate_on_submit():
-        content = request.form['content']        
+        content_blog = request.form['content']
+        user_blog = 'Anonymous'
+        if 'username' in session.keys():
+            user_blog = session['username']        
+        webserver.app.db.insert_blog(user_blog,content_blog,date_posting)
     return render_template('blog.html',form=form, msg=msg)
 
 @webserver.route('/blogout' )
 def blogout():
-    blog_out=webserver.app.db.get_blog()    
+    blog_out=webserver.app.db.get_blog()
+    #webserver.app.db.check_blog(Blog_date_now)    <<-- this line causes errors for me as unread data need help in rectifiyng -->>
     return render_template('blogout.html',out=blog_out)
+    
 
 @webserver.route('/stats') 
 def stats():
