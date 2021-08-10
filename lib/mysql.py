@@ -39,6 +39,7 @@ class Db:
         query_blog_setup = '''CREATE TABLE IF NOT EXISTS `blog`
                     (
                     id INT NOT NULL AUTO_INCREMENT,
+                    title varchar(25) NOT NULL,
                     username varchar(25) NOT NULL,
                     content varchar(450) NOT NULL,
                     date_post varchar(25) NOT NULL,
@@ -92,10 +93,10 @@ class Db:
             f'''INSERT INTO `user` (username,password,email) values('{user}', '{passw}', '{email}')''')
         return self.connection.commit()
     
-    def insert_blog(self,user,content,date):
+    def insert_blog(self,user,content,date,title):
         cursor = self.get_cursor()
         cursor.execute(
-            f'''INSERT INTO `blog` (username,content,date_post) values('{user}', '{content}',{date})''')
+            f'''INSERT INTO `blog` (username,content,date_post,title) values('{user}', '{content}','{date}','{title}')''')
         return self.connection.commit()
     
     def get_blog(self):
