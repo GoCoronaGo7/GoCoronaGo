@@ -10,7 +10,7 @@ const icons = {
 
 const buttonClickHandlers = {
     start: (page, setPage, click) => {
-        if (page === 1) return false
+        if (page <= 1) return false
         if (click) setPage(1)
         return true
     },
@@ -20,13 +20,13 @@ const buttonClickHandlers = {
         return true
     },
     next: (page, setPage, click, maxPages) => {
-        if (page === maxPages) return false
+        if (page >= maxPages - 1) return false
         if (click) setPage(page + 1)
         return true
     },
     end: (page, setPage, click, maxPages) => {
-        if (page === maxPages) return false
-        if (click) setPage(maxPages)
+        if (page === maxPages - 1) return false
+        if (click) setPage(maxPages - 1)
         return true
     }
 }
@@ -67,10 +67,22 @@ function Navigator ({ page, setPage, maxPages }) {
         }
     })
 
+    useEffect(() => {
+        const handlerFactory = (handler) => () => handler(page, setPage, false, maxPages)
+
+        for (const [key, handler] of Object.entries(buttonClickHandlers)) {
+            const element = document.getElementById(`nav-${key}`)
+            const clickable = handlerFactory(handler)
+            console.log('clickable', clickable)
+            if (clickable()) element.removeAttribute('disabled')
+            else element.setAttribute('disabled', 'disabled')
+        }
+    }, [page, setPage, maxPages])
+
     return (<div id="navigator">
         <button id="nav-start" > <img src={icons.start} alt="start" /></button>
-        <button id="nav-previous"> <img src={icons.previous} alt="previous" /></button>
-        <button id="nav-current"> {page} </button>
+        <button id="nav-previous"> <img style={{ transform: 'translateX(5px)' }}src={icons.previous} alt="previous" /></button>
+        <button id="nav-current" style={{ display: 'flex', width: '60px', justifyContent: 'center' }}> {page} </button>
         <button id="nav-next"> <img src={icons.next} alt="next" /></button>
         <button id="nav-end"> <img src={icons.end} alt="end" /></button>
     </div>)
@@ -86,7 +98,7 @@ function TabledDisplay ({ hospitals, page }) {
     console.log(page)
     return (
         <div id="hospitalsTable">
-            {hospitals.map(x => <div key={x.hospital_name} > {x.hospital_name} </div>).splice(page, ITEMS_COUNT)}
+            {hospitals.map(x => <div key={x.hospital_name} > {x.hospital_name} </div>).splice(page * ITEMS_COUNT, ITEMS_COUNT)}
         </div>
     )
 }

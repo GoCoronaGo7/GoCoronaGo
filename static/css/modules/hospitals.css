@@ -65,3 +65,36 @@ input.search-bar {
 #dropDown-bar > * {
     margin-left: 20px;
 } 
+
+#navigator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background-color: rgba(111, 111, 111, 0.166);
+    margin: 0 25vh;
+    border-radius: 5vw;
+    padding: 1vh 1vw;
+    transform: scale(0.8)
+}
+
+#navigator > button {
+    display: grid;
+    place-items: center;
+    outline: none;
+    border-radius: 15px;
+    margin: 0 0.5vw;
+    height: 45px;
+    width: 45px;
+    border: none;
+    font-size: 30px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#navigator > button > img {
+    height: 30px;
+    width: 30px;
+    filter: invert(1) brightness(0.8) sepia(1) saturate(2000) hue-rotate(132deg);
+    /* #0180e5 */
+}

@@ -11,7 +11,7 @@ const icons = {
 };
 const buttonClickHandlers = {
   start: (page, setPage, click) => {
-    if (page === 1) return false;
+    if (page <= 1) return false;
     if (click) setPage(1);
     return true;
   },
@@ -21,13 +21,13 @@ const buttonClickHandlers = {
     return true;
   },
   next: (page, setPage, click, maxPages) => {
-    if (page === maxPages) return false;
+    if (page >= maxPages - 1) return false;
     if (click) setPage(page + 1);
     return true;
   },
   end: (page, setPage, click, maxPages) => {
-    if (page === maxPages) return false;
-    if (click) setPage(maxPages);
+    if (page === maxPages - 1) return false;
+    if (click) setPage(maxPages - 1);
     return true;
   }
 };
@@ -78,6 +78,16 @@ function Navigator({
       }
     };
   });
+  useEffect(() => {
+    const handlerFactory = handler => () => handler(page, setPage, false, maxPages);
+
+    for (const [key, handler] of Object.entries(buttonClickHandlers)) {
+      const element = document.getElementById(`nav-${key}`);
+      const clickable = handlerFactory(handler);
+      console.log('clickable', clickable);
+      if (clickable()) element.removeAttribute('disabled');else element.setAttribute('disabled', 'disabled');
+    }
+  }, [page, setPage, maxPages]);
   return /*#__PURE__*/React.createElement("div", {
     id: "navigator"
   }, /*#__PURE__*/React.createElement("button", {
@@ -88,10 +98,18 @@ function Navigator({
   })), /*#__PURE__*/React.createElement("button", {
     id: "nav-previous"
   }, " ", /*#__PURE__*/React.createElement("img", {
+    style: {
+      transform: 'translateX(5px)'
+    },
     src: icons.previous,
     alt: "previous"
   })), /*#__PURE__*/React.createElement("button", {
-    id: "nav-current"
+    id: "nav-current",
+    style: {
+      display: 'flex',
+      width: '60px',
+      justifyContent: 'center'
+    }
   }, " ", page, " "), /*#__PURE__*/React.createElement("button", {
     id: "nav-next"
   }, " ", /*#__PURE__*/React.createElement("img", {
@@ -120,7 +138,7 @@ function TabledDisplay({
     id: "hospitalsTable"
   }, hospitals.map(x => /*#__PURE__*/React.createElement("div", {
     key: x.hospital_name
-  }, " ", x.hospital_name, " ")).splice(page, ITEMS_COUNT));
+  }, " ", x.hospital_name, " ")).splice(page * ITEMS_COUNT, ITEMS_COUNT));
 }
 
 TabledDisplay.propTypes = {

@@ -79,3 +79,10 @@ button{
 .search-bar-div {
     background-color: #ffffff;
 }
+#navigator > button {
+    background-color: ivory;
+}
+
+#navigator > button > img {
+    filter: invert(1) brightness(0.5) sepia(1) saturate(20) hue-rotate(77deg) !important;
+}
