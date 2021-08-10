@@ -31,10 +31,13 @@ def blog():
     msg=''
     date_posting=datetime.now().strftime('%m%d%Y')
     date_posting=str(date_posting)
+    Blog_date_now=datetime.now().strftime('%m%d%Y')
+    Blog_date_now=str(Blog_date_now)
+    webserver.app.db.check_blog(Blog_date_now)    
     if request.method == 'POST' and form.validate_on_submit():
-        content_blog = request.form['content']
+        content_blog = request.form['content'] #content
         user_blog = 'Anonymous' # username
-        title_blog = request.form['title'] # test
+        title_blog = request.form['title'] # title
         if 'username' in session.keys():
             user_blog = session['username']        
         webserver.app.db.insert_blog(user_blog,content_blog,date_posting,title_blog)
@@ -42,10 +45,7 @@ def blog():
 
 @webserver.route('/blogout' )
 def blogout():
-    Blog_date_now=datetime.now().strftime('%m%d%Y')
-    Blog_date_now=str(Blog_date_now)
-    blog_out=webserver.app.db.get_blog()
-    webserver.app.db.check_blog(Blog_date_now)    
+    blog_out=webserver.app.db.get_blog()    
     return render_template('blogout.html',out=blog_out)
     
 
