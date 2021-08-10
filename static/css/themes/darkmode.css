@@ -121,3 +121,18 @@ button{
 #navigator > button:disabled {
     background-color: hsl(215deg 5% 18%);
 }
+
+#hospitalsTable {
+    background-color: #171a1f;
+}
+
+.header {
+    background-color: #16171a !important;
+}
+
+.hospitalTableRow {
+    background-color: #21262d
+}
+.region {
+    background-color: #161f2c
+}

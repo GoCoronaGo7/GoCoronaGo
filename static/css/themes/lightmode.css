@@ -86,3 +86,13 @@ button{
 #navigator > button > img {
     filter: invert(1) brightness(0.5) sepia(1) saturate(20) hue-rotate(77deg) !important;
 }
+
+#hospitalsTable {
+    background-color: #e8e8e8;
+}
+.header {
+    background-color: #bfbfbf !important;
+}
+.hospitalTableRow {
+    background-color: #cbcfc2
+}

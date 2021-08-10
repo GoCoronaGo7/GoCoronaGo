@@ -132,17 +132,24 @@ function TabledDisplay({
   page
 }) {
   console.log(page);
-  return /*#__PURE__*/React.createElement("table", {
+  return /*#__PURE__*/React.createElement("div", {
     id: "hospitalsTable"
-  }, /*#__PURE__*/React.createElement("thead", {
-    className: "hospitalTableRow hospitalTableHeader",
-    id: "hospitalsTable-header"
-  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hospitalTableRow header"
+  }, /*#__PURE__*/React.createElement("span", {
     className: "hospitalName"
-  }, "\xA0"), /*#__PURE__*/React.createElement("th", null, " Normal Beds "), /*#__PURE__*/React.createElement("th", null, " Oxygen Beds "), /*#__PURE__*/React.createElement("th", null, " ICE Units "), /*#__PURE__*/React.createElement("th", null, " Ventilator Units "))), /*#__PURE__*/React.createElement("tbody", null, hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => /*#__PURE__*/React.createElement(TableItem, {
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "statsCell"
+  }, " Normal Beds "), /*#__PURE__*/React.createElement("span", {
+    className: "statsCell"
+  }, " Oxygen Beds "), /*#__PURE__*/React.createElement("span", {
+    className: "statsCell"
+  }, " ICE Units "), /*#__PURE__*/React.createElement("span", {
+    className: "statsCell"
+  }, " Ventilator Units ")), hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => /*#__PURE__*/React.createElement(TableItem, {
     key: x.hospital_name,
     data: x
-  }))));
+  })));
 }
 
 TabledDisplay.propTypes = {
@@ -163,17 +170,17 @@ function TableItem({
   const stats = [];
 
   for (const [key, val] of Object.entries(beds)) {
-    stats.push( /*#__PURE__*/React.createElement("td", {
+    stats.push( /*#__PURE__*/React.createElement("span", {
       key: key,
-      className: calcColour(val[0], val[1])
+      className: 'statsCell statsDisplayCell ' + calcColour(val)
     }, val[0], "/ ", val[1]));
   }
 
-  return /*#__PURE__*/React.createElement("tr", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "hospitalTableRow"
-  }, /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "hospitalName"
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "left"
   }, " ", data.hospital_name, " ")), /*#__PURE__*/React.createElement("span", {
     className: "region"
@@ -184,8 +191,14 @@ TableItem.propTypes = {
   data: PropTypes.object
 };
 
-function calcColour(a, b) {
-  if (a === b) return 'green';
-  if (a === 0) return 'red';else return 'orange';
+function calcColour(val) {
+  if (val[0] === -1 || val[1] === -1) {
+    val[0] = '?';
+    val[1] = '?';
+    return 'orange';
+  }
+
+  if (val[0] === 0) return 'red';
+  if (val[0] === val[1]) return 'green';else return 'orange';
 }
 //# sourceMappingURL=HospitalDisplay.js.map
