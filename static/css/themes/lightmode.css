@@ -103,6 +103,7 @@ button{
     word-wrap: break-word;      
     width:700px;
     background-color: #b4eed3d8;
+    margin:20px;
 }
 
 .blog {
