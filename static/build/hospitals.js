@@ -31,6 +31,8 @@ function Hospitals() {
     getRegionDataByName(fetchedRegion).then(resData => {
       resData ||= 'Failed to fetch Data';
       if (typeof resData === 'string') return setError(resData + ', Contact a developer if the issue persists');
+      resData.data = resData.data.sort((a, b) => b.available_beds_with_oxygen - a.available_beds_with_oxygen);
+      console.log(resData.data);
       setSearchQuery({
         values: resData.data,
         region: fetchedRegion
@@ -74,7 +76,7 @@ function RegionDropDown({
 }) {
   const [regions, setRegion] = useState(null);
   useEffect(() => {
-    setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area))]);
+    setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area || 'NA'))]);
   }, [hospitals]);
   if (!hospitals || !regions) return /*#__PURE__*/React.createElement("div", {
     id: "loadingDisplay",

@@ -20,13 +20,13 @@ const buttonClickHandlers = {
         return true
     },
     next: (page, setPage, click, maxPages) => {
-        if (page >= maxPages - 1) return false
+        if (page >= maxPages) return false
         if (click) setPage(page + 1)
         return true
     },
     end: (page, setPage, click, maxPages) => {
-        if (page === maxPages - 1) return false
-        if (click) setPage(maxPages - 2)
+        if (page === maxPages) return false
+        if (click) setPage(maxPages)
         return true
     }
 }
@@ -34,6 +34,10 @@ const buttonClickHandlers = {
 export default function HospitalsDisplay ({ hospitals }) {
     const [page, setPage] = useState(1)
     const maxPages = Math.ceil(hospitals.length / ITEMS_COUNT)
+
+    useEffect(() => {
+        setPage(1)
+    }, [setPage, hospitals.length])
     return (
         <div id="hospitalsDisplay">
             <Navigator page={page} setPage={setPage} maxPages={maxPages}/>
@@ -91,6 +95,7 @@ Navigator.propTypes = {
 }
 
 function TabledDisplay ({ hospitals, page }) {
+    console.log(hospitals)
     return (
         <div id="hospitalsTable">
             <div className="hospitalTableRow header">
@@ -100,7 +105,7 @@ function TabledDisplay ({ hospitals, page }) {
                 <span className="statsCell" > ICU Units </span>
                 <span className="statsCell" > Ventilator Units </span>
             </div>
-            {hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => <TableItem key={x.hospital_name} data={x} />)}
+            {[...hospitals].splice((page - 1) * ITEMS_COUNT, ITEMS_COUNT).map(x => <TableItem key={x.hospital_name} data={x} />)}
 
         </div>
     )
