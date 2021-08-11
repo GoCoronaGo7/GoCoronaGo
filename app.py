@@ -55,6 +55,7 @@ app.ENV = dict()
 for i in config.ENV:
     app.ENV[i] = os.environ.get(i)
 
+print(app.ENV)
 
 db = Db(app.ENV)
 if (db.connected()):
@@ -73,7 +74,6 @@ app.webserver.secret_key = app.ENV['FLASK_SECRET_KEY'] if app.ENV['FLASK_SECRET_
 
 webserver.app = app
 
-print(app.ENV)
 
 if __name__ == '__main__':
     app.webserver.run(debug=config.DEBUG, port=app.ENV['PORT'])
