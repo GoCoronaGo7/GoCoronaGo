@@ -95,7 +95,10 @@ Navigator.propTypes = {
 }
 
 function TabledDisplay ({ hospitals, page }) {
-    console.log(hospitals)
+    useEffect(() => {
+        const table = document.getElementById('hospitalsTable')
+        table.scrollTop = 0
+    }, [hospitals.length, page])
     return (
         <div id="hospitalsTable">
             <div className="hospitalTableRow header">

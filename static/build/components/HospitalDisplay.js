@@ -133,7 +133,10 @@ function TabledDisplay({
   hospitals,
   page
 }) {
-  console.log(hospitals);
+  useEffect(() => {
+    const table = document.getElementById('hospitalsTable');
+    table.scrollTop = 0;
+  }, [hospitals.length, page]);
   return /*#__PURE__*/React.createElement("div", {
     id: "hospitalsTable"
   }, /*#__PURE__*/React.createElement("div", {
