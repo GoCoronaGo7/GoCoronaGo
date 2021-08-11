@@ -168,7 +168,7 @@ function TableItem({
   if (!data) return null;
   const beds = {
     normal: [data.available_beds_without_oxygen, data.total_beds_without_oxygen],
-    oxygen: [data.available_beds_with_oxygen, data.total_beds_without_oxygen],
+    oxygen: [data.available_beds_with_oxygen, data.total_beds_with_oxygen],
     icu: [data.available_icu_beds_without_ventilator, data.total_icu_beds_without_ventilator],
     vent: [data.available_icu_beds_with_ventilator, data.total_icu_beds_with_ventilator]
   };
