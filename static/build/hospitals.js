@@ -7,7 +7,7 @@ const {
   useState,
   useReducer
 } = React;
-const apiUrl = location.origin + '/api/data';
+const apiUrl = location.origin + '/api/data/';
 const cache = new Map();
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render( /*#__PURE__*/React.createElement(Hospitals, null), document.getElementById('root'));
@@ -31,6 +31,7 @@ function Hospitals() {
     getRegionDataByName(fetchedRegion).then(resData => {
       resData ||= 'Failed to fetch Data';
       if (typeof resData === 'string') return setError(resData + ', Contact a developer if the issue persists');
+      resData.data = resData.data.sort((a, b) => b.available_beds_with_oxygen - a.available_beds_with_oxygen);
       setSearchQuery({
         values: resData.data,
         region: fetchedRegion
@@ -74,7 +75,7 @@ function RegionDropDown({
 }) {
   const [regions, setRegion] = useState(null);
   useEffect(() => {
-    setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area))]);
+    setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area || 'NA'))]);
   }, [hospitals]);
   if (!hospitals || !regions) return /*#__PURE__*/React.createElement("div", {
     id: "loadingDisplay",
@@ -127,8 +128,12 @@ async function getRegionDataByName(name) {
   if (!code) return 'Invalid State Name';
   const cachedData = cache.get(code);
   if (cachedData) return cachedData;
-  const data = await fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error);
+  const data = fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error);
+  cache.set(code, data);
   if (!data) return 'Failed to fetch data from API';
-  return data;
-}
+  return await data;
+} //  FETCH TO CACHE
+
+
+getRegionDataByName(STATS_DATA.state_names[15]);
 //# sourceMappingURL=hospitals.js.map

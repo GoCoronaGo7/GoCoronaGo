@@ -21,13 +21,13 @@ const buttonClickHandlers = {
     return true;
   },
   next: (page, setPage, click, maxPages) => {
-    if (page >= maxPages - 1) return false;
+    if (page >= maxPages) return false;
     if (click) setPage(page + 1);
     return true;
   },
   end: (page, setPage, click, maxPages) => {
-    if (page === maxPages - 1) return false;
-    if (click) setPage(maxPages - 2);
+    if (page === maxPages) return false;
+    if (click) setPage(maxPages);
     return true;
   }
 };
@@ -36,6 +36,9 @@ export default function HospitalsDisplay({
 }) {
   const [page, setPage] = useState(1);
   const maxPages = Math.ceil(hospitals.length / ITEMS_COUNT);
+  useEffect(() => {
+    setPage(1);
+  }, [setPage, hospitals.length]);
   return /*#__PURE__*/React.createElement("div", {
     id: "hospitalsDisplay"
   }, /*#__PURE__*/React.createElement(Navigator, {
@@ -130,6 +133,10 @@ function TabledDisplay({
   hospitals,
   page
 }) {
+  useEffect(() => {
+    const table = document.getElementById('hospitalsTable');
+    table.scrollTop = 0;
+  }, [hospitals.length, page]);
   return /*#__PURE__*/React.createElement("div", {
     id: "hospitalsTable"
   }, /*#__PURE__*/React.createElement("div", {
@@ -144,7 +151,7 @@ function TabledDisplay({
     className: "statsCell"
   }, " ICU Units "), /*#__PURE__*/React.createElement("span", {
     className: "statsCell"
-  }, " Ventilator Units ")), hospitals.splice(page * ITEMS_COUNT, ITEMS_COUNT).map(x => /*#__PURE__*/React.createElement(TableItem, {
+  }, " Ventilator Units ")), [...hospitals].splice((page - 1) * ITEMS_COUNT, ITEMS_COUNT).map(x => /*#__PURE__*/React.createElement(TableItem, {
     key: x.hospital_name,
     data: x
   })));
@@ -161,7 +168,7 @@ function TableItem({
   if (!data) return null;
   const beds = {
     normal: [data.available_beds_without_oxygen, data.total_beds_without_oxygen],
-    oxygen: [data.available_beds_with_oxygen, data.total_beds_without_oxygen],
+    oxygen: [data.available_beds_with_oxygen, data.total_beds_with_oxygen],
     icu: [data.available_icu_beds_without_ventilator, data.total_icu_beds_without_ventilator],
     vent: [data.available_icu_beds_with_ventilator, data.total_icu_beds_with_ventilator]
   };
