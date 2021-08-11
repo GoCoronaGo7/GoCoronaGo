@@ -26,7 +26,7 @@ const buttonClickHandlers = {
     },
     end: (page, setPage, click, maxPages) => {
         if (page === maxPages - 1) return false
-        if (click) setPage(maxPages - 1)
+        if (click) setPage(maxPages - 2)
         return true
     }
 }
