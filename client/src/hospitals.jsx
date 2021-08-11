@@ -24,7 +24,6 @@ function Hospitals () {
                 resData ||= 'Failed to fetch Data'
                 if (typeof resData === 'string') return setError(resData + ', Contact a developer if the issue persists')
                 resData.data = resData.data.sort((a, b) => b.available_beds_with_oxygen - a.available_beds_with_oxygen)
-                console.log(resData.data)
                 setSearchQuery({ values: resData.data, region: fetchedRegion })
             })
             .catch(console.error)
@@ -49,7 +48,6 @@ function RegionDropDown ({ hospitals, setSearchQuery }) {
     useEffect(() => {
         setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area || 'NA'))])
     }, [hospitals])
-    console.log(regions)
     if (!hospitals || !regions) return <div id="loadingDisplay" style={{ display: 'grid', placeItems: 'center' }} > < LoadingIcon /> </div>
     else return < Dropdown options={regions} value={'All Regions'} onChange={({ value }) => setSearchQuery({ type: 'region', region: value })} />
 }
