@@ -5,7 +5,7 @@ import HospitalsDisplay from './components/HospitalDisplay.js'
 
 const { useEffect, useState, useReducer } = React
 
-const apiUrl = location.origin + '/api/data'
+const apiUrl = location.origin + '/api/data/'
 const cache = new Map()
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -79,8 +79,12 @@ async function getRegionDataByName (name) {
     if (!code) return 'Invalid State Name'
     const cachedData = cache.get(code)
     if (cachedData) return cachedData
-    const data = await fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error)
+    const data = fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error)
+    cache.set(code, data)
     if (!data) return 'Failed to fetch data from API'
 
-    return data
+    return await data
 }
+
+//  FETCH TO CACHE
+getRegionDataByName(STATS_DATA.state_names[15])
