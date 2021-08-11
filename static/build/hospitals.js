@@ -32,7 +32,6 @@ function Hospitals() {
       resData ||= 'Failed to fetch Data';
       if (typeof resData === 'string') return setError(resData + ', Contact a developer if the issue persists');
       resData.data = resData.data.sort((a, b) => b.available_beds_with_oxygen - a.available_beds_with_oxygen);
-      console.log(resData.data);
       setSearchQuery({
         values: resData.data,
         region: fetchedRegion
