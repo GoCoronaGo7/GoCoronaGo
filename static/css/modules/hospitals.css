@@ -163,13 +163,13 @@ th, td {
 }
 
 .red {
-    background-color: rgba(248, 55, 55, 0.585);
+    background-color: rgba(248, 55, 55, 0.7);
 }
 
 .orange {
-    background-color: rgba(250, 198, 26, 0.585);
+    background-color: rgba(250, 198, 26, 0.6);
 }
 
 .green {
-    background-color: rgba(51, 223, 51, 0.585);
+    background-color: rgba(51, 223, 51, 0.8);
 }
