@@ -94,7 +94,7 @@ button{
     background-color: #bfbfbf !important;
 }
 .hospitalTableRow {
-    background-color: #cbcfc2
+    background-color: #fffef4
 }
 #blogout {
     border: 5px ;
@@ -110,7 +110,7 @@ button{
     border: 5px  ;
     width: 600px;
     word-wrap: break-word;
-    background-color: white;
+    background-color: #fffef4;
     border-radius: 10px;
     padding: 10px;
     font-size: 20px;
