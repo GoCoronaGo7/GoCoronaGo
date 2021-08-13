@@ -1,4 +1,6 @@
-const { useState, useEffect } = React
+import Dropdown from './Dropdown.js'
+
+const { useState } = React
 
 export default function RegionalDisplay ({ type, dat }) {
     const [region, setRegion] = useState('Tamil Nadu')
@@ -43,37 +45,11 @@ RegionalDisplay.propTypes = {
 }
 
 function DropDown ({ regionData, region, setRegion }) {
-    useEffect(() => {
-        const dropDown = document.getElementById('dropDown')
-        const dropDownList = document.getElementById('regionalDropDownMenuList')
-        const handler = (e) => {
-            dropDownList.style.display = e.type === 'mouseenter' ? 'block' : 'none'
-        }
-        dropDown.addEventListener('mouseenter', handler)
-        dropDown.addEventListener('mouseleave', handler)
-        for (const element of dropDownList.childNodes) {
-            element.addEventListener('click', (event) => {
-                const target = event.target.innerHTML
-                setRegion(target)
-
-                dropDownList.style.display = 'none'
-            })
-        }
-    }, [setRegion])
-    return (<div id="dropDown">
-        <span id="regionalSelectedStats"> {region} </span>
-        <ul id="regionalDropDownMenuList" style={{ display: 'none' }} className="scrollable-menu dropdown">
-            {regionData.map(makeMenuCard)}
-        </ul>
-    </div>)
+    return (< Dropdown options = { regionData } value = { region } onChange = { ({ value }) => setRegion(value)}/>)
 }
 
 DropDown.propTypes = {
     regionData: PropTypes.array,
     region: PropTypes.string,
     setRegion: PropTypes.func
-}
-
-function makeMenuCard (name) {
-    return <li key={`dropdown-${name}`} className="dropdownList">{name}</li>
 }
