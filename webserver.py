@@ -3,7 +3,7 @@ import datetime
 # coding: UTF-8
 from flask import Flask
 from flask import render_template, session, request
-from lib.forms import BlogForm
+from lib.forms import AdminForm, BlogForm
 
 from requests_futures.sessions import FuturesSession
 from concurrent.futures import as_completed
@@ -24,6 +24,22 @@ def index():
         user = session['username']
     return render_template('base.html')
 
+@webserver.route('/gcgadmin', methods=['GET', 'POST'])
+def admin_create():
+    form = AdminForm(request.form)
+    msg=''
+    if request.method == 'POST' and form.validate_on_submit():
+        doct_name = request.form['name_doct'] #doctname
+        field_exp = request.form['special_field'] # speciality
+        consul_fee = request.form['consul_fee'] # fees
+        webserver.app.db.insert_admin(doct_name,field_exp,consul_fee)
+    return render_template('adminreg.html',form=form, msg=msg)
+
+@webserver.route('/admins', methods=['GET','POST'])
+def doctorspresent():
+    admin_det=webserver.app.db.get_admins()    
+    return render_template('admin.html',admin=admin_det)
+    
 
 @webserver.route('/add_blog', methods=['GET', 'POST'])
 def blog():

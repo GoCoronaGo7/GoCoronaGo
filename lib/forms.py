@@ -41,3 +41,17 @@ class BlogForm(FlaskForm):
         Length(min=5, max=350),
         validators.DataRequired(message="Under/Over word limit")
     ])
+    
+class AdminForm(FlaskForm):
+    name_doct = TextField("Your name", validators=[
+        Length(min=5, max=20),
+         validators.DataRequired(message="Under/Over word limit")
+    ])
+    special_field = TextField("speciality", validators=[
+        Length(min=5, max=350),
+        validators.DataRequired(message="Under/Over word limit")
+    ])
+    consul_fee = TextField("speciality", validators=[
+        Length(min=1, max=5),
+        validators.DataRequired(message="Between ₹1-₹99999")
+    ])
