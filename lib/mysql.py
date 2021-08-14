@@ -46,9 +46,19 @@ class Db:
                     PRIMARY KEY (id) 
                     )         
         ''' 
+        query_admin = '''CREATE TABLE IF NOT EXISTS `admin`
+                    (
+                    id INT NOT NULL AUTO_INCREMENT,
+                    name varchar(25) NOT NULL,
+                    speciality varchar(450) NOT NULL,
+                    consultation_fee int NOT NULL,
+                    PRIMARY KEY (id) 
+                    )         
+        ''' 
         cursor.execute(query_user_setup)
         cursor.execute(query_doc_setup)
         cursor.execute(query_blog_setup)
+        cursor.execute(query_admin)
         
     def get_cursor(self):
         try:
@@ -93,6 +103,19 @@ class Db:
             f'''INSERT INTO `user` (username,password,email) values('{user}', '{passw}', '{email}')''')
         return self.connection.commit()
     
+    def insert_admin(self,doctname,speciality,fee):
+        cursor = self.get_cursor()
+        cursor.execute(
+            f'''INSERT INTO `admin` (name,speciality,consultation_fee) values('{doctname}', '{speciality}', '{fee}')''')
+        return self.connection.commit()
+    
+    def get_admins(self):
+        cursor = self.get_cursor()
+        cursor.execute(
+            f'''SELECT * FROM `admin` ''')
+        doct_det_out=cursor.fetchall()
+        return doct_det_out
+        
     def insert_blog(self,user,content,date,title):
         cursor = self.get_cursor()
         cursor.execute(

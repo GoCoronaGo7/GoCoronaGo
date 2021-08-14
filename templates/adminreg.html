@@ -2,16 +2,17 @@
 {% from "formhelpers.html" import render_field %}
 
 {%block title%}
-	Blog
+	Admin_regis
 {%endblock title%}
 
 {% block body%}
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-12 col-sm-6 col-md-4">
-				<form action={{url_for('blog')}} method="post" class="form-container" name="bloginput">
-					{{ render_field(form.title, class="form-control", placeholder="Title (max 20 char)" )}}
-                    {{ render_field(form.content, class="form-control", placeholder="Content (max 350 char)" )}}
+				<form action={{url_for('admin_create')}} method="post" class="form-container" name="bloginput">
+					{{ render_field(form.name_doct, class="form-control", placeholder="Name (max 20 char)" )}}
+                    {{ render_field(form.special_field, class="form-control", placeholder="Speciality(max 350)" )}}
+                    {{ render_field(form.consul_fee, class="form-control", placeholder="Fees (₹1-₹99999)" )}}
                     {{ form.hidden_tag() }}
                     <button name="action_save" type="submit" class="btn btn-primary btn-block">
 						Upload
