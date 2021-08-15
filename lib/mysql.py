@@ -48,11 +48,12 @@ class Db:
         ''' 
         query_admin = '''CREATE TABLE IF NOT EXISTS `admin`
                     (
-                    id INT NOT NULL AUTO_INCREMENT,
                     name varchar(25) NOT NULL,
                     speciality varchar(450) NOT NULL,
                     consultation_fee int NOT NULL,
-                    PRIMARY KEY (id) 
+                    username_ad varchar(25) NOT NULL,
+                    password_ad varchar(16) NOT NULL,
+                    gmeet_id varchar(20) NOT NULL
                     )         
         ''' 
         cursor.execute(query_user_setup)
@@ -103,10 +104,10 @@ class Db:
             f'''INSERT INTO `user` (username,password,email) values('{user}', '{passw}', '{email}')''')
         return self.connection.commit()
     
-    def insert_admin(self,doctname,speciality,fee):
+    def insert_admin(self,doctname,speciality,fee,usrname,passwrd,meet_id):
         cursor = self.get_cursor()
         cursor.execute(
-            f'''INSERT INTO `admin` (name,speciality,consultation_fee) values('{doctname}', '{speciality}', '{fee}')''')
+            f'''INSERT INTO `admin` (name,speciality,consultation_fee,username_ad,password_ad,gmeet_id) values('{doctname}', '{speciality}', '{fee}', '{usrname}', '{passwrd}','{meet_id}')''')
         return self.connection.commit()
     
     def get_admins(self):

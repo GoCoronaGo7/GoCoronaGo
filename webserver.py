@@ -32,7 +32,9 @@ def admin_create():
         doct_name = request.form['name_doct'] #doctname
         field_exp = request.form['special_field'] # speciality
         consul_fee = request.form['consul_fee'] # fees
-        webserver.app.db.insert_admin(doct_name,field_exp,consul_fee)
+        #username passwd i havent inputted cause i think we need some crypto and otp verification
+        gmeet_id = request.form['gmeet_id'] # meetid
+        webserver.app.db.insert_admin(doct_name,field_exp,consul_fee,'dummy_username','dummy_passwd',gmeet_id) #added dummy in username and password
     return render_template('adminreg.html',form=form, msg=msg)
 
 @webserver.route('/admins', methods=['GET','POST'])
