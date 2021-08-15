@@ -55,3 +55,14 @@ class AdminForm(FlaskForm):
         Length(min=1, max=5),
         validators.DataRequired(message="Between ₹1-₹99999")
     ])
+    username_ad = TextField("Username", validators=[
+        Length(min=3, max=25),
+        validators.DataRequired(message="Please Fill This Field")
+    ])
+    password_ad = PasswordField("Password", validators=[
+        validators.DataRequired(message="Please Fill This Field"),
+    ])
+    gmeet_id = TextField("Username", validators=[
+        Length(min=3, max=25),
+        validators.DataRequired(message="Please Fill This Field")
+    ])

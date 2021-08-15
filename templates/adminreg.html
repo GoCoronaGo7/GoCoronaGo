@@ -13,7 +13,10 @@
 					{{ render_field(form.name_doct, class="form-control", placeholder="Name (max 20 char)" )}}
                     {{ render_field(form.special_field, class="form-control", placeholder="Speciality(max 350)" )}}
                     {{ render_field(form.consul_fee, class="form-control", placeholder="Fees (₹1-₹99999)" )}}
-                    {{ form.hidden_tag() }}
+					{{ render_field(form.username_ad, class="form-control", placeholder="Enter Username" )}}
+                    {{ render_field(form.password_ad, class="form-control", placeholder="Enter Password" )}}
+                    {{ render_field(form.gmeet_id, class="form-control", placeholder="Enter personal gmeet id" )}}
+					{{ form.hidden_tag() }}
                     <button name="action_save" type="submit" class="btn btn-primary btn-block">
 						Upload
 					</button>
