@@ -43,26 +43,10 @@ class BlogForm(FlaskForm):
     ])
     
 class AdminForm(FlaskForm):
-    name_doct = TextField("Your name", validators=[
-        Length(min=5, max=20),
-         validators.DataRequired(message="Under/Over word limit")
-    ])
-    special_field = TextField("speciality", validators=[
-        Length(min=5, max=350),
-        validators.DataRequired(message="Under/Over word limit")
-    ])
-    consul_fee = TextField("speciality", validators=[
-        Length(min=1, max=5),
-        validators.DataRequired(message="Between ₹1-₹99999")
-    ])
-    username_ad = TextField("Username", validators=[
+    username = TextField("Username", validators=[
         Length(min=3, max=25),
         validators.DataRequired(message="Please Fill This Field")
     ])
-    password_ad = PasswordField("Password", validators=[
+    password = PasswordField("Password", validators=[
         validators.DataRequired(message="Please Fill This Field"),
-    ])
-    gmeet_id = TextField("Username", validators=[
-        Length(min=3, max=25),
-        validators.DataRequired(message="Please Fill This Field")
     ])

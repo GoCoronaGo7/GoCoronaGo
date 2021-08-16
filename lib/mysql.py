@@ -116,7 +116,12 @@ class Db:
             f'''SELECT * FROM `admin` ''')
         doct_det_out=cursor.fetchall()
         return doct_det_out
-        
+    def get_admin_by_username(self, username):
+        cursor = self.get_cursor()
+        cursor.execute(
+            f'''SELECT * FROM `admin` ''')
+        doct_det_out=cursor.fetchall()
+        return doct_det_out
     def insert_blog(self,user,content,date,title):
         cursor = self.get_cursor()
         cursor.execute(
@@ -150,6 +155,13 @@ class Db:
 
         cursor.execute(
             f'''UPDATE `user` SET {self.dict_to_query(kwargs)}, WHERE `user`.`username`={user}'''
+        )
+    def update_admin(self, user, **kwargs):
+        print(kwargs)
+        cursor = self.get_cursor()
+
+        cursor.execute(
+            f'''UPDATE `admin` SET {self.dict_to_query(kwargs)}, WHERE `admin`.`username`={user}'''
         )
     def to_dict(self, values):
         keys = ('id', 'username', 'password', 'email')

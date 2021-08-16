@@ -3,26 +3,23 @@ from lib.forms import LoginForm, RegisterForm, OTPForm
 import re
 
 accounts = Blueprint('accounts', __name__)
-accounts.app = current_app
-
-accounts.secret_key = 'test'
-
+accounts.webserver = current_app
 # print(current_app.db)
 
 # Account methods
 @accounts.route('/login/', methods=['GET', 'POST'])
 def login():
     msg = ''
-
+    print(accounts.webserver.app.host)
     # Convert our request form ( The user submitted one ) into WTF Form so that we can validate it
     form = LoginForm(request.form)
     # .validate_on_submit() will check if user has submitted a valid form
     if request.method == 'POST' and form.validate_on_submit():
-        user = accounts.app.db.get_username(request.form['username'])
+        user = accounts.webserver.app.db.get_username(request.form['username'])
         if user is None:
             msg = 'RED User not found!'
         else:
-            passwordCorrect = accounts.app.verify_password(user['password'], request.form['password'], request.form['username'])
+            passwordCorrect = accounts.webserver.app.verify_password(user['password'], request.form['password'], request.form['username'])
             if passwordCorrect:
                 # Session uses cookies to set variables that are present in the client
                 session['loggedin'] = True
@@ -50,8 +47,8 @@ def register():
         password = request.form['password']
         email = request.form['email']
 
-        account = accounts.app.db.get_username(username)
-        account_email = accounts.app.db.get_email(email)
+        account = accounts.webserver.app.db.get_username(username)
+        account_email = accounts.webserver.app.db.get_email(email)
 
         if account:
             msg = 'RED Please choose a different email!'
@@ -64,11 +61,12 @@ def register():
         elif not username or not password or not email:
             msg = 'RED Please fill out the form !'
         else:
-            accounts.app.temp_data[request.form['email']] = request.form
-            otp =  accounts.app.crypto.random()
-            accounts.app.register_otp[request.form['email']] = otp
-            accounts.app.send_email(email, otp, request.url_root + url_for("otp_verification"))
-            return redirect(url_for('otp_verification', email=email))
+            accounts.webserver.app.temp_data[request.form['email']] = request.form
+            otp =  accounts.webserver.app.crypto.random()
+            print(otp)
+            accounts.webserver.app.register_otp[request.form['email']] = otp
+            accounts.webserver.app.send_email(email, otp, request.url_root + url_for("accounts.otp_verification"))
+            return redirect(url_for('accounts.otp_verification', email=email))
     elif request.method == 'POST':
         msg = 'RED Please fill out the form !'
     return render_template('register.html', msg=msg, form=form)
@@ -79,10 +77,10 @@ def otp_verification():
     email = request.args.get('email')
     msg = ''
 
-    real_otp = accounts.app.register_otp.get(email)
+    real_otp = accounts.webserver.app.register_otp.get(email)
 
     if real_otp is None:
-        return redirect('accounts.register')
+        return redirect('register')
     form = OTPForm(request.form)
     if form.validate_on_submit():
         otp = request.form['otp']
@@ -91,8 +89,8 @@ def otp_verification():
             email = 'None'
         if otp is not None:
             if int(real_otp) == int(otp):
-                user = accounts.app.temp_data[email]
-                accounts.app.register_account(user)
+                user = accounts.webserver.app.temp_data[email]
+                accounts.webserver.app.register_account(user)
                 session['loggedin'] = True
                 session['username'] = user['username']
                 return redirect(url_for('index'))
