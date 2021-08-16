@@ -52,7 +52,7 @@ class Db:
                     speciality varchar(450) NOT NULL,
                     consultation_fee int NOT NULL,
                     username_ad varchar(25) NOT NULL,
-                    password_ad varchar(16) NOT NULL,
+                    password_ad varchar(128) NOT NULL,
                     gmeet_id varchar(20) NOT NULL
                     )         
         ''' 
