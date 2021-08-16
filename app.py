@@ -16,54 +16,65 @@ class App():
         self.register_otp = {}
         self.temp_data = {}
 
-def register_account(data):
-    hash = crypto.hash(data['password'])
-    try:
-        verify_password(hash, data['password'], data['username'])
-        print(hash)
-        app.db.insert(data['username'], hash, data['email'])
-    except:
-        print('Crypto ERROR!')
-        raise
+    def register_account(self, data):
+        hash = crypto.hash(data['password'])
+        try:
+            self.verify_password(hash, data['password'], data['username'])
+            print(hash)
+            app.db.insert(data['username'], hash, data['email'])
+        except:
+            print('Crypto ERROR!')
+            raise
 
-def send_email(email, otp, url):
-    html = render_template('email.html', url=url, email=email, otp = otp)
-    app.email_manager.send_email(email, 'Verify Your Email', html)
+    def send_email(self, email, otp, url):
+        html = render_template('email.html', url=url, email=email, otp = otp)
+        app.email_manager.send_email(email, 'Verify Your Email', html)
 
-def verify_password(hash, password, username):
-    result = crypto.verify(hash,password)
-    if result is True or result is False:
-        return result
-    else:
-        db.update(username, password=result)
-        return True
+    def verify_password(self, hash, password, username):
+        result = crypto.verify(hash,password)
+        if result is True or result is False:
+            return result
+        else:
+            db.update(username, password=result)
+            return True
+    def verify_admin_password(self, hash, password, username):
+        result = crypto.verify(hash,password)
+        if result is True or result is False:
+            return result
+        else:
+            db.update_admin(username, password=result)
+            return True
 
-def load_config():
-    mode = os.environ.get('FLASK_ENV')
-    import configurations
-    """Load config."""
-    print('Loading in mode', mode)
-    if mode == 'PRODUCTION':
-        return configurations.prod
-    else:
-        return configurations.dev
+    def load_config(self):
+        mode = os.environ.get('FLASK_ENV')
+        import configurations
+        """Load config."""
+        print('Loading in mode', mode)
+        if mode == 'PRODUCTION':
+            return configurations.prod
+        else:
+            return configurations.dev
 
 
-config = load_config()
 app = App()
+config = app.load_config()
+
 app.ENV = dict()
 for i in config.ENV:
     app.ENV[i] = os.environ.get(i)
 
 print(app.ENV)
 
-db = Db(app.ENV)
-if (db.connected()):
-    print('connected!')
+if app.ENV['NO_DB'] is None:
+    db = Db(app.ENV)
+    if (db.connected()):
+        print('connected!')
+        app.db = db
+
 
 app.email_manager = EmailManager(app.ENV)
 app.host = config.HOST
-app.db = db
+app.crypto = crypto
 
 from webserver import webserver
 
