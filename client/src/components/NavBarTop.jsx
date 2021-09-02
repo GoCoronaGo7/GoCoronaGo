@@ -31,6 +31,18 @@ function Nav () {
                     <li> <a href='/register'>Register</a></li>
                 </ul>
             </ContentGroup>
+            <ContentGroup title="Stats" width="300" height="100">
+                <ul>
+                    <li> <a href='/stats'>Stats</a></li>
+                    <li> <a href='/hospitals'>Hospitals</a></li>
+                </ul>
+            </ContentGroup>
+            <ContentGroup title="Blogs" width="300" height="100">
+                <ul>
+                    <li> <a href='/blog'>View Blogs</a></li>
+                    <li> <a href='/add_blog'>Add Blog</a></li>
+                </ul>
+            </ContentGroup>
         </NavBar>
     </>)
 }

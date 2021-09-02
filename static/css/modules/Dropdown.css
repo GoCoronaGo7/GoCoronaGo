@@ -99,11 +99,9 @@
 .NavDropDown-control {
   position: relative;
   overflow: hidden;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: transparent;
   border-radius: 2px;
   box-sizing: border-box;
-  color: #333;
   cursor: default;
   outline: none;
   padding: 8px 52px 8px 10px;
@@ -132,7 +130,9 @@
   border-color: transparent transparent #999;
   border-width: 0 5px 5px;
 }
-
+.is-open {
+  background-color: white;
+}
 .NavDropDown-menu {
   background-color: white;
   border: 1px solid #ccc;
