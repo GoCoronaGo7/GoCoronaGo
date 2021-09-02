@@ -2,6 +2,10 @@
     --primary: #0bf3ff;
 }
 /* colors are subject to change*/
+
+body {
+    color: #0a9aa1;
+}
 a:link{
     color:#0a9aa1;
 }
@@ -101,6 +105,25 @@ button{
 
 .search-bar, .Dropdown-control, .Dropdown-option {
     color: #efefef !important;
+}
+.is-open {
+    background-color: rgb(0, 30, 39) !important;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+
+.NavDropDown-option {
+    background-color: rgb(0, 30, 39) !important;
+    color: #08adb6 !important;
+}
+.NavDropDown-menu {
+    background-color: transparent !important;
+    border: 1px solid rgb(21, 21, 21) !important;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+.NavDropDown-option:hover {
+    background-color: rgb(0, 60, 79) !important;
 }
 
 .Dropdown-option.is-selected {

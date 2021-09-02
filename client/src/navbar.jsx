@@ -22,7 +22,7 @@ function renderNav () {
             x.style.display = 'none'
             x.style.visibility = 'hidden'
         })
-        target.style.display = 'block'
+        target.style.display = 'flex'
         return render(<Nav />, target)
     } else {
         oldNav.forEach(x => {
