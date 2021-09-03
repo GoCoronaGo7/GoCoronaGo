@@ -1,3 +1,2 @@
 function toggleTheme(){const a=document.querySelector("link#theme"),b=a.getAttribute("href").includes("dark");swap(b)}document.addEventListener("DOMContentLoaded",function(){const a=JSON.parse(localStorage.getItem("light"));// get Client side store
 swap(!!a);const b=document.querySelector("theme-toggle-button");b.addEventListener("onclick",toggleTheme)});function swap(a){const b=document.querySelector("link#theme"),c=document.querySelector("#lightmode-button"),d=document.querySelector("#darkmode-button");c.style.display=a?"none":"block",d.style.display=a?"block":"none";let e=["lightmode","darkmode"];a&&(e=e.reverse());const f=b.getAttribute("href"),g=f.replace(...e);b.setAttribute("href",g),localStorage.setItem("light",a)}
-//# sourceMappingURL=index.js.map
