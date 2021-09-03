@@ -96,6 +96,17 @@ button{
 .hospitalTableRow {
     background-color: #fffef4
 }
+.is-open {
+    background-color: #FFF2DB !important;
+}
+
+.NavDropDown-option {
+    background-color: #FFF2DB !important;
+}
+.NavDropDown-menu {
+    background-color: transparent !important;
+    border: 1px solid #FFF2DB !important;
+}
 #blogout {
     border: 5px ;
     padding:30px;
