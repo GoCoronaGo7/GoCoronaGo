@@ -15,6 +15,15 @@
   <!-- Mobile CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main_mobile.css') }}" media="only screen and (max-device-width: 480px)" h/>
 
+  <script>
+     window.BASE_URL = "{{ url_for('static', filename='css/main.css')}}".split('css')[0];
+     const keys = JSON.parse('{{ session.keys() | list | tojson }}');
+     const values = JSON.parse('{{ session.values() | list | tojson }}');
+     const FLASK_SESSION = {};
+     keys.forEach((key, i) =>  FLASK_SESSION[key] = values[i]);
+     FLASK_SESSION.name = FLASK_SESSION.admin ? 'Dr.' : '' + FLASK_SESSION.username ;
+     window.FLASK_SESSION = FLASK_SESSION;
+  </script>
   <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
   <script type="module" src="{{ url_for('static', filename='build/navbar.js') }}"></script>
 
@@ -22,18 +31,11 @@
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/prop-types@15.6/prop-types.js" crossorigin></script>
-    <script src="https://unpkg.com/react-router-dom@5.2.0/umd/react-router-dom.js" crossorigin></script>
 
   {% else %}
     <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/prop-types@15.6/prop-types.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-router-dom@5.2.0/umd/react-router-dom.min.js" crossorigin></script>
-
   {% endif %}
-  <script>
-    window.BASE_URL = "{{ url_for('static', filename='css/main.css')}}".split('css')[0];
-  </script>
 
   {%block head%}
   {%endblock head%}
