@@ -24,14 +24,18 @@ function Nav () {
 
     return (<>
         <NavBar id="navbar-pro" contentBackground={ theme.rowBackground } debug={true} contentTop="-2">
-            <ContentGroup as="a" className="navbar-brand" title="GoCoronaGo" rootUrl="/" />
+            <ContentGroup as="a" className="navbar-brand" title={ window.FLASK_SESSION.loggedin ? window.FLASK_SESSION.name : 'GoCoronaGo'} rootUrl="/" />
             <div className="navbar-collapse">
-                <ContentGroup title="Accounts" width="300" height="100">
-                    <ul>
-                        <li> <a href='/login'>Login</a></li>
-                        <li> <a href='/register'>Register</a></li>
-                    </ul>
-                </ContentGroup>
+                {
+                    window.FLASK_SESSION.loggedin
+                        ? null
+                        : <ContentGroup title="Accounts" width="300" height="100">
+                            <ul>
+                                <li> <a href='/login'>Login</a></li>
+                                <li> <a href='/register'>Register</a></li>
+                            </ul>
+                        </ContentGroup>
+                }
                 <ContentGroup title="Stats" width="300" height="100">
                     <ul>
                         <li> <a href='/stats'>Stats</a></li>

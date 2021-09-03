@@ -22,7 +22,6 @@ export function ContentGroup ({ children, title, rootUrl, ...props }) {
     const [options, links] = useMemo(() => {
         if (!children?.props?.children) return [[], []]
         return children.props.children.map(li => {
-            console.log('li', li)
             const child = li?.props?.children?.find(x => x.props?.children)?.props
             const mapped = [child?.children, child?.href].filter(Boolean)
             if (mapped.length) return mapped
