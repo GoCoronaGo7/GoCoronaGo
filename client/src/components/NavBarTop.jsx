@@ -1,5 +1,4 @@
 import NavBar, { ContentGroup } from './NavBar.js'
-// import styled, { css } from 'styled-components'
 const { useEffect, useState } = React
 
 const initialMode = window.darkMode
