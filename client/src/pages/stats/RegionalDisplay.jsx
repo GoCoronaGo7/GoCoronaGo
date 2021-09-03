@@ -1,4 +1,4 @@
-import Dropdown from './Dropdown.js'
+import Dropdown from '../../components/Dropdown.js'
 
 const { useState } = React
 

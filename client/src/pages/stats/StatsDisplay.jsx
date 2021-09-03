@@ -1,5 +1,5 @@
 import RegionalDisplay from './RegionalDisplay.js'
-import LoadingIcon from './LoadingIcon.js'
+import LoadingIcon from '../../components/LoadingIcon.js'
 
 const { useState, useEffect } = React
 

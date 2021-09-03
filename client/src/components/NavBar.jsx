@@ -17,18 +17,12 @@ export default function NavBar ({ children }) {
 NavBar.propTypes = {
     children: PropTypes.array
 }
-
-export function ContentGroup ({ children, title, rootUrl, ...props }) {
+export function ContentGroup ({ opts, title, rootUrl, ...props }) {
     const [options, links] = useMemo(() => {
-        if (!children?.props?.children) return [[], []]
-        return children.props.children.map(li => {
-            const child = li?.props?.children?.find(x => x.props?.children)?.props
-            const mapped = [child?.children, child?.href].filter(Boolean)
-            if (mapped.length) return mapped
-            return false
-        }).filter(Boolean).reduce((acc, val) => [[...acc[0], val[0]], [...acc[1], val[1]]], [[], []])
-    }, [children])
-    if (!children) return <a href={rootUrl} {...props}>{title} </a>
+        if (!opts) return [[], []]
+        return opts.filter(Boolean).reduce((acc, val) => [[...acc[0], val[1]], [...acc[1], val[0]]], [[], []])
+    }, [opts])
+    if (!opts) return <a href={rootUrl} {...props}>{title} </a>
 
     return <Dropdown baseClassName="NavDropDown" changeOnClick={false} value={title} onChange={({ value }) => {
         window.location = links[options.indexOf(value)]
