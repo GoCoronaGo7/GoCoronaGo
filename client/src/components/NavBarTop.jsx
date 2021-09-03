@@ -25,24 +25,26 @@ function Nav () {
     return (<>
         <NavBar id="navbar-pro" contentBackground={ theme.rowBackground } debug={true} contentTop="-2">
             <ContentGroup as="a" className="navbar-brand" title="GoCoronaGo" rootUrl="/" />
-            <ContentGroup title="Accounts" width="300" height="100">
-                <ul>
-                    <li> <a href='/login'>Login</a></li>
-                    <li> <a href='/register'>Register</a></li>
-                </ul>
-            </ContentGroup>
-            <ContentGroup title="Stats" width="300" height="100">
-                <ul>
-                    <li> <a href='/stats'>Stats</a></li>
-                    <li> <a href='/hospitals'>Hospitals</a></li>
-                </ul>
-            </ContentGroup>
-            <ContentGroup title="Blogs" width="300" height="100">
-                <ul>
-                    <li> <a href='/blog'>View Blogs</a></li>
-                    <li> <a href='/add_blog'>Add Blog</a></li>
-                </ul>
-            </ContentGroup>
+            <div className="navbar-collapse">
+                <ContentGroup title="Accounts" width="300" height="100">
+                    <ul>
+                        <li> <a href='/login'>Login</a></li>
+                        <li> <a href='/register'>Register</a></li>
+                    </ul>
+                </ContentGroup>
+                <ContentGroup title="Stats" width="300" height="100">
+                    <ul>
+                        <li> <a href='/stats'>Stats</a></li>
+                        <li> <a href='/hospitals'>Hospitals</a></li>
+                    </ul>
+                </ContentGroup>
+                <ContentGroup title="Blogs" width="300" height="100">
+                    <ul>
+                        <li> <a href='/blog'>View Blogs</a></li>
+                        <li> <a href='/add_blog'>Add Blog</a></li>
+                    </ul>
+                </ContentGroup>
+            </div>
         </NavBar>
     </>)
 }
