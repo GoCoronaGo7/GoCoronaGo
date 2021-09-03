@@ -118,6 +118,7 @@ body {
     font-size: 1.25rem;
     line-height: inherit;
     white-space: nowrap;
+    padding-left: 70%;
 }
 
 #navBar-react {
