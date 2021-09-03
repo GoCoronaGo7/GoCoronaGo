@@ -1,7 +1,7 @@
 import Dropdown from './components/Dropdown.js'
 import LoadingIcon from './components/LoadingIcon.js'
 import SearchBar from './components/SearchBar.js'
-import HospitalsDisplay from './components/HospitalDisplay.js'
+import HospitalsDisplay from './pages/hospital/HospitalDisplay.js'
 
 const { useEffect, useState, useReducer } = React
 

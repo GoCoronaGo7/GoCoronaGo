@@ -105,3 +105,8 @@ def otp_verification():
             msg = 'GREEN Click on submit to complete account registration'
 
     return render_template('otp.html', form=form, msg=msg)
+
+
+@accounts.route('/dashboard')
+def dash():
+    return render_template('dashboard.html')

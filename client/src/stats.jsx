@@ -1,5 +1,5 @@
-import Selector from './components/Selector.js'
-import StatsDisplay from './components/StatsDisplay.js'
+import Selector from './pages/stats/Selector.js'
+import StatsDisplay from './pages/stats/StatsDisplay.js'
 
 const { useState } = React
 
