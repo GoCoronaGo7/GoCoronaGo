@@ -1,0 +1,179 @@
+#root {
+    transform: translateY(-15vh);
+    display: grid;
+    background-color: rgba(255, 255, 255, 0.056);
+    padding: 0;
+    margin: 0;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0.8, 0.8, 0.8, 0.2);
+    max-width: 100%;
+}
+#display {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    gap: 3vh;
+    transform: translateY(-5vh);
+}
+
+.Dropdown-root {
+    align-self: flex-start;
+    justify-self: flex-start;
+    max-width: 250px;
+}
+
+.Dropdown-control {
+    border-radius: 15px;
+    border: none;
+    width: 100%;
+}
+
+.Dropdown-menu {
+    border: none;
+}
+
+.Dropdown-arrow {
+    vertical-align: middle;
+    margin-top: 2.5px
+}
+
+.search-bar {
+    background: none;
+    border: none;
+    outline: none;
+}
+input.search-bar {
+    width: 100%;
+    padding-top: 30px;
+}
+.search-bar-div {
+    display: flex;
+    width: 80vw;
+    border-radius: 15px;
+    padding: 0.5vw 2vh;
+    margin-right: 15px;
+
+}
+
+.search-bar-div > button {
+    align-self: flex-end;
+}
+
+
+#dropDown-bar {
+    display: flex;
+    flex-direction: row; 
+    justify-content: flex-start;
+}
+
+#dropDown-bar > * {
+    margin-left: 20px;
+} 
+
+#navigator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background-color: rgba(111, 111, 111, 0.166);
+    margin: 10px;
+    border-radius: 5vw;
+    padding: 1vh 1vw;
+    transform: scale(0.8)
+}
+
+#navigator > button {
+    display: grid;
+    place-items: center;
+    outline: none;
+    border-radius: 15px;
+    margin: 0 0.5vw;
+    height: 45px;
+    width: 45px;
+    border: none;
+    font-size: 30px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#navigator > button > img {
+    height: 30px;
+    width: 30px;
+    filter: invert(1) brightness(0.8) sepia(1) saturate(2000) hue-rotate(132deg);
+    /* #0180e5 */
+}
+
+#hospitalsTable {
+    display: grid;
+    border-radius: 12px;
+    padding: 0;
+
+    grid-template-rows: 10vh;
+    grid-row-gap: 1vh;
+
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+
+.hospitalTableRow {
+    display: grid;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding: 0;
+    grid-template-columns: 30vw 1fr 1fr 1fr 1fr;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    vertical-align: top;
+    padding: .75rem;
+}
+.region {
+    display: inline-block;
+    bottom: 1rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
+}
+
+.hospitalName {
+    width: 50px;
+    margin-right: .75rem;
+}
+.left {
+    text-align: left;
+    font-size: 16px;
+    padding-right: 30px;
+}
+
+.statsCell {
+    display: inline-block;
+    vertical-align: middle;
+    color: ivory;
+    text-align: center;
+    font-size: 16px;
+    padding-top: 0px;
+}
+
+.statsDisplayCell {
+    font-size: 12px;
+    width: fit-content;
+    margin: 2rem auto 3rem 1rem;
+    padding: 0 0.3rem;
+    border-radius: 5px;
+}
+
+.red {
+    background-color: rgba(248, 55, 55, 0.8);
+}
+
+.orange {
+    background-color: rgba(250, 198, 26, 1);
+}
+
+.green {
+    background-color: rgba(51, 223, 51, 0.8);
+}
