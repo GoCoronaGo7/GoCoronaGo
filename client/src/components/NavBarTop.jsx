@@ -1,5 +1,4 @@
 import NavBar, { ContentGroup } from './NavBar.js'
-// import styled, { css } from 'styled-components'
 const { useEffect, useState } = React
 
 const initialMode = window.darkMode
@@ -24,26 +23,26 @@ function Nav () {
 
     return (<>
         <NavBar id="navbar-pro" contentBackground={ theme.rowBackground } debug={true} contentTop="-2">
-            <ContentGroup as="a" className="navbar-brand" title="GoCoronaGo" rootUrl="/" />
+            <ContentGroup as="a" className="navbar-brand" title={ FLASK_SESSION.loggedin ? FLASK_SESSION.name : 'GoCoronaGo'} rootUrl="/" />
             <div className="navbar-collapse">
-                <ContentGroup title="Accounts" width="300" height="100">
-                    <ul>
-                        <li> <a href='/login'>Login</a></li>
-                        <li> <a href='/register'>Register</a></li>
-                    </ul>
-                </ContentGroup>
-                <ContentGroup title="Stats" width="300" height="100">
-                    <ul>
-                        <li> <a href='/stats'>Stats</a></li>
-                        <li> <a href='/hospitals'>Hospitals</a></li>
-                    </ul>
-                </ContentGroup>
-                <ContentGroup title="Blogs" width="300" height="100">
-                    <ul>
-                        <li> <a href='/blog'>View Blogs</a></li>
-                        <li> <a href='/add_blog'>Add Blog</a></li>
-                    </ul>
-                </ContentGroup>
+                <ContentGroup title="Accounts" width="300" height="100"
+                    opts={
+                        FLASK_SESSION.loggedin
+                            ? [['/dashboard', 'Dashboard']]
+                            : [['/login', 'Login'], ['/register', 'Register']]
+                    } />
+                <ContentGroup title="Stats" width="300" height="100"
+                    opts={
+                        [
+                            ['/stats', 'Stats'],
+                            ['/hospitals', 'Hospitals']]
+                    } />
+                <ContentGroup title="Blogs" width="300" height="100"
+                    opts={
+                        [
+                            ['/blog', 'View Blogs'],
+                            ['/add_blog', 'Add Blog']]
+                    } />
             </div>
         </NavBar>
     </>)
