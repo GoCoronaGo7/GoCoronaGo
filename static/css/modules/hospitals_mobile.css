@@ -107,6 +107,7 @@ input.search-bar {
     display: grid;
     border-radius: 12px;
     padding: 0;
+    padding-left: 10px;
 
     grid-template-rows: 10vh;
     grid-row-gap: 1vh;
@@ -118,7 +119,6 @@ input.search-bar {
 .hospitalTableRow {
     display: grid;
     border-radius: 10px;
-    padding-left: 10px;
     padding: 0;
     grid-template-columns: 30vw 1fr 1fr 1fr 1fr;
 }
