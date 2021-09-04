@@ -24,7 +24,7 @@ def index():
     user = 'Not Logged in'
     if 'username' in session.keys():
         user = session['username']
-    return render_template('base.html')
+    return render_template('intro.html')
     
 
 @webserver.route('/add_blog', methods=['GET', 'POST'])
