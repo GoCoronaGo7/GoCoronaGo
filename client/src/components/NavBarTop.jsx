@@ -28,7 +28,7 @@ function Nav () {
                 <ContentGroup title="Accounts" width="300" height="100"
                     opts={
                         FLASK_SESSION.loggedin
-                            ? [['/dashboard', 'Dashboard']]
+                            ? [['/dashboard', 'Dashboard'], ['/logout', 'Log Out']]
                             : [['/login', 'Login'], ['/register', 'Register']]
                     } />
                 <ContentGroup title="Stats" width="300" height="100"
