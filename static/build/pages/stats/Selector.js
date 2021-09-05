@@ -1,2 +1,1 @@
 const{useEffect}=React,buttons=["Cases","Testing","Beds"];export default function Selector({active:a,setActive:b}){const c=[];for(const d of buttons)c.push(/*#__PURE__*/React.createElement("button",{key:d,className:a===d?"active":""},d));return useEffect(()=>{const a=document.querySelectorAll("#selector > button");a.forEach(a=>{a.addEventListener("click",()=>{a.classList.contains("active")||b(a.innerHTML)})})}),/*#__PURE__*/React.createElement("div",{id:"selector"},c)}
-//# sourceMappingURL=Selector.js.map
