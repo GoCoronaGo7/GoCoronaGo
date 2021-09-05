@@ -10,7 +10,7 @@
     <!-- Mobile CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/hospitals_mobile.css') }}" media="only screen and (max-device-width: 480px)" h/>
     <script>
-        const [x,y] = JSON.parse("{{ data }}".replaceAll('&#39;', '"'));
+        const [x,y] = JSON.parse('{{ data | tojson }}')
         window.STATS_DATA = {
             code_names: x,
             state_names: y
