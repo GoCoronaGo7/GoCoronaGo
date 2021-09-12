@@ -145,3 +145,23 @@ button{
     background-color: #b4eed3d8;
     font-family: Consolas,monaco,monospace; 
 }
+
+.sideBar {
+   background-color: rgba(153, 153, 153, 0.5);
+}
+
+#dash {
+    background-color: rgba(208, 208, 208, 0.8);
+}
+
+.profileHolder {
+    background-color: #f2f2f2b4;
+}
+
+#profilePic {
+    background-color: #ffffff;
+}
+
+.sideBarButton.active {
+    background-color: #d1d1d1;
+}
