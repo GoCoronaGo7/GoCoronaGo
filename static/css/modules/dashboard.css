@@ -1,0 +1,76 @@
+#dash {
+    width: calc(100vw - 2rem);
+    position: absolute;
+    top: 10vh;
+    animation: slide-in 2s;
+    margin: 1rem;
+    border-radius: 2rem;
+}
+
+@keyframes slide-in {
+    from {
+        margin-left: -100rem;
+    }
+
+    to {
+        margin: 1rem;
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0%;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+.sideBar {
+    display: flex;
+    width: 20vw;
+    height: 80vh;
+    flex-direction: column;
+    grid-template-columns: 20vh;
+    grid-row-gap: 0px;
+    padding: 0.5rem;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    animation: 2s ease 1s appear;
+}
+.profileHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: calc(20vw - 1rem);
+    height: 30vh;
+    border-top-left-radius: 2rem;
+    margin-bottom: 1vh;
+}
+
+#profilePic {
+    border-radius: 7.5vh;
+    height: 15vh;
+    width: 15vh;
+    padding: 1rem;
+}
+.sideBarButton {
+    border: none;
+    height: min-content;
+    width: calc(20vw - 1rem);
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    padding: 1rem;
+}
+
+
+
+.sideBarButton > object {
+    pointer-events: none;
+    height: 5vh;
+}
