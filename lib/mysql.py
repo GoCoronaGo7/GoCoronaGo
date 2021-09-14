@@ -1,4 +1,4 @@
-import mysql.connector as connector
+import psycopg2 as connector
 import datetime
 from datetime import datetime
 
@@ -6,10 +6,7 @@ from datetime import datetime
 class Db:
     def __init__(self, env):
         self.connection = connector.connect(
-            host=env['DB_HOST'],
-            user=env['DB_USER'],
-            passwd=env['DB_PASSWORD'],
-            database=env['DB_NAME']
+            "postgres://hpmyvixqymsdrr:b421ec1ff9437936597122779a15b0eea3dfe3c786e95acf7f7f4aa0ea5590cb@ec2-44-195-247-84.compute-1.amazonaws.com:5432/d73u9hspm5lh9u"
         )
         self.env = env
         cursor = self.connection.cursor()
