@@ -15,6 +15,7 @@ class Db:
         cursor = self.connection.cursor()
 
         query_setup = f'''CREATE DATABASE IF NOT EXISTS `{env['DB_NAME']}`'''
+        yeet_the_blog = f'''DROP TABLE `blog` '''
         cursor.execute(query_setup)
         cursor.execute(f'USE `{env["DB_NAME"]}`')
     
@@ -58,6 +59,7 @@ class Db:
         ''' 
         cursor.execute(query_user_setup)
         cursor.execute(query_doc_setup)
+        ## cursor.execute(yeet_the_blog)  #useful for when the blog f's up
         cursor.execute(query_blog_setup)
         cursor.execute(query_admin)
         
