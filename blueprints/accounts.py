@@ -25,6 +25,7 @@ def login():
                 session['loggedin'] = True
                 session['username'] = user['username']
                 msg = 'GREEN Logged in!'
+                return redirect('/dashboard')
             else:
                 msg = 'RED Wrong Password!'
     return render_template('login.html', form=form, msg=msg)
@@ -35,7 +36,7 @@ def logout():
     session.pop('loggedin', None)  # Remove cookies
     session.pop('id', None)
     session.pop('username', None)
-    return redirect(url_for('login'))
+    return redirect('/')
 
 
 @accounts.route('/register', methods=['GET', 'POST'])
