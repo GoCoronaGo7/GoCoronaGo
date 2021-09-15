@@ -142,8 +142,11 @@ button{
     width: 50%;
     padding: 20px;
     border-radius: 10px;      
-    background-color: #b4eed3d8;
+    background-color: #faebd7bf;
+    color:#344F4D;
     font-family: Consolas,monaco,monospace; 
+    font-weight: 550;
+    box-shadow: 10px 5px 5px rgba(153, 153, 153, 0.5);
 }
 
 .sideBar {
