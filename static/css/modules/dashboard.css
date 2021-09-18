@@ -2,7 +2,7 @@
     width: calc(100vw - 2rem);
     position: absolute;
     top: 10vh;
-    animation: slide-in 2s;
+    animation: slide-in 2s ;
     margin: 1rem;
     border-radius: 2rem;
 }
