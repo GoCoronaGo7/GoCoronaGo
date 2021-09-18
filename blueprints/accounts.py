@@ -35,7 +35,7 @@ def logout():
     session.pop('loggedin', None)  # Remove cookies
     session.pop('id', None)
     session.pop('username', None)
-    return redirect(url_for('login'))
+    return redirect(url_for('accounts.login'))
 
 
 @accounts.route('/register', methods=['GET', 'POST'])
