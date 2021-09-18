@@ -1,5 +1,5 @@
 import os
-from lib.mysql import Db
+from lib.db import Db
 from lib import crypto
 
 def load_config():

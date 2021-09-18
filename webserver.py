@@ -2,7 +2,7 @@ import datetime
 
 # coding: UTF-8
 from flask import Flask
-from flask import render_template, session, request
+from flask import render_template, session, request, redirect, url_for
 from lib.forms import BlogForm
 
 from requests_futures.sessions import FuturesSession
@@ -43,6 +43,7 @@ def blog():
         if 'username' in session.keys():
             user_blog = session['username']        
         webserver.app.db.insert_blog(user_blog,content_blog,date_posting,title_blog)
+        return redirect(url_for('blog'))
     return render_template('add_blog.html',form=form, msg=msg)
 
 @webserver.route('/blog' )

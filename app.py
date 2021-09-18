@@ -4,7 +4,7 @@ import os
 import re
 from flask import render_template
 
-from lib.mysql import Db
+from lib.db import Db
 from lib.email import EmailManager
 from lib import crypto
 
