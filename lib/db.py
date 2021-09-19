@@ -63,12 +63,12 @@ class Db:
 
     def get(self, id):
         cursor = self.get_cursor()
-        cursor.execute('''SELECT * FROM user WHERE 'id'=%s''', [id])
+        cursor.execute('''SELECT * FROM public.user WHERE id=%s''', [id])
         return cursor.fetchone()
 
     def get_username(self, username):
         cursor = self.get_cursor()
-        cursor.execute('''SELECT * FROM user WHERE 'username'=%s''', [username])
+        cursor.execute('''SELECT * FROM public.user WHERE username=%s''', [username])
         user = cursor.fetchone()
         if user is None:
             return None
@@ -76,7 +76,7 @@ class Db:
 
     def get_email(self, email):
         cursor = self.get_cursor()
-        cursor.execute('''SELECT * FROM user WHERE 'user.email'=%s''', [email])
+        cursor.execute('''SELECT * FROM public.user WHERE public.user.email=%s''', [email])
         user = cursor.fetchone()
         if user is None:
             return None
@@ -100,7 +100,7 @@ class Db:
         return doct_det_out
     def get_admin_by_username(self, username):
         cursor = self.get_cursor()
-        cursor.execute('''SELECT * FROM 'admin' WHERE username_ad=%s''', [username])
+        cursor.execute('''SELECT * FROM public.admin WHERE username_ad=%s''', [username])
         doct_det_out=cursor.fetchall()
         return doct_det_out
     def insert_blog(self,user,content,date,title):
@@ -119,13 +119,13 @@ class Db:
     def check_blog(self,Blog_date_check):
         cursor = self.get_cursor()
         cursor.execute(
-            f'''SELECT date_post FROM blog where id=1 ''')
+            f'''SELECT date_post FROM public.blog where id=1 ''')
         blog_post_date_tup = cursor.fetchone()
         try:
             blog_post_date = blog_post_date_tup[0]
             if Blog_date_check != blog_post_date:
                 cursor.execute(
-                    f'''DELETE FROM blog where date_post = '{blog_post_date}' ''')
+                    f'''DELETE FROM public.blog where date_post = '{blog_post_date}' ''')
         except:
             pass
         return self.connection.commit()
@@ -135,14 +135,14 @@ class Db:
         cursor = self.get_cursor()
 
         cursor.execute(
-            f'''UPDATE user SET {self.dict_to_query(kwargs)}, WHERE 'user.username'={user}'''
+            f'''UPDATE public.user SET {self.dict_to_query(kwargs)}, WHERE public.user.username={user}'''
         )
     def update_admin(self, user, **kwargs):
         print(kwargs)
         cursor = self.get_cursor()
 
         cursor.execute(
-            f'''UPDATE admin SET {self.dict_to_query(kwargs)}, WHERE 'admin.username'={user}'''
+            f'''UPDATE public.admin SET {self.dict_to_query(kwargs)}, WHERE public.admin.username={user}'''
         )
     def to_dict(self, values):
         keys = ('id', 'username', 'password', 'email')
