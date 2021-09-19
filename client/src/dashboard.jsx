@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 const Dash = () => {
-    console.log(FLASK_SESSION.admin)
-    FLASK_SESSION.admin = true
     return (<>
         {
             FLASK_SESSION.admin ? <AdminDash/> : <UserDash/>
