@@ -1,6 +1,9 @@
 import os
 from lib.db import Db
 from lib import crypto
+import colorama
+
+colorama.init()
 
 def load_config():
     from dotenv import load_dotenv  # for python-dotenv method
@@ -26,9 +29,9 @@ if ENV['NO_DB'] is not None:
 
 db = Db(ENV)
 if (db.connected()):
-    print('connected!')
+    print(f'\n{colorama.Fore.GREEN} connected! {colorama.Style.RESET_ALL}')
 else: 
-    print('Failed to connect to DB!')
+    print(f'{colorama.Fore.RED} Failed to connect to DB! {colorama.Style.RESET_ALL}')
     exit(1)
 
 def add_admins():
@@ -52,11 +55,11 @@ def list_login_links():
     print(admins)
 
 def delete_admin():
-    ans = input('ENTER CONDITION FOR DELETION: \n')
+    ans = input(f'{colorama.Fore.RED}ENTER CONDITION FOR DELETION: {colorama.Style.RESET_ALL}\n')
     cursor = db.get_cursor()
     cursor.execute('SELECT * FROM public.admin WHERE ' + ans)
     data = cursor.fetchall()
-    print('Are you sure you want to delete this?\n', str(data))
+    print(f'{colorama.Fore.RED}Are you sure you want to delete this?{colorama.Style.RESET_ALL}\n', str(data))
     confirm = input()
     if confirm != 'n':
         cursor.execute('DELETE FROM public.admin WHERE ' + ans)
@@ -64,7 +67,7 @@ def delete_admin():
     else:
         print('ok quitting')
     
-call = int(input('1. Insert Admin\n2. List Admin\n3. Delete Admin: '))
+call = int(input(f'\n{colorama.Fore.YELLOW}1. Insert Admin\n2. List Admin\n3. Delete Admin: {colorama.Style.RESET_ALL}'))
 if call == 1:
     add_admins()
 elif call == 2:
