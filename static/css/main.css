@@ -50,6 +50,7 @@ body {
 	padding: 0.2rem;
 	border-radius: 10px;
 	display: flex;
+    border: 2px solid;
 }
 .notice * {
 	margin-bottom: 0.2rem;

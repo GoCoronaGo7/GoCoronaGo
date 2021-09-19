@@ -5,7 +5,7 @@ import re
 admins = Blueprint('admins', __name__)
 admins.webserver = current_app
 
-@admins.route('/admins/login', methods=['GET', 'POST'])
+@admins.route('/admins/login/', methods=['GET', 'POST'])
 def admin_create():
     form = AdminForm(request.form)
     msg=''
@@ -24,7 +24,7 @@ def admin_create():
                 msg = 'GREEN Logged in!'
             else:
                 msg = 'RED Wrong Password!'
-    return render_template('adminreg.html',form=form, msg=msg)
+    return render_template('admin_login.html',form=form, msg=msg)
 
 @admins.route('/admins', methods=['GET','POST'])
 def doctorspresent():

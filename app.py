@@ -4,7 +4,7 @@ import os
 import re
 from flask import render_template
 
-from lib.mysql import Db
+from lib.db import Db
 from lib.email import EmailManager
 from lib import crypto
 
@@ -20,7 +20,6 @@ class App():
         hash = crypto.hash(data['password'])
         try:
             self.verify_password(hash, data['password'], data['username'])
-            print(hash)
             app.db.insert(data['username'], hash, data['email'])
         except:
             print('Crypto ERROR!')
@@ -31,14 +30,14 @@ class App():
         app.email_manager.send_email(email, 'Verify Your Email', html)
 
     def verify_password(self, hash, password, username):
-        result = crypto.verify(hash,password)
+        result = crypto.verify(hash, password)
         if result is True or result is False:
             return result
         else:
             db.update(username, password=result)
             return True
     def verify_admin_password(self, hash, password, username):
-        result = crypto.verify(hash,password)
+        result = crypto.verify(hash, password)
         if result is True or result is False:
             return result
         else:
