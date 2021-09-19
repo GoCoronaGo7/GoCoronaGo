@@ -4,13 +4,11 @@ import re
 
 accounts = Blueprint('accounts', __name__)
 accounts.webserver = current_app
-# print(current_app.db)
 
 # Account methods
 @accounts.route('/login/', methods=['GET', 'POST'])
 def login():
     msg = ''
-    print(accounts.webserver.app.host)
     # Convert our request form ( The user submitted one ) into WTF Form so that we can validate it
     form = LoginForm(request.form)
     # .validate_on_submit() will check if user has submitted a valid form

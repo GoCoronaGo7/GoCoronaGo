@@ -22,7 +22,7 @@ def verify(hash, password):
         else:
             return result # Must be True
     except Exception as e:
-        print(e)
+        print('Error Handing Password verification', e)
         return False
 
 def random():

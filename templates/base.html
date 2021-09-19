@@ -21,7 +21,7 @@
      const values = JSON.parse('{{ session.values() | list | tojson }}');
      const FLASK_SESSION = {};
      keys.forEach((key, i) =>  FLASK_SESSION[key] = values[i]);
-     FLASK_SESSION.name = FLASK_SESSION.admin ? 'Dr.' : '' + FLASK_SESSION.username ;
+     FLASK_SESSION.name = (FLASK_SESSION.admin ? 'Dr.' : '') + FLASK_SESSION.username ;
      window.FLASK_SESSION = FLASK_SESSION;
   </script>
   <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
