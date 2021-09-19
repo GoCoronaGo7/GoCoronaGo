@@ -1,2 +1,2 @@
-import Dash,{SideBar}from"./dash.js";const{useState}=React;export default function AdminDash(){const[a,b]=useState(0),c=/*#__PURE__*/React.createElement(SideBar,{options:[["Patients","/static/images/doctor.svg"]],active:a,setActive:b});return/*#__PURE__*/React.createElement(Dash,{sideBar:c})}
+import Dash,{SideBar}from"./dash.js";const{useState}=React;export default function AdminDash(){const[a,b]=useState(0),c=/*#__PURE__*/React.createElement(SideBar,{admin:!0,options:[["Patients","/static/images/doctor.svg"]],active:a,setActive:b});return/*#__PURE__*/React.createElement(Dash,{admin:!0,sideBar:c})}
 //# sourceMappingURL=adminDash.js.map

@@ -9,3 +9,4 @@ python-dotenv
 requests
 requests-futures
 email_validator
+psycopg2-binary

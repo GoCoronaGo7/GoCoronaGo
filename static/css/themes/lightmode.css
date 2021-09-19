@@ -28,9 +28,8 @@ form {
 }
 
 .notice {
-    margin: auto;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-color: #5C8D89;
+    background-color: rgb(195 195 195 / 30%);
+    color: #5C8D89;
 }
 
 .navbar {

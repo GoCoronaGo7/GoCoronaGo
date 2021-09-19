@@ -1,6 +1,6 @@
 class config:
     DEBUG=True
-    ENV = ['DB_HOST', 'DB_PASSWORD', 'DB_USER', 'DB_NAME', 'EMAIL_USERNAME', 'EMAIL_PASSWORD','FLASK_SECRET_KEY', 'PORT', 'HOT_RELOAD', 'NO_DB']
+    ENV = ['DB_URL', 'DB_NAME', 'EMAIL_USERNAME', 'EMAIL_PASSWORD','FLASK_SECRET_KEY', 'PORT', 'HOT_RELOAD', 'NO_DB']
 
 class dev(config):
     DEBUG=True
@@ -8,4 +8,4 @@ class dev(config):
 
 class prod(config):
     DEBUG=False
-    HOST='covid19projectt.herokuapp.com'
+    HOST='gocoronagoapp.herokuapp.com'

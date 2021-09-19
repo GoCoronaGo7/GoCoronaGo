@@ -1,2 +1,2 @@
-export default function userDash(){return null}
+import Dash,{SideBar}from"./dash.js";const{useState}=React;export default function UserDash(){const[a,b]=useState(0),c=/*#__PURE__*/React.createElement(SideBar,{options:[["Doctors","/static/images/doctor.svg"]],active:a,setActive:b});return/*#__PURE__*/React.createElement(Dash,{sideBar:c})}
 //# sourceMappingURL=userDash.js.map
