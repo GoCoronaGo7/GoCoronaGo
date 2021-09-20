@@ -66,7 +66,7 @@ button.active {
 
 
 li {
-    color:#A7D7C5;
+    color:#647d74;
 }
 
 .scrollable-menu > li {
@@ -136,15 +136,9 @@ button{
     font-family: Consolas,monaco,monospace; 
 }
 
-#intro {
-    margin:auto;
-    width: 50%;
-    padding: 20px;
-    border-radius: 10px;      
+#intro {  
     background-color: #faebd7bf;
     color:#344F4D;
-    font-family: Consolas,monaco,monospace; 
-    font-weight: 550;
     box-shadow: 10px 5px 5px rgba(153, 153, 153, 0.5);
 }
 

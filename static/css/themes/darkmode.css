@@ -184,14 +184,8 @@ button{
     color:#c9d1d9;
 }
 
-#intro {
-    margin:auto;
-    width: 50%;
-    padding: 20px;
-    border-radius: 10px;      
+#intro {  
     background-color: #393e468c;
-    font-weight: 550;
-    font-family: Consolas,monaco,monospace;
     color: #0bf3ff; 
 }
 
