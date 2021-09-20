@@ -6,7 +6,7 @@ from datetime import datetime
 class Db:
     def __init__(self, env):
         self.connection = psycopg2.connect(
-            env['DB_URL'], dbname=env['DB_NAME']
+            env['DATABASE_URL'], dbname=env['DB_NAME']
         )
         self.connection.autocommit = True
         self.env = env
