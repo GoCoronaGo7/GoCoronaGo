@@ -8,6 +8,7 @@ class EmailManager:
     def __init__(self, env):
         self.sender_email = env['EMAIL_USERNAME']
         self.sender_password = env['EMAIL_PASSWORD']
+        self.email_host = env['EMAIL_HOST'] or "smtp.gmail.com"
 
     def send_email(self, receiver, subject, html):
         message = MIMEMultipart("alternative")
@@ -17,7 +18,7 @@ class EmailManager:
         message["To"] = receiver
         message.attach(MIMEText(html, "html"))
 
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+        with smtplib.SMTP_SSL(self.email_host, 465) as server:
             server.login(self.sender_email, self.sender_password)
             server.ehlo()
             server.sendmail(
