@@ -150,7 +150,8 @@ class Db:
         cursor.execute(
             f'''UPDATE public.admin SET {self.dict_to_query(kwargs)}, WHERE public.admin.username={user}'''
         )
-
+    def get_requests(self, patient):
+        return []
     def to_dict(self, values):
         keys = ('id', 'username', 'password', 'email')
         return dict(zip(keys, values))

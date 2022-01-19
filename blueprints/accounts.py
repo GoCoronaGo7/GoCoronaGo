@@ -109,4 +109,9 @@ def otp_verification():
 
 @accounts.route('/dashboard')
 def dash():
-    return render_template('dashboard.html')
+    doctors= []
+    requests = []
+    if 'username' in session.keys():
+        doctors = accounts.webserver.app.db.get_admins()
+        requests = accounts.webserver.app.db.get_requests(session['username'])
+    return render_template('dashboard.html', doctors=doctors, requests=requests)

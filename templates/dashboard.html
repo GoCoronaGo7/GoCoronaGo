@@ -1,20 +1,25 @@
 {% extends "base.html"%}
 
 {% block title %}
-	Dashboard
+Dashboard
 {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/dashboard.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modules/dashboard.css') }}" type="text/css">
 
-    <!-- Mobile CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/dashboard_mobile.css') }}" media="only screen and (max-device-width: 480px)" h/>
+<!-- Mobile CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modules/dashboard_mobile.css') }}"
+    media="only screen and (max-device-width: 480px)" h />
+<script>
+    window.doctors = "{{ doctors|tojson }}";
+    window.requests = "{{ requests|tojson }}";
+</script>
 {% endblock head %}
 
 {% block body %}
 
-    <div id="root">
-        <!-- REACT INSERT -->
-    </div>
-    <script src="{{ url_for('static', filename='build/dashboard.js') }}" type="module"></script>
-{% endblock body %} 
+<div id="root">
+    <!-- REACT INSERT -->
+</div>
+<script src="{{ url_for('static', filename='build/dashboard.js') }}" type="module"></script>
+{% endblock body %}
