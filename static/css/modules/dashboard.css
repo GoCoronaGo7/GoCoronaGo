@@ -5,8 +5,63 @@
     animation: slide-in 2s ;
     margin: 1rem;
     border-radius: 2rem;
+    display: flex;
+    flex-direction: row;
 }
 
+.image > object {
+    height: 5vh;
+}
+.doctor {
+    padding: 0.5vh;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: row;
+}
+.bookingButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    justify-self: flex-end;
+    align-items: center;
+    width: 40%;
+    margin-left: 10vw;
+    margin-right: -1px;
+}
+.bookingButton > button {
+    border-radius: 1rem;
+}
+.doctorDetails {
+    background-color: #9696965b;
+    display: flex;
+    flex-direction: column;
+    padding: 1vh;
+    width: 100%;
+}
+.doctorDetails > span {
+    margin-top: 0.2vh;
+    padding: 0 1vw;
+}
+.doctorProfile {
+    padding: 1.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 2rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 20%;
+
+}
+.window {
+    margin: 1vh;
+    padding: 1vh;
+    background-color: #96969642;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    width: 100%
+}
 @keyframes slide-in {
     from {
         margin-left: -100rem;
