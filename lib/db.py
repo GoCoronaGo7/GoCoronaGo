@@ -51,7 +51,7 @@ class Db:
         try:
             return self.connection.cursor()
         except:
-            self.connection.reconnect()
+            self.connection._connect()
             return self.connection.cursor()
 
     def connected(self):
