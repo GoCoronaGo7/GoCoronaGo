@@ -3,7 +3,7 @@ mysql-connector-python
 Flask
 flask-login
 flask-WTF
-wtforms
+wtforms==2.3.3
 argon2-cffi
 python-dotenv
 requests
