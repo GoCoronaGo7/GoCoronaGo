@@ -2,15 +2,7 @@ import psycopg2
 import datetime
 from datetime import datetime
 
-
-class Db:
-    def __init__(self, env):
-        self.connection = psycopg2.connect(
-            env['DATABASE_URL'], dbname=env['DB_NAME']
-        )
-        self.connection.autocommit = True
-        self.env = env
-        query_user_setup = '''CREATE TABLE "user"
+query_user_setup = '''CREATE TABLE "user"
                     (
                     id SERIAL,
                     username varchar(25) NOT NULL,
@@ -19,7 +11,7 @@ class Db:
                     PRIMARY KEY (id) 
                     )
                 '''
-        query_blog_setup = '''CREATE TABLE "blog"
+query_blog_setup = '''CREATE TABLE "blog"
                     (
                     id SERIAL,
                     title varchar(25) NOT NULL,
@@ -29,7 +21,7 @@ class Db:
                     PRIMARY KEY (id) 
                     )         
         '''
-        query_admin_setup = '''CREATE TABLE "admin"
+query_admin_setup = '''CREATE TABLE "admin"
                     (
                     name varchar(25) NOT NULL,
                     speciality varchar(450) NOT NULL,
@@ -39,6 +31,12 @@ class Db:
                     gmeet_id varchar(20) NOT NULL
                     )         
         '''
+
+
+class Db:
+    def __init__(self, env):
+        self.env = env
+        self.connect()
         with self.connection.cursor() as cursor:
             try:
                 cursor.execute(query_user_setup)
@@ -51,9 +49,14 @@ class Db:
         try:
             return self.connection.cursor()
         except:
-            self.connection._connect()
+            self.connect()
             return self.connection.cursor()
 
+    def connect(self):
+        self.connection = psycopg2.connect(
+            self.env['DATABASE_URL'], dbname=self.env['DB_NAME']
+        )
+        self.connection.autocommit = True
     def connected(self):
         if self.connection:
             return True
