@@ -112,6 +112,7 @@ def dash():
     doctors= []
     requests = []
     if 'username' in session.keys():
-        doctors = accounts.webserver.app.db.get_admins()
+        doctors = list(map(lambda x: x if x.pop('password') else x, map(
+        accounts.webserver.app.db.to_dict_ad, accounts.webserver.app.db.get_admins())))
         requests = accounts.webserver.app.db.get_requests(session['username'])
     return render_template('dashboard.html', doctors=doctors, requests=requests)

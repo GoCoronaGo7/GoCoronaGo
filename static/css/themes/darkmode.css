@@ -208,3 +208,19 @@ button{
 .sideBarButton.active {
     background-color: #0000008f;
 }
+
+.doctor {
+    background-color: #96969642;
+}
+
+.doctorProfile {
+    background-color: rgba(41, 41, 41, 0.363);
+}
+
+.doctorDetails > span {
+    background-color: #6666665b;
+}
+
+.bookingButton > button {
+    background-color: rgb(0, 36, 34);
+}
