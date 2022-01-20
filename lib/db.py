@@ -1,36 +1,47 @@
+from urllib import request
 import psycopg2
 import datetime
 from datetime import datetime
 
 query_user_setup = '''CREATE TABLE "user"
-                    (
-                    id SERIAL,
-                    username varchar(25) NOT NULL,
-                    password varchar(128) NOT NULL,
-                    email varchar(32) NOT NULL,
-                    PRIMARY KEY (id) 
-                    )
+    (
+    id SERIAL,
+    username varchar(25) NOT NULL,
+    password varchar(128) NOT NULL,
+    email varchar(32) NOT NULL,
+    requests 
+    PRIMARY KEY (id) 
+    )
                 '''
 query_blog_setup = '''CREATE TABLE "blog"
-                    (
-                    id SERIAL,
-                    title varchar(25) NOT NULL,
-                    username varchar(25) NOT NULL,
-                    content varchar(450) NOT NULL,
-                    date_post varchar(25) NOT NULL,
-                    PRIMARY KEY (id) 
-                    )         
+    (
+    id SERIAL,
+    title varchar(25) NOT NULL,
+    username varchar(25) NOT NULL,
+    content varchar(450) NOT NULL,
+    date_post varchar(25) NOT NULL,
+    PRIMARY KEY (id) 
+    )         
         '''
 query_admin_setup = '''CREATE TABLE "admin"
-                    (
-                    name varchar(25) NOT NULL,
-                    speciality varchar(450) NOT NULL,
-                    consultation_fee int NOT NULL,
-                    username_ad varchar(25) NOT NULL,
-                    password_ad varchar(128) NOT NULL,
-                    gmeet_id varchar(20) NOT NULL
-                    )         
-        '''
+    (
+    name varchar(25) NOT NULL,
+    speciality varchar(450) NOT NULL,
+    consultation_fee int NOT NULL,
+    username_ad varchar(25) NOT NULL,
+    password_ad varchar(128) NOT NULL,
+    gmeet_id varchar(20) NOT NULL
+    )         
+'''
+query_request_setup = '''CREATE TABLE "requests"
+    (
+    patient_username varchar(25) NOT NULL,
+    doctor_name varchar(25) NOT NULL,
+    time TIMESTAMP NOT NULL,
+    status varchar(25) NOT NULL,
+    PRIMARY KEY (patient_username, doctor_name, time)
+    )
+'''
 
 
 class Db:
@@ -42,7 +53,8 @@ class Db:
                 cursor.execute(query_user_setup)
                 cursor.execute(query_blog_setup)
                 cursor.execute(query_admin_setup)
-            except (Exception, psycopg2.errors.DuplicateTable):
+                cursor.execute(query_request_setup)
+            except (Exception, psycopg2.errors.DuplicateTable) as e:
                 pass
 
     def get_cursor(self):
@@ -57,6 +69,7 @@ class Db:
             self.env['DATABASE_URL'], dbname=self.env['DB_NAME']
         )
         self.connection.autocommit = True
+
     def connected(self):
         if self.connection:
             return True
@@ -153,8 +166,15 @@ class Db:
         cursor.execute(
             f'''UPDATE public.admin SET {self.dict_to_query(kwargs)}, WHERE public.admin.username={user}'''
         )
-    def get_requests(self, patient):
-        return []
+
+    def get_requests_for_patient(self, patient):
+        cursor = self.get_cursor()
+        cursor.execute(
+            '''SELECT * FROM public.requests WHERE patient_username=%s''', [patient])
+        requests = cursor.fetchall()
+        print(requests)
+        return requests
+
     def to_dict(self, values):
         keys = ('id', 'username', 'password', 'email')
         return dict(zip(keys, values))
