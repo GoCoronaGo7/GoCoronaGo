@@ -107,6 +107,10 @@ def doctors():
 
     return {'data': admins}
 
+@webserver.route('/api/restart')
+def restart():
+    webserver.app.db.connect()
+    return {'status': 'ok'}
 
 def cache_data():
     global requested_data

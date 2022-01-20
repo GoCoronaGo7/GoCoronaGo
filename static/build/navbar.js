@@ -1,2 +1,38 @@
-import Nav from"./components/NavBarTop.js";const{render,unmountComponentAtNode}=ReactDOM;let target,oldNav,showNav=!1;document.addEventListener("DOMContentLoaded",()=>{renderNav(),window.onresize=renderNav});function renderNav(){target||=document.getElementById("navBar-react"),oldNav||=document.querySelectorAll(".navbar-normal");const a=window.matchMedia("(min-width: 768px)")?.matches;return a?showNav?void 0:(showNav=!0,oldNav.forEach(a=>{a.style.display="none",a.style.visibility="hidden"}),target.style.display="flex",render(/*#__PURE__*/React.createElement(Nav,null),target)):void(oldNav.forEach(a=>{a.style.removeProperty("display"),a.style.removeProperty("visibility")}),target.style.display="none",unmountComponentAtNode(target),showNav=!1)}
+import Nav from './components/NavBarTop.js';
+const {
+  render,
+  unmountComponentAtNode
+} = ReactDOM;
+let target;
+let oldNav;
+let showNav = false;
+document.addEventListener('DOMContentLoaded', () => {
+  renderNav();
+  window.onresize = renderNav;
+});
+
+function renderNav() {
+  target ||= document.getElementById('navBar-react');
+  oldNav ||= document.querySelectorAll('.navbar-normal');
+  const matches = window.matchMedia('(min-width: 768px)')?.matches;
+
+  if (matches) {
+    if (showNav) return;
+    showNav = true;
+    oldNav.forEach(x => {
+      x.style.display = 'none';
+      x.style.visibility = 'hidden';
+    });
+    target.style.display = 'flex';
+    return render( /*#__PURE__*/React.createElement(Nav, null), target);
+  } else {
+    oldNav.forEach(x => {
+      x.style.removeProperty('display');
+      x.style.removeProperty('visibility');
+    });
+    target.style.display = 'none';
+    unmountComponentAtNode(target);
+    showNav = false;
+  }
+}
 //# sourceMappingURL=navbar.js.map

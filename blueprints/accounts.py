@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template, request, session, redirect, url_for, current_app
 from lib.forms import LoginForm, RegisterForm, OTPForm
 import re
@@ -6,6 +7,8 @@ accounts = Blueprint('accounts', __name__)
 accounts.webserver = current_app
 
 # Account methods
+
+
 @accounts.route('/login/', methods=['GET', 'POST'])
 def login():
     msg = ''
@@ -17,7 +20,8 @@ def login():
         if user is None:
             msg = 'RED User not found!'
         else:
-            passwordCorrect = accounts.webserver.app.verify_password(user['password'], request.form['password'], request.form['username'])
+            passwordCorrect = accounts.webserver.app.verify_password(
+                user['password'], request.form['password'], request.form['username'])
             if passwordCorrect:
                 # Session uses cookies to set variables that are present in the client
                 session['loggedin'] = True
@@ -61,11 +65,13 @@ def register():
         elif not username or not password or not email:
             msg = 'RED Please fill out the form !'
         else:
-            accounts.webserver.app.temp_data[request.form['email']] = request.form
-            otp =  accounts.webserver.app.crypto.random()
+            accounts.webserver.app.temp_data[request.form['email']
+                                             ] = request.form
+            otp = accounts.webserver.app.crypto.random()
             print(otp)
             accounts.webserver.app.register_otp[request.form['email']] = otp
-            accounts.webserver.app.send_email(email, otp, request.url_root + url_for("accounts.otp_verification"))
+            accounts.webserver.app.send_email(
+                email, otp, request.url_root + url_for("accounts.otp_verification"))
             return redirect(url_for('accounts.otp_verification', email=email))
     elif request.method == 'POST':
         msg = 'RED Please fill out the form !'
@@ -109,10 +115,25 @@ def otp_verification():
 
 @accounts.route('/dashboard')
 def dash():
-    doctors= []
+    doctors = []
     requests = []
     if 'username' in session.keys():
         doctors = list(map(lambda x: x if x.pop('password') else x, map(
-        accounts.webserver.app.db.to_dict_ad, accounts.webserver.app.db.get_admins())))
-        requests = accounts.webserver.app.db.get_requests_for_patient(session['username'])
+            accounts.webserver.app.db.to_dict_ad, accounts.webserver.app.db.get_admins())))
+        requests = accounts.webserver.app.db.get_requests_for_patient(
+            session['username'])
     return render_template('dashboard.html', doctors=doctors, requests=requests)
+
+
+@accounts.route('/dashboard/book', methods=['POST'])
+def book():
+    if 'username' not in session.keys():
+        return ('Unauthorized!', 401)
+    data = request.get_json()
+    print(data)
+    doctname = data['name']
+    time = data['time']
+    patient = session['username']
+    accounts.webserver.app.db.add_request(doctname, patient, datetime.fromtimestamp(
+        int(str(time)[0:10])))  # convert timestamp to seconds
+    return ('Ok', 200)

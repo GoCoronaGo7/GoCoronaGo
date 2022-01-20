@@ -1,5 +1,9 @@
+const presets = ['@babel/preset-react']
+if (process.env.NODE_ENV === 'PRODUCTION') {
+    presets.push(['minify', { builtIns: false }])
+}
 module.exports = {
-    presets: ['@babel/preset-react', ['minify', { builtIns: false }]],
+    presets: presets,
     plugins: [
         [
             'transform-react-remove-prop-types',

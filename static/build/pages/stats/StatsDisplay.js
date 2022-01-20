@@ -1,2 +1,114 @@
-import RegionalDisplay from"./RegionalDisplay.js";import LoadingIcon from"../../components/LoadingIcon.js";const{useState,useEffect}=React,apiCache=new Map,routeMap={Cases:"stats/latest",Testing:"stats/testing/latest",Beds:"hospitals/beds"},apiUrl="https://api.rootnet.in/covid19-in/";export default function StatsDisplay({active:a}){const[b,c]=useState(null),[d,e]=useState("");if(useEffect(()=>{(async function(){const b=apiUrl+routeMap[a],d=await apiGet(b).catch(console.error);d&&d.success||e("ERROR GETTING DATA"),c({...d.data,type:a})})()},[a]),b&&b.type===a){loadRegions(b,a);let c;switch(a){case"Cases":{c=/*#__PURE__*/React.createElement("div",{id:"statsHolderSmall"},/*#__PURE__*/React.createElement("div",{className:"highlight"},/*#__PURE__*/React.createElement("h1",null,"Discharged Cases"),/*#__PURE__*/React.createElement("p",null,(+b.summary.discharged).toLocaleString())),/*#__PURE__*/React.createElement("div",{className:"highlight"},/*#__PURE__*/React.createElement("h1",null,"Deaths"),/*#__PURE__*/React.createElement("p",null,(+b.summary.deaths).toLocaleString())),/*#__PURE__*/React.createElement("div",{className:"highlight"},/*#__PURE__*/React.createElement("h1",null,"Total"),/*#__PURE__*/React.createElement("p",null,(+b.summary.total).toLocaleString())));break}case"Testing":{c=/*#__PURE__*/React.createElement("div",{id:"statsHolderSmall"},/*#__PURE__*/React.createElement("div",{className:"highlight"},/*#__PURE__*/React.createElement("h1",null,"Total Number of Tests"),/*#__PURE__*/React.createElement("p",null,(+b.totalSamplesTested).toLocaleString())));break}case"Beds":c=/*#__PURE__*/React.createElement("div",{id:"statsHolderSmall"},/*#__PURE__*/React.createElement("div",{className:"highlight"},/*#__PURE__*/React.createElement("h1",null," Rural Beds Available "),/*#__PURE__*/React.createElement("p",null,(+b.summary.ruralBeds).toLocaleString())),/*#__PURE__*/React.createElement("div",{className:"highlight"},/*#__PURE__*/React.createElement("h1",null," Urban Beds Available "),/*#__PURE__*/React.createElement("p",null,(+b.summary.urbanBeds).toLocaleString())),/*#__PURE__*/React.createElement("div",{className:"highlight"},/*#__PURE__*/React.createElement("h1",null," Total Beds Available "),/*#__PURE__*/React.createElement("p",null," ",(+b.summary.totalBeds).toLocaleString())));}return/*#__PURE__*/React.createElement("div",{id:"statsDisplayBounds"},c,/*#__PURE__*/React.createElement(RegionalDisplay,{type:a,dat:b.regional}))}return/*#__PURE__*/React.createElement("div",null,/*#__PURE__*/React.createElement(LoadingIcon,null),d)}function apiGet(a){const b=apiCache.get(a);return b?Promise.resolve().then(()=>b):fetch(a).then(a=>a.json()).then(b=>(apiCache.set(a,b),b)).catch(console.error)}function loadRegions(a,b){a?.regional&&(regions[b]?.length||(regions[b]=[],regions[b].push(...a.regional.map(mapFn(b)))))}const mapFn=a=>"Cases"===a?a=>a.loc:a=>a.state;
+import RegionalDisplay from './RegionalDisplay.js';
+import LoadingIcon from '../../components/LoadingIcon.js';
+const {
+  useState,
+  useEffect
+} = React;
+const apiCache = new Map(); // CONSTANTS
+
+const routeMap = {
+  Cases: 'stats/latest',
+  Testing: 'stats/testing/latest',
+  Beds: 'hospitals/beds'
+};
+const apiUrl = 'https://api.rootnet.in/covid19-in/';
+export default function StatsDisplay({
+  active: type
+}) {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    async function getData() {
+      const url = apiUrl + routeMap[type];
+      const dat = await apiGet(url).catch(console.error);
+
+      if (!dat || !dat.success) {
+        setError('ERROR GETTING DATA');
+      }
+
+      setData({ ...dat.data,
+        type
+      });
+    }
+
+    getData();
+  }, [type]);
+
+  if (data && data.type === type) {
+    loadRegions(data, type);
+    let element;
+
+    switch (type) {
+      case 'Cases':
+        {
+          element = /*#__PURE__*/React.createElement("div", {
+            id: "statsHolderSmall"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "highlight"
+          }, /*#__PURE__*/React.createElement("h1", null, "Discharged Cases"), /*#__PURE__*/React.createElement("p", null, Number(data.summary.discharged).toLocaleString())), /*#__PURE__*/React.createElement("div", {
+            className: "highlight"
+          }, /*#__PURE__*/React.createElement("h1", null, "Deaths"), /*#__PURE__*/React.createElement("p", null, Number(data.summary.deaths).toLocaleString())), /*#__PURE__*/React.createElement("div", {
+            className: "highlight"
+          }, /*#__PURE__*/React.createElement("h1", null, "Total"), /*#__PURE__*/React.createElement("p", null, Number(data.summary.total).toLocaleString())));
+          break;
+        }
+
+      case 'Testing':
+        {
+          element = /*#__PURE__*/React.createElement("div", {
+            id: "statsHolderSmall"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "highlight"
+          }, /*#__PURE__*/React.createElement("h1", null, "Total Number of Tests"), /*#__PURE__*/React.createElement("p", null, Number(data.totalSamplesTested).toLocaleString())));
+          break;
+        }
+
+      case 'Beds':
+        {
+          element = /*#__PURE__*/React.createElement("div", {
+            id: "statsHolderSmall"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "highlight"
+          }, /*#__PURE__*/React.createElement("h1", null, " Rural Beds Available "), /*#__PURE__*/React.createElement("p", null, Number(data.summary.ruralBeds).toLocaleString())), /*#__PURE__*/React.createElement("div", {
+            className: "highlight"
+          }, /*#__PURE__*/React.createElement("h1", null, " Urban Beds Available "), /*#__PURE__*/React.createElement("p", null, Number(data.summary.urbanBeds).toLocaleString())), /*#__PURE__*/React.createElement("div", {
+            className: "highlight"
+          }, /*#__PURE__*/React.createElement("h1", null, " Total Beds Available "), /*#__PURE__*/React.createElement("p", null, " ", Number(data.summary.totalBeds).toLocaleString())));
+        }
+    }
+
+    return /*#__PURE__*/React.createElement("div", {
+      id: "statsDisplayBounds"
+    }, element, /*#__PURE__*/React.createElement(RegionalDisplay, {
+      type: type,
+      dat: data.regional
+    }));
+  } else {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(LoadingIcon, null), error);
+  }
+}
+
+function apiGet(url) {
+  const data = apiCache.get(url);
+
+  if (!data) {
+    return fetch(url).then(x => x.json()).then(x => {
+      apiCache.set(url, x);
+      return x;
+    }).catch(console.error);
+  }
+
+  return Promise.resolve().then(() => data);
+}
+
+function loadRegions(data, type) {
+  if (!data?.regional) return;
+
+  if (!regions[type]?.length) {
+    regions[type] = [];
+    regions[type].push(...data.regional.map(mapFn(type)));
+  }
+}
+
+const mapFn = t => t === 'Cases' ? x => x.loc : x => x.state;
 //# sourceMappingURL=StatsDisplay.js.map

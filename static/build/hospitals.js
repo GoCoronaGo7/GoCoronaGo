@@ -1,4 +1,134 @@
-import Dropdown from"./components/Dropdown.js";import LoadingIcon from"./components/LoadingIcon.js";import SearchBar from"./components/SearchBar.js";import HospitalsDisplay from"./pages/hospital/HospitalDisplay.js";const{useEffect,useState,useReducer}=React,apiUrl=location.origin+"/api/data/",cache=new Map;document.addEventListener("DOMContentLoaded",function(){ReactDOM.render(/*#__PURE__*/React.createElement(Hospitals,null),document.getElementById("root"))});function Hospitals(){const[a,b]=useState(STATS_DATA.state_names[15]),[{searchQuery:d,hospitals:e,filtered:f},c]=useReducer(updateHospitals,{searchQuery:"",hospitals:null,filtered:null,region:null}),[g,h]=useState("");return useEffect(()=>{const b=a;getRegionDataByName(b).then(a=>(a||="Failed to fetch Data","string"==typeof a?h(a+", Contact a developer if the issue persists"):void(a.data=a.data.sort((c,a)=>a.available_beds_with_oxygen-c.available_beds_with_oxygen),c({values:a.data,region:b})))).catch(console.error)},[a]),g?/*#__PURE__*/React.createElement("span",{color:"red"}," ",g," "):e&&e.region===a?/*#__PURE__*/React.createElement("div",{id:"display"},/*#__PURE__*/React.createElement(SearchBar,{searchQuery:d,setSearchQuery:c}),/*#__PURE__*/React.createElement("div",{id:"dropDown-bar"},/*#__PURE__*/React.createElement(Dropdown,{options:STATS_DATA.state_names,value:a,onChange:({value:a})=>b(a)}),/*#__PURE__*/React.createElement(RegionDropDown,{hospitals:e,setSearchQuery:c})),/*#__PURE__*/React.createElement(HospitalsDisplay,{hospitals:f})):/*#__PURE__*/React.createElement("div",{id:"loadingDisplay",style:{display:"grid",placeItems:"center"}}," ",/*#__PURE__*/React.createElement(LoadingIcon,null)," ")}function RegionDropDown({hospitals:a,setSearchQuery:b}){const[c,d]=useState(null);return useEffect(()=>{d(["All Regions",...new Set(a.values.map(a=>a.area||"NA"))])},[a]),a&&c?/*#__PURE__*/React.createElement(Dropdown,{options:c,value:"All Regions",onChange:({value:a})=>b({type:"region",region:a})}):/*#__PURE__*/React.createElement("div",{id:"loadingDisplay",style:{display:"grid",placeItems:"center"}}," ",/*#__PURE__*/React.createElement(LoadingIcon,null)," ")}function updateHospitals(a,b){// update search Query
-if("string"==typeof b||!b)return{...a,searchQuery:b,filtered:filterHospitals(a.hospitals,b,a.region)};if(b instanceof Object&&b.values&&b.region)return{...a,hospitals:b,filtered:filterHospitals(b,a.searchQuery,a.region)};if(b instanceof Object&&"region"===b.type&&b.region)return{...a,region:b.region,filtered:filterHospitals(a.hospitals,a.searchQuery,b.region)};throw new Error}function filterHospitals(a,b,c){if(!a||0===a.values?.length)return[];let d=a.values;return(c&&"All Regions"!==c&&(d=d.filter(a=>a.area===c)),!b||""===b)?d:(d=d.filter(a=>a.hospital_name.toLowerCase().includes(b.toLowerCase())),d)}async function getRegionDataByName(a){const b=STATS_DATA.code_names[STATS_DATA.state_names.indexOf(a)];if(!b)return"Invalid State Name";const c=cache.get(b);if(c)return c;const d=fetch(`${apiUrl}?name=${b}`).then(a=>a.json()).catch(console.error);return cache.set(b,d),d?await d:"Failed to fetch data from API"}//  FETCH TO CACHE
+import Dropdown from './components/Dropdown.js';
+import LoadingIcon from './components/LoadingIcon.js';
+import SearchBar from './components/SearchBar.js';
+import HospitalsDisplay from './pages/hospital/HospitalDisplay.js';
+const {
+  useEffect,
+  useState,
+  useReducer
+} = React;
+const apiUrl = location.origin + '/api/data/';
+const cache = new Map();
+document.addEventListener('DOMContentLoaded', function () {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Hospitals, null), document.getElementById('root'));
+});
+
+function Hospitals() {
+  const [region, setRegion] = useState(STATS_DATA.state_names[15]);
+  const [{
+    searchQuery,
+    hospitals,
+    filtered
+  }, setSearchQuery] = useReducer(updateHospitals, {
+    searchQuery: '',
+    hospitals: null,
+    filtered: null,
+    region: null
+  });
+  const [error, setError] = useState('');
+  useEffect(() => {
+    const fetchedRegion = region;
+    getRegionDataByName(fetchedRegion).then(resData => {
+      resData ||= 'Failed to fetch Data';
+      if (typeof resData === 'string') return setError(resData + ', Contact a developer if the issue persists');
+      resData.data = resData.data.sort((a, b) => b.available_beds_with_oxygen - a.available_beds_with_oxygen);
+      setSearchQuery({
+        values: resData.data,
+        region: fetchedRegion
+      });
+    }).catch(console.error);
+  }, [region]);
+  if (error) return /*#__PURE__*/React.createElement("span", {
+    color: "red"
+  }, " ", error, " ");
+  if (!hospitals || hospitals.region !== region) return /*#__PURE__*/React.createElement("div", {
+    id: "loadingDisplay",
+    style: {
+      display: 'grid',
+      placeItems: 'center'
+    }
+  }, " ", /*#__PURE__*/React.createElement(LoadingIcon, null), " ");
+  return /*#__PURE__*/React.createElement("div", {
+    id: "display"
+  }, /*#__PURE__*/React.createElement(SearchBar, {
+    searchQuery: searchQuery,
+    setSearchQuery: setSearchQuery
+  }), /*#__PURE__*/React.createElement("div", {
+    id: "dropDown-bar"
+  }, /*#__PURE__*/React.createElement(Dropdown, {
+    options: STATS_DATA.state_names,
+    value: region,
+    onChange: ({
+      value
+    }) => setRegion(value)
+  }), /*#__PURE__*/React.createElement(RegionDropDown, {
+    hospitals: hospitals,
+    setSearchQuery: setSearchQuery
+  })), /*#__PURE__*/React.createElement(HospitalsDisplay, {
+    hospitals: filtered
+  }));
+}
+
+function RegionDropDown({
+  hospitals,
+  setSearchQuery
+}) {
+  const [regions, setRegion] = useState(null);
+  useEffect(() => {
+    setRegion(['All Regions', ...new Set(hospitals.values.map(x => x.area || 'NA'))]);
+  }, [hospitals]);
+  if (!hospitals || !regions) return /*#__PURE__*/React.createElement("div", {
+    id: "loadingDisplay",
+    style: {
+      display: 'grid',
+      placeItems: 'center'
+    }
+  }, " ", /*#__PURE__*/React.createElement(LoadingIcon, null), " ");else return /*#__PURE__*/React.createElement(Dropdown, {
+    options: regions,
+    value: 'All Regions',
+    onChange: ({
+      value
+    }) => setSearchQuery({
+      type: 'region',
+      region: value
+    })
+  });
+}
+
+function updateHospitals(state, action) {
+  // update search Query
+  if (typeof action === 'string' || !action) return { ...state,
+    searchQuery: action,
+    filtered: filterHospitals(state.hospitals, action, state.region)
+  };else if (action instanceof Object && action.values && action.region) return { ...state,
+    hospitals: action,
+    filtered: filterHospitals(action, state.searchQuery, state.region)
+  };else if (action instanceof Object && action.type === 'region' && action.region) return { ...state,
+    region: action.region,
+    filtered: filterHospitals(state.hospitals, state.searchQuery, action.region)
+  };else throw new Error();
+}
+
+function filterHospitals(hospitals, action, region) {
+  if (!hospitals || hospitals.values?.length === 0) return [];
+  let filtered = hospitals.values;
+  if (region && region !== 'All Regions') filtered = filtered.filter(x => x.area === region);
+  if (!action || action === '') return filtered;
+  filtered = filtered.filter(x => x.hospital_name.toLowerCase().includes(action.toLowerCase()));
+  return filtered;
+}
+
+async function getRegionDataByName(name) {
+  const code = STATS_DATA.code_names[STATS_DATA.state_names.indexOf(name)];
+  if (!code) return 'Invalid State Name';
+  const cachedData = cache.get(code);
+  if (cachedData) return cachedData;
+  const data = fetch(`${apiUrl}?name=${code}`).then(x => x.json()).catch(console.error);
+  cache.set(code, data);
+  if (!data) return 'Failed to fetch data from API';
+  return await data;
+} //  FETCH TO CACHE
+
+
 getRegionDataByName(STATS_DATA.state_names[15]);
 //# sourceMappingURL=hospitals.js.map

@@ -9,8 +9,7 @@ query_user_setup = '''CREATE TABLE "user"
     username varchar(25) NOT NULL,
     password varchar(128) NOT NULL,
     email varchar(32) NOT NULL,
-    requests 
-    PRIMARY KEY (id) 
+    PRIMARY KEY (id)
     )
                 '''
 query_blog_setup = '''CREATE TABLE "blog"
@@ -20,8 +19,8 @@ query_blog_setup = '''CREATE TABLE "blog"
     username varchar(25) NOT NULL,
     content varchar(450) NOT NULL,
     date_post varchar(25) NOT NULL,
-    PRIMARY KEY (id) 
-    )         
+    PRIMARY KEY (id)
+    )
         '''
 query_admin_setup = '''CREATE TABLE "admin"
     (
@@ -31,14 +30,15 @@ query_admin_setup = '''CREATE TABLE "admin"
     username_ad varchar(25) NOT NULL,
     password_ad varchar(128) NOT NULL,
     gmeet_id varchar(20) NOT NULL
-    )         
+    )
 '''
 query_request_setup = '''CREATE TABLE "requests"
     (
     patient_username varchar(25) NOT NULL,
     doctor_name varchar(25) NOT NULL,
-    time TIMESTAMP NOT NULL,
+    time varchar(13) NOT NULL,
     status varchar(25) NOT NULL,
+    details TEXT,
     PRIMARY KEY (patient_username, doctor_name, time)
     )
 '''
@@ -113,7 +113,7 @@ class Db:
 
     def get_admins(self):
         cursor = self.get_cursor()
-        cursor.execute('SELECT * FROM admin')
+        cursor.execute('SELECT * FROM public.admin')
         doct_det_out = cursor.fetchall()
         return doct_det_out
 
@@ -171,9 +171,14 @@ class Db:
         cursor = self.get_cursor()
         cursor.execute(
             '''SELECT * FROM public.requests WHERE patient_username=%s''', [patient])
-        requests = cursor.fetchall()
-        print(requests)
+        requests = list(map(self.to_dict_request, cursor.fetchall()))
         return requests
+
+    def add_request(self, doctname, patient, time):
+        cursor = self.get_cursor()
+        cursor.execute(
+            '''INSERT INTO public.requests (doctor_name,patient_username,time,status) values(%s, %s, %s, %s)''', [doctname, patient, time, "pending"])
+        return self.connection.commit()
 
     def to_dict(self, values):
         keys = ('id', 'username', 'password', 'email')
@@ -182,6 +187,10 @@ class Db:
     def to_dict_ad(self, values):
         keys = ['doctname', 'speciality', 'fee',
                 'username', 'password', 'meet_id']
+        return dict(zip(keys, values))
+
+    def to_dict_request(self, values):
+        keys = ['patient_username', 'doctname', 'time', 'status']
         return dict(zip(keys, values))
 
     def dict_to_query(self, args):
