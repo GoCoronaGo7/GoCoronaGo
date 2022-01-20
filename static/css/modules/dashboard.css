@@ -7,6 +7,7 @@
   border-radius: 2rem;
   display: flex;
   flex-direction: row;
+  box-shadow: 0.5vh 0.5vh 1vh 0.5vh #15151530;
 }
 
 .image > object {
@@ -17,6 +18,26 @@
   border-radius: 2rem;
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 0.6fr;
+  margin-bottom: 1.5vh;
+  box-shadow: 0 0 0.5vh 0.5vh rgba(37, 37, 37, 0.377);
+}
+
+.appointment {
+  display: grid;
+  place-items: center;
+  background-color: #4141418c !important;
+}
+
+.appointment > form {
+  display: flex;
+  flex-direction: column;
+  padding: 5vh 5vw;
+  border-radius: 1rem;
+  justify-content: space-around;
+}
+
+.appointment > form > * {
+  margin: 0.5vh;
 }
 .bookingButton {
   display: flex;
@@ -83,7 +104,6 @@
 .sideBar {
   display: flex;
   width: 20vw;
-  height: 80vh;
   flex-direction: column;
   grid-template-columns: 20vh;
   grid-row-gap: 0px;
