@@ -7,7 +7,9 @@ const {
   useMemo
 } = React;
 export default function UserDash() {
-  const [active, setActive] = useState(location.hash.replace('#', '').length ? 1 : 0);
+  let init = location.hash.replace('#', '').length ? 1 : 0;
+  if (location.search.indexOf('app=true') !== -1) init = 2;
+  const [active, setActive] = useState(init);
   const sideBar = /*#__PURE__*/React.createElement(SideBar, {
     options: [['Doctors', '/static/images/doctor.svg'], ['Book', '/static/images/book.svg'], ['Appointments', '/static/images/appointment.svg']],
     active,

@@ -134,6 +134,5 @@ def book():
     doctname = data['name']
     time = data['time']
     patient = session['username']
-    accounts.webserver.app.db.add_request(doctname, patient, datetime.fromtimestamp(
-        int(str(time)[0:10])))  # convert timestamp to seconds
+    accounts.webserver.app.db.add_request(doctname, patient, time)  # convert timestamp to seconds
     return ('Ok', 200)

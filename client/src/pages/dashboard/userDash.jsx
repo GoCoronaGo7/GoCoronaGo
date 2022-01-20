@@ -6,9 +6,9 @@ import Appointments from './subPages/Appointment.js'
 const { useState, useMemo } = React
 
 export default function UserDash () {
-    const [active, setActive] = useState(
-        location.hash.replace('#', '').length ? 1 : 0
-    )
+    let init = location.hash.replace('#', '').length ? 1 : 0
+    if (location.search.indexOf('app=true') !== -1) init = 2
+    const [active, setActive] = useState(init)
     const sideBar = (
         <SideBar
             options={[
