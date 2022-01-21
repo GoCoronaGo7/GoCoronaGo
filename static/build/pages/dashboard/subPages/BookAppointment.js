@@ -33,8 +33,10 @@ export default function BookAppointment({
     }).catch(console.error);
 
     if (res.status === 200) {
-      location.href += '?app=true';
+      location.hash = '';
+      location.search += '?app=true';
       setActive(2);
+      location.reload(true);
     }
 
     return null;

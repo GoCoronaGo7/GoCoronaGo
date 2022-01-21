@@ -92,7 +92,7 @@ def vaccination():
 def patients():
     superadminmode = request.args.get('all') and session.get('admin')
     if not session.get('admin'):
-        return { 'error': '405 Unauthorized'}
+        return {'error': '405 Unauthorized'}
     if superadminmode:
         data = get_all_patients()
     else:
@@ -107,10 +107,12 @@ def doctors():
 
     return {'data': admins}
 
+
 @webserver.route('/api/restart')
 def restart():
     webserver.app.db.connect()
     return {'status': 'ok'}
+
 
 def cache_data():
     global requested_data
@@ -128,7 +130,10 @@ def cache_data():
         requested_data[data.url.split(
             'data/covid')[1].split('.com')[0]] = data.json()
 
+
 def get_patients(username):
-    return [{ 'name': 'Mukund', 'issue': 'Broken Face/Head', 'timestamp': 1632075781066}, { 'name': 'Mike Cox', 'issue': 'Covid 19 Symptoms', 'timestamp': 1632075781066}]
+    return [{'name': 'Mukund', 'issue': 'Broken Face/Head', 'timestamp': 1632075781066}, {'name': 'Mike Cox', 'issue': 'Covid 19 Symptoms', 'timestamp': 1632075781066}]
+
+
 def get_all_patients():
-    return { 'Jitesh': [{ 'name': 'Mukund', 'issue': 'Broken Face/Head', 'timestamp': 1632075781066}, { 'name': 'Mike Cox', 'issue': 'Covid 19 Symptoms', 'timestamp': 1632075781066}] }
+    return {'Jitesh': [{'name': 'Mukund', 'issue': 'Broken Face/Head', 'timestamp': 1632075781066}, {'name': 'Mike Cox', 'issue': 'Covid 19 Symptoms', 'timestamp': 1632075781066}]}
