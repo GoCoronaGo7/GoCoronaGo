@@ -45,9 +45,36 @@
   justify-content: flex-start;
   justify-self: flex-end;
   align-items: center;
+  padding: 0 2vw;
+}
+.bookingControl {
+  flex-direction: column;
+}
+
+.bookingControl > button {
+  margin: 1vh 0;
+}
+
+.block-cursor {
+  cursor: not-allowed;
+}
+
+.finished {
+  background-color: #0052a9;
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #eee
+}
+
+.finished > * {
+  cursor: not-allowed;
 }
 .bookingButton > button {
   border-radius: 1rem;
+}
+
+.bookingButton > button > a {
+  color: rgb(177, 255, 255);
 }
 .doctorDetails {
   background-color: #9696965b;
