@@ -38,7 +38,7 @@ function TableItem ({ data, click }) {
                 <span>Availability: Available</span>
             </div>
             <div className="bookingButton">
-                <button onClick={() => click(doctname)}>
+                <button className="btn btn-primary btn-block" onClick={() => click(doctname)}>
                     Book Appointment
                 </button>
             </div>

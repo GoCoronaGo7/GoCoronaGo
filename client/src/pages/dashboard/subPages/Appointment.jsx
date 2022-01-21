@@ -46,14 +46,14 @@ function Item ({ data, click }) {
             <div className="bookingButton">
                 {status === 'pending'
                     ? (
-                        <button>
+                        <button className="btn btn-primary btn-block">
                             <a href={'https://meet.google.com/' + meetId}>
                             Join Meet
                             </a>
                         </button>
                     )
                     : (
-                        <button className="finished">Appointment Completed</button>
+                        <button className="btn btn-primary btn-block finished" disabled={true}>Appointment Completed</button>
                     )}
             </div>
         </div>

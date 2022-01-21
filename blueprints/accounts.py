@@ -1,4 +1,5 @@
 from datetime import datetime
+from pydoc import doc
 from flask import Blueprint, render_template, request, session, redirect, url_for, current_app
 from lib.forms import LoginForm, RegisterForm, OTPForm
 import re
@@ -115,24 +116,49 @@ def otp_verification():
 
 @accounts.route('/dashboard')
 def dash():
-    doctors = []
-    requests = []
+    docs = []
+    req = []
+    patients = []
+    metadata = {}
     if 'username' in session.keys():
-        doctors = list(map(lambda x: x if x.pop('password') else x, map(
+        docs = list(map(lambda x: x if x.pop('password') else x, map(
             accounts.webserver.app.db.to_dict_ad, accounts.webserver.app.db.get_admins())))
-        requests = accounts.webserver.app.db.get_requests_for_patient(
+        if 'admin' in session.keys():
+            patients = accounts.webserver.app.db.get_requests_for_doctor(
+                session['username'])
+            doctor = accounts.webserver.app.db.get_admin_by_username(
+                session['username'])
+            doctor.pop('password')
+            metadata['doctor'] = doctor
+        else:
+            req=accounts.webserver.app.db.get_requests_for_patient(
             session['username'])
-    return render_template('dashboard.html', doctors=doctors, requests=requests)
+    return render_template('dashboard.html', doctors=docs, requests=req, patients=patients, metadata=metadata)
 
 
 @accounts.route('/dashboard/book', methods=['POST'])
 def book():
     if 'username' not in session.keys():
         return ('Unauthorized!', 401)
+    data=request.get_json()
+    print(data)
+    doctname=data['name']
+    time=data['time']
+    patient=session['username']
+    accounts.webserver.app.db.add_request(
+        doctname, patient, time)  # convert timestamp to seconds
+    return ('Ok', 200)
+
+@accounts.route('/dashboard/request', methods=['POST'])
+def req():
+    if 'username' not in session.keys() or 'admin' not in session.keys():
+        return ('Unauthorized!', 401)
     data = request.get_json()
     print(data)
-    doctname = data['name']
-    time = data['time']
-    patient = session['username']
-    accounts.webserver.app.db.add_request(doctname, patient, time)  # convert timestamp to seconds
+    patient_name = data['patient_name']
+    note = data['note'] if 'note' in data.keys() else None
+    complete = data['completed'] if 'completed' in data.keys() else None
+    if note is None and complete is None:
+        return ('Invalid request!', 400)
+    accounts.webserver.app.db.update_request(session['username'], patient_name, note, complete)
     return ('Ok', 200)

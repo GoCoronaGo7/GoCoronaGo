@@ -13,6 +13,8 @@ Dashboard
 <script>
     window.doctors = JSON.parse('{{ doctors|tojson }}');
     window.requests = JSON.parse('{{ requests|tojson }}');
+    window.patients = JSON.parse('{{ patients|tojson }}');
+    window.metadata = JSON.parse('{{ metadata|tojson }}');
 </script>
 {% endblock head %}
 

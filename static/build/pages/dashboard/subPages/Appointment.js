@@ -51,10 +51,13 @@ function Item({
     className: "doctorDetails"
   }, /*#__PURE__*/React.createElement("span", null, "Speciality: ", speciality, " Expert"), /*#__PURE__*/React.createElement("span", null, "Consultation Fee: Rs. ", fee), /*#__PURE__*/React.createElement("span", null, "Time: ", date.toString().split('GMT')[0]), /*#__PURE__*/React.createElement("span", null, "Details: ", details || 'None')), /*#__PURE__*/React.createElement("div", {
     className: "bookingButton"
-  }, status === 'pending' ? /*#__PURE__*/React.createElement("button", null, /*#__PURE__*/React.createElement("a", {
+  }, status === 'pending' ? /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary btn-block"
+  }, /*#__PURE__*/React.createElement("a", {
     href: 'https://meet.google.com/' + meetId
   }, "Join Meet")) : /*#__PURE__*/React.createElement("button", {
-    className: "finished"
+    className: "btn btn-primary btn-block finished",
+    disabled: true
   }, "Appointment Completed")));
 }
 //# sourceMappingURL=Appointment.js.map

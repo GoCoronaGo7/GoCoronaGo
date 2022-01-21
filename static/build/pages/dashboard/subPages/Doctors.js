@@ -40,6 +40,7 @@ function TableItem({
   }, /*#__PURE__*/React.createElement("span", null, "Speciality: ", speciality, " Expert"), /*#__PURE__*/React.createElement("span", null, "Consultation Fee: Rs. ", fee), /*#__PURE__*/React.createElement("span", null, "Availability: Available")), /*#__PURE__*/React.createElement("div", {
     className: "bookingButton"
   }, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-primary btn-block",
     onClick: () => click(doctname)
   }, "Book Appointment")));
 }

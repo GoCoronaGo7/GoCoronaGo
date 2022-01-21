@@ -174,12 +174,31 @@ class Db:
         requests = list(map(self.to_dict_request, cursor.fetchall()))
         return requests
 
+    def get_requests_for_doctor(self, doctname):
+        cursor = self.get_cursor()
+        cursor.execute(
+            '''SELECT * FROM public.requests WHERE doctor_name=%s''', [doctname])
+        requests = list(map(self.to_dict_request, cursor.fetchall()))
+        return requests
+
     def add_request(self, doctname, patient, time):
         cursor = self.get_cursor()
         cursor.execute(
             '''INSERT INTO public.requests (doctor_name,patient_username,time,status) values(%s, %s, %s, %s)''', [doctname, patient, time, "pending"])
         return self.connection.commit()
 
+    def update_request(self, doctname, patient, note, completed):
+        query = ''
+        args = []
+        if note is not None:
+            query = 'UPDATE public.requests SET details=%s WHERE doctor_name=%s AND patient_username=%s'
+            args = [note, doctname, patient]
+        if completed is not None:
+            query = 'UPDATE public.requests SET status=%s WHERE doctor_name=%s AND patient_username=%s'
+            args = ['completed', doctname, patient]
+        cursor = self.get_cursor()
+        cursor.execute(query, args)
+        return self.connection.commit()
     def to_dict(self, values):
         keys = ('id', 'username', 'password', 'email')
         return dict(zip(keys, values))
@@ -190,7 +209,7 @@ class Db:
         return dict(zip(keys, values))
 
     def to_dict_request(self, values):
-        keys = ['patient_username', 'doctname', 'time', 'status']
+        keys = ['patient_username', 'doctname', 'time', 'status', 'details']
         return dict(zip(keys, values))
 
     def dict_to_query(self, args):
