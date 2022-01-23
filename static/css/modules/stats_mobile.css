@@ -1,119 +1,109 @@
-
 #statsHolder {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-flow: column;
-	width: 100%;
-	margin: 0;
-	border-radius: 15px;
-	padding: 0;
-	z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  width: 100%;
+  margin: 0;
+  border-radius: 15px;
+  padding: 0;
+  z-index: 0;
 }
 
-#statsHolderSmall{
-	margin: 0;
-	border-radius: 15px;
-	padding: 0;
+#statsHolderSmall {
+  margin: 0;
+  border-radius: 15px;
+  padding: 0;
 }
 .highlight {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-flow: column;
-	
-	border-style: solid;
-	border-radius: 12px;
-	border-width: thin;
-	
-	padding: 5px;
-	margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
 
+  border-radius: 12px;
+  border-width: thin;
+
+  padding: 5px;
+  margin: 2px;
 }
 
 .highlight > p {
-	font-size: 14px;
-	color: #1f969c;
+  font-size: 14px;
+  color: #1f969c;
 }
 
 .highlight > h1 {
-	font-size: 16px;
-}	
-.highlight > h3 {
-	font-size: 16px;
+  font-size: 16px;
 }
-
+.highlight > h3 {
+  font-size: 16px;
+}
 
 #selector > button:hover {
-    transition: 30ms;
-    transform: scale(1.2);
+  transition: 30ms;
+  transform: scale(1.2);
 }
 
-
 #selector {
-    padding: 0.2ch
+  padding: 0.2ch;
 }
 
 .sliderBox {
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	flex-flow: column;
-	
-	border-style: solid;
-	border-radius: 12px;
-	border-width: thin;
-	
-	padding: 0;
-	margin-top: 0;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
 
+  border-radius: 12px;
+  border-width: thin;
+
+  padding: 0;
+  margin-top: 0;
 }
 
 .scrollable-menu {
-    max-height: 280px;
-	max-width: 200px;
-    overflow-y: auto;
-	padding: 0px;
+  max-height: 280px;
+  max-width: 200px;
+  overflow-y: auto;
+  padding: 0px;
 }
 
-
 .scrollable-menu > li {
-	text-align: center;
+  text-align: center;
 
-	border-style: solid;
-    border-width: thin;
-	border-radius: 8px;
-	margin-top: 0px;
+  border-width: thin;
+  border-radius: 8px;
+  margin-top: 0px;
 }
 
 .scrollable-menu > li:hover {
-    cursor: pointer;
-	background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #statsDisplayBounds {
-	display: flex;
-	flex-flow: row;
-	justify-content: space-evenly;
-	padding: 10px;
-	margin: 5px;	
+  display: flex;
+  flex-flow: row;
+  justify-content: space-evenly;
+  padding: 10px;
+  margin: 5px;
 }
 
 #regionalData {
-	margin-top: 0px;
-	padding: 0;
-	position: relative;
-	
-	border-style: solid;
-	border-radius: 12px;
-	border-width: thin;
+  margin-top: 0px;
+  padding: 0;
+  position: relative;
+
+  border-radius: 12px;
+  border-width: thin;
 }
 
 #regionalStatsDisplay {
-	width: auto;
-	height: 100%;
+  width: auto;
+  height: 100%;
 }
 
-#regionalSelectedStats::after{
-	content: "▼";
+#regionalSelectedStats::after {
+  content: "▼";
 }
