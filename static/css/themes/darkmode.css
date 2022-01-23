@@ -194,9 +194,15 @@ button{
 }
 
 #dash {
-    background-color: rgba(223, 223, 223, 0.2);
+    background-color: rgb(0 0 0 / 20%);
 }
 
+.window {
+    background-color: #41414142;
+}
+.doctorDetails {
+    background-color: #0000005b
+}
 .profileHolder {
     background-color:#1d1d1db4;
 }
@@ -210,7 +216,12 @@ button{
 }
 
 .doctor {
-    background-color: #96969642;
+    background-color: #6e6e6e42;
+    border: solid 0.1rem #017278;
+}
+
+.doctor:hover {
+    box-shadow:  0 0 0.5vh 0.5vh rgba(93, 196, 255, 0.19);
 }
 
 .doctorProfile {

@@ -8,8 +8,8 @@ Dashboard
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/dashboard.css') }}" type="text/css">
 
 <!-- Mobile CSS -->
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/modules/dashboard_mobile.css') }}"
-    media="only screen and (max-device-width: 480px)" h /> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modules/dashboard_mobile.css') }}"
+    media="only screen and (max-device-width: 480px)" h />
 <script>
     window.doctors = JSON.parse('{{ doctors|tojson }}');
     window.requests = JSON.parse('{{ requests|tojson }}');
