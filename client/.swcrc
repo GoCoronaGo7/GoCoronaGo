@@ -1,0 +1,15 @@
+{
+  "minify": true,
+  "jsc": {
+    "minify": {
+      "compress": {
+        "drop_console": true,
+        "global_defs": {
+          "React": "true",
+          "ReactDOM": "true"
+        }
+      },
+      "mangle": true
+    }
+  }
+}
