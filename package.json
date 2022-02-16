@@ -9,7 +9,8 @@
     "scripts": {
         "build": "cd client && yarn install && yarn build",
         "postbuild": "cp -r ./client/build ./static/",
-        "minify": "swc ./static/build -d ./static/"
+        "minify": "swc ./static/build -d ./static/",
+        "start": "FLASK_ENV=PRODUCTION PORT=80 authbind gunicorn app:webserver --preload"
     },
     "dependencies": {
         "@swc/cli": "^0.1.55",
