@@ -7,12 +7,7 @@
         "yarn": "^1.22.10"
     },
     "scripts": {
-        "build": "cd client && yarn install && yarn build",
-        "postbuild": "cp -r ./client/build ./static/",
-        "minify": "swc ./static/build -d ./static/"
-    },
-    "dependencies": {
-        "@swc/cli": "^0.1.55",
-        "@swc/core": "^1.2.133"
+        "build": "cd client && pnpm install && pnpm build",
+        "postbuild": "cp -r ./client/build ./static/"
     }
 }
