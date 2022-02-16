@@ -8,7 +8,8 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=DEV babel --watch --presets @babel/preset-react src/ --out-dir ../static/build/ --source-maps",
-    "build": "NODE_ENV=PRODUCTION babel src/ --out-dir build/ ",
+    "build": "NODE_ENV=PRODUCTION babel src/ --out-dir build/",
+    "minify": "swc ./build -d ./build",
     "lint": "node_modules/.bin/eslint src/**/*.jsx --fix"
   },
   "dependencies": {
@@ -34,8 +35,8 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router": "^5.2.0",
     "standard": "^16.0.4",
-    "terser": "^5.7.1"
+    "@swc/cli": "^0.1.55",
+    "@swc/core": "^1.2.133"
   }
 }
