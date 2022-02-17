@@ -157,15 +157,13 @@ class Db:
         cursor = self.get_cursor()
 
         cursor.execute(
-            f'''UPDATE public.user SET {self.dict_to_query(kwargs)}, WHERE public.user.username={user}'''
-        )
+            f'''UPDATE public.user SET {self.dict_to_query(kwargs)} WHERE public.user.username=%s''', [user])
 
     def update_admin(self, user, **kwargs):
         cursor = self.get_cursor()
 
         cursor.execute(
-            f'''UPDATE public.admin SET {self.dict_to_query(kwargs)}, WHERE public.admin.username={user}'''
-        )
+            f'''UPDATE public.admin SET {self.dict_to_query(kwargs)}, WHERE public.admin.username=%s''', [user])
 
     def get_requests_for_patient(self, patient):
         cursor = self.get_cursor()
@@ -215,5 +213,5 @@ class Db:
     def dict_to_query(self, args):
         query = ''
         for (key, value) in args.items():
-            query += f'{key}={value}'
+            query += f'{key}=\'{value}\''
         return query
