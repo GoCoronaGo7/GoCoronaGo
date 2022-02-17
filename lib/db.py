@@ -142,7 +142,7 @@ class Db:
     def check_blog(self, Blog_date_check):
         cursor = self.get_cursor()
         cursor.execute(
-            f'''SELECT date_post FROM public.blog where id=1 ''')
+            f'''SELECT date_post FROM public.blog''')
         blog_post_date_tup = cursor.fetchone()
         try:
             blog_post_date = blog_post_date_tup[0]
